@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【地区表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-08
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.system.SystemRegionDao">
+
+	<resultMap id="systemRegionResultMap" type="com.bluemobi.po.system.SystemRegion">
+		<id property="id" column="id" />
+       <result property="name" column="name" />
+       <result property="pid" column="pid" />
+       <result property="grade" column="grade" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="enName" column="en_name" />
+       <result property="initial" column="initial" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="systemRegionResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="systemRegionResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.system.SystemRegion" useGeneratedKeys="true" keyProperty="id" >
+	   insert into system_region (
+	     id,
+	     name,
+	     pid,
+	     grade,
+	     sort_order,
+	     status,
+	     en_name,
+	     initial
+	   )values (
+	     #{id},
+	     #{name},
+	     #{pid},
+	     #{grade},
+	     #{sortOrder},
+	     #{status},
+	     #{enName},
+	     #{initial}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.system.SystemRegion">
+		update system_region
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="pid != null">
+				pid=#{pid},
+			</if>
+			<if test="grade != null">
+				grade=#{grade},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="enName != null">
+				en_name=#{enName},
+			</if>
+			<if test="initial != null">
+				initial=#{initial},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     system_region 
+	   where 
+	    id=#{id} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="systemRegionResultMap">
+	   select 
+	    id,
+	    name,
+	    pid,
+	    grade,
+	    sort_order,
+	    status,
+	    en_name,
+	    initial
+	   from system_region
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="systemRegionResultMap">
+	   select 
+	     id,
+	     name,
+	     pid,
+	     grade,
+	     sort_order,
+	     status,
+	     en_name,
+	     initial
+	   from system_region
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null and pid != ''">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    name,
+	    pid,
+	    grade,
+	    sort_order,
+	    status,
+	    en_name,
+	    initial
+	   from system_region
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     name,
+	     pid,
+	     grade,
+	     sort_order,
+	     status,
+	     en_name,
+	     initial
+	   from system_region
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     name,
+	     pid,
+	     grade,
+	     sort_order,
+	     status,
+	     en_name,
+	     initial
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from system_region
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

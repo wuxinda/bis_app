@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+@author AutoCode 309444359@qq.com
+@date 2015-12-07 13:30:22
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+	
+    <!-- <dubbo:application name="bm-service-1" />    
+    
+    设置延迟时间，超时时间，失败重试次数
+    <dubbo:provider delay="-1" timeout="10000" retries="0"/>
+    
+    使用multicast广播注册中心暴露服务地址
+    <dubbo:registry address="multicast://224.5.6.7:1234" />
+    
+    使用zookeeper注册中心暴露服务地址
+    <dubbo:registry address="zookeeper://192.168.1.157:2181" />
+
+    <dubbo:protocol name="dubbo" port="20001" />
+   
+    提供服务：【校验token】
+    <dubbo:service interface="com.appcore.service.SessionService" ref="sessionService" />	
+    提供服务：【获取库房列表】
+    <dubbo:service interface="com.bluemobi.service.wms.WmsStoreService" ref="wmsStoreService" /> -->	
+</beans>

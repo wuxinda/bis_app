@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【用户行为日志表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-03-10 11:10:47
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.log.LogUserActionDao">
+
+	<resultMap id="logUserActionResultMap" type="com.bluemobi.po.log.LogUserAction">
+		<id property="logId" column="log_id" />
+       <result property="logType" column="log_type" />
+       <result property="userid" column="userid" />
+       <result property="url" column="url" />
+       <result property="actionName" column="action_name" />
+       <result property="param" column="param" />
+       <result property="ip" column="ip" />
+       <result property="logTime" column="log_time" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="logUserActionResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="logUserActionResultMap">
+	   <result property="name" column="name" />
+	</resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.log.LogUserAction" useGeneratedKeys="true" keyProperty="logId" >
+	   insert into log_user_action (
+	     log_id,
+	     log_type,
+	     userid,
+	     url,
+	     action_name,
+	     param,
+	     ip,
+	     log_time
+	   )values (
+	     #{logId},
+	     #{logType},
+	     #{userid},
+	     #{url},
+	     #{actionName},
+	     #{param},
+	     #{ip},
+	     #{logTime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.log.LogUserAction">
+		update log_user_action
+		<set>
+			<if test="logId != null">
+				log_id=#{logId},
+			</if>
+			<if test="logType != null">
+				log_type=#{logType},
+			</if>
+			<if test="userid != null">
+				userid=#{userid},
+			</if>
+			<if test="url != null">
+				url=#{url},
+			</if>
+			<if test="actionName != null">
+				action_name=#{actionName},
+			</if>
+			<if test="param != null">
+				param=#{param},
+			</if>
+			<if test="ip != null">
+				ip=#{ip},
+			</if>
+			<if test="logTime != null">
+				log_time=#{logTime},
+			</if>
+		</set>
+		<where>
+			log_id=#{logId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     log_user_action 
+	   where 
+	    log_id=#{logId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="logUserActionResultMap">
+	   select 
+	    log_id,
+	    log_type,
+	    userid,
+	    url,
+	    action_name,
+	    param,
+	    ip,
+	    log_time
+	   from log_user_action
+	   where 
+	    log_id=#{logId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="logUserActionResultMap">
+	   select 
+	     log_id,
+	     log_type,
+	     userid,
+	     url,
+	     action_name,
+	     param,
+	     ip,
+	     log_time
+	   from log_user_action
+	   <where>
+	     <if test="logId != null">
+	        log_id=#{logId}
+	     </if>
+	     <if test="logType != null">
+	        and log_type=#{logType}
+	     </if>
+	     <if test="userid != null">
+	        and userid=#{userid}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="actionName != null">
+	        and action_name=#{actionName}
+	     </if>
+	     <if test="param != null">
+	        and param=#{param}
+	     </if>
+	     <if test="ip != null">
+	        and ip=#{ip}
+	     </if>
+	     <if test="logTime != null">
+	        and log_time=#{logTime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    log_id,
+	    log_type,
+	    userid,
+	    url,
+	    action_name,
+	    param,
+	    ip,
+	    log_time
+	   from log_user_action
+	   where 
+	    log_id=#{logId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     log_id,
+	     log_type,
+	     userid,
+	     url,
+	     action_name,
+	     param,
+	     ip,
+	     log_time
+	   from log_user_action
+	   <where>
+	     <if test="logId != null">
+	        log_id=#{logId}
+	     </if>
+	     <if test="logType != null">
+	        and log_type=#{logType}
+	     </if>
+	     <if test="userid != null">
+	        and userid=#{userid}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="actionName != null">
+	        and action_name=#{actionName}
+	     </if>
+	     <if test="param != null">
+	        and param=#{param}
+	     </if>
+	     <if test="ip != null">
+	        and ip=#{ip}
+	     </if>
+	     <if test="logTime != null">
+	        and log_time=#{logTime}
+	     </if>
+	   </where>
+	</select>
+	
+		<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     f1.log_id,
+	     f1.log_type,
+	     f1.userid,
+	     f1.url,
+	     f1.param,
+	     f1.ip,
+	     f1.log_time,
+	     f2.name
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from log_user_action f1 left join system_url f2 on f1.url = f2.url
+	   <where>
+	     <if test="logId != null">
+	        f1.log_id=#{logId}
+	     </if>
+	     <if test="logType != null">
+	        and f1.log_type=#{logType}
+	     </if>
+	     <if test="userid != null">
+	        and f1.userid=#{userid}
+	     </if>
+	     <if test="url != null">
+	        and f1.url=#{url}
+	     </if>
+	     <if test="actionName != null">
+	        and f1.action_name=#{actionName}
+	     </if>
+	     <if test="param != null">
+	        and f1.param=#{param}
+	     </if>
+	     <if test="ip != null">
+	        and f1.ip=#{ip}
+	     </if>
+	     <if test="logTime != null">
+	        <![CDATA[
+            and date_format(f1.log_time,'%Y-%m-%d')  >= #{startPayTime}
+            and date_format(f1.log_time,'%Y-%m-%d') <= #{endPayTime}
+            ]]>
+	     </if>
+	   </where>
+	   order by id desc
+	</sql>
+
+	
+</mapper> 

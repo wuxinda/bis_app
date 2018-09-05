@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【档案申请审批表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ams.AmsArchivesAuditDao">
+
+	<resultMap id="amsArchivesAuditResultMap"
+		type="com.bluemobi.po.ams.AmsArchivesAudit">
+		<id property="auditId" column="audit_id" />
+		<result property="archivesId" column="archives_id" />
+		<result property="title" column="title" />
+		<result property="userId" column="user_id" />
+		<result property="applyUser" column="apply_user" />
+		<result property="applyNo" column="apply_no" />
+		<result property="clientId" column="client_id" />
+		<result property="type" column="type" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="amsArchivesAuditResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="amsArchivesAuditResultMap"></resultMap>
+
+
+	<insert id="insert"
+		parameterType="com.bluemobi.po.ams.AmsArchivesAudit"
+		useGeneratedKeys="true" keyProperty="auditId">
+		insert into ams_archives_audit (
+		audit_id,
+		archives_id,
+		user_id,
+		apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		)values (
+		#{auditId},
+		#{archivesId},
+		#{userId},#{applyUser},#{applyNo},#{clientId},
+		#{type},
+		#{status},
+		#{remark},
+		#{creator},
+		#{ctime},
+		#{modifier},
+		#{mtime}
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.bluemobi.po.ams.AmsArchivesAudit">
+		update ams_archives_audit
+		<set>
+			<if test="auditId != null">
+				audit_id=#{auditId},
+			</if>
+			<if test="archivesId != null">
+				archives_id=#{archivesId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="applyUser != null">
+				apply_user=#{applyUser},
+			</if>
+			<if test="applyNo != null">
+				apply_no=#{applyNo},
+			</if>
+			<if test="clientId != null">
+				client_id=#{clientId},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			audit_id=#{auditId}
+		</where>
+	</update>
+
+	<update id="handAmsArchivesAudit" parameterType="map">
+		update ams_archives_audit
+		<set>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			audit_id in
+			<foreach collection="auditIds" item="auditIds" open="("
+				separator="," close=")">
+				#{auditIds}
+			</foreach>
+		</where>
+	</update>
+	<delete id="delete" parameterType="map">
+		delete from
+		ams_archives_audit
+		where
+		audit_id=#{auditId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="amsArchivesAuditResultMap">
+		select
+		audit_id,
+		archives_id,
+		(select arch.title from
+		ams_archives arch where arch.archives_id =
+		ams_archives_audit.archives_id ) as title,
+		user_id,apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from ams_archives_audit
+		where
+		audit_id=#{auditId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="amsArchivesAuditResultMap">
+		select
+		audit_id,
+		archives_id,
+		(select arch.title from ams_archives arch
+		where arch.archives_id =
+		ams_archives_audit.archives_id ) as title,
+		user_id,apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from
+		ams_archives_audit
+		<where>
+			<if test="auditId != null">
+				audit_id=#{auditId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="applyUser != null">
+				and apply_user=#{applyUser}
+			</if>
+			<if test="applyNo != null">
+				and apply_no=#{applyNo}
+			</if>
+			<if test="clientId != null">
+				and client_id=#{clientId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		audit_id,
+		archives_id,
+		(select arch.title from
+		ams_archives arch where
+		arch.archives_id =
+		ams_archives_audit.archives_id ) as title,
+		user_id,apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from ams_archives_audit
+		where
+		audit_id=#{auditId}
+	</select>
+
+	<select id="selectMapList" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		audit_id,
+		archives_id,
+		(select arch.title from ams_archives arch
+		where arch.archives_id =
+		ams_archives_audit.archives_id ) as title,
+		user_id,apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from
+		ams_archives_audit
+		<where>
+			<if test="auditId != null">
+				audit_id=#{auditId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="applyUser != null">
+				and apply_user=#{applyUser}
+			</if>
+			<if test="applyNo != null">
+				and apply_no=#{applyNo}
+			</if>
+			<if test="clientId != null">
+				and client_id=#{clientId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="getAuditUserGroupList" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		count(audit.user_id) as count,
+		user.user_id as userId,
+		user.fullname as userName,
+		audit.type,
+		audit.ctime,
+		arch.title
+		from
+		ams_archives_audit audit,ams_archives arch,admin_user user
+		<where>
+			audit.archives_id = arch.archives_id and audit.user_id = user.user_id
+
+			<if test="type != null">
+				and audit.type=#{type}
+			</if>
+			<if test="status != null">
+				and audit.status in
+				<foreach collection="status" item="status" open="("
+					separator="," close=")">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		group by audit.user_id
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		audit_id,
+		archives_id,
+		(select arch.title from ams_archives arch
+		where arch.archives_id =
+		ams_archives_audit.archives_id ) as title,
+		user_id,apply_user,apply_no,client_id,
+		type,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from ams_archives_audit
+		<where>
+			<if test="auditId != null">
+				audit_id=#{auditId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="applyUser != null">
+				and apply_user=#{applyUser}
+			</if>
+			<if test="applyNo != null">
+				and apply_no=#{applyNo}
+			</if>
+			<if test="clientId != null">
+				and client_id=#{clientId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</sql>
+
+
+
+
+
+	<!-- 批量插入申请 -->
+	<insert id="addAmsArchivesAudits" parameterType="map">
+		insert into ams_archives_audit (
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,apply_no,apply_user,client_id
+		)values
+		<foreach collection="archivesIds" item="archivesId"
+			index="index" separator=",">
+			(
+			#{archivesId},
+			#{userId},
+			#{type},
+			#{status},
+			#{creator},
+			#{ctime},#{applyNo},
+			#{applyUser},
+			#{clientId}
+			)
+		</foreach>
+	</insert>
+	<!-- 获取任务详情，按通道分组 -->
+	<select id="selectTaskInfo" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT strore_id storeId,(SELECT name FROM wms_store WHERE store_id =
+		strore_id) storeName ,
+		area_id areaId,(SELECT name FROM wms_store_area
+		WHERE
+		strore_area_id = area_id) areaName,device_id deviceId,store_lr
+		storeLr,
+		galleryNum,SUM(count) count
+		FROM
+		(SELECT strore_id,
+		strore_area_id area_id, columnNum,device_id, store_lr, (
+		CASE
+		store_lr
+		WHEN 'R' THEN
+		( CASE columnNum WHEN (SELECT COUNT(*) FROM device_manage
+		WHERE device_manage.store_id = a.strore_id AND
+		device_manage.strore_area_id = a.strore_area_id AND category_id = 5)
+		THEN - 1 ELSE
+		columnNum
+		END ) WHEN 'L' THEN
+		SUM(columnNum - 1) ELSE - 2
+		END
+		) AS
+		galleryNum,
+		count FROM ( SELECT strore_id,
+		strore_area_id,device_id,
+		store_column
+		columnNum,
+		store_lr, COUNT(*)
+		count FROM
+		ams_archives WHERE archives_id
+		IN (
+		SELECT archives_id FROM
+		ams_archives_audit
+		WHERE 1=1
+		<if test="userId != null">
+			and user_id = #{userId}
+		</if>
+		<if test="status != null">
+			and STATUS = #{status}
+		</if>
+		) GROUP BY strore_id, strore_area_id, store_column, store_lr ) AS a
+		GROUP BY strore_id, strore_area_id, columnNum, store_lr ) AS b
+		GROUP BY
+		strore_id, area_id, galleryNum ORDER BY strore_id, area_id,
+		sign(galleryNum+1) desc,abs(galleryNum);
+
+	</select>
+	<!-- 获取任务库房档案数量 -->
+	<select id="selectTaskStoreNum" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		strore_id,(SELECT name FROM wms_store WHERE store_id =
+		strore_id) storeName ,
+		COUNT(*) count
+		FROM ams_archives
+		WHERE archives_id
+		IN ( SELECT
+		archives_id FROM ams_archives_audit WHERE 1=1
+		<if test="userId != null">
+			and user_id = #{userId}
+		</if>
+		<if test="status != null">
+			and STATUS = #{status}
+		</if>
+		)
+		GROUP BY strore_id
+
+	</select>
+	<!-- 获取任务库房库区档案数量 -->
+	<select id="selectTaskStoreAreaNum" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		strore_id,(SELECT name FROM wms_store WHERE store_id =
+		strore_id) storeName ,
+		strore_area_id area_id,(SELECT name FROM
+		wms_store_area WHERE
+		strore_area_id = area_id) areaName ,
+		COUNT(*) count
+		FROM
+		ams_archives
+		WHERE
+		archives_id IN (
+		SELECT
+		archives_id
+		FROM
+		ams_archives_audit
+		WHERE 1=1
+		<if test="userId != null">
+			and user_id = #{userId}
+		</if>
+		<if test="status != null">
+			and STATUS = #{status}
+		</if>
+		)
+		GROUP BY
+		strore_id,
+		strore_area_id
+
+	</select>
+	<!-- 通过通道获取档案列表分页 -->
+	<select id="selectTaskExecute" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives.archives_id archivesId,
+		ams_archives.archives_type_id,
+		(
+		SELECT
+		NAME
+		FROM
+		ams_archives_type
+		WHERE
+		ams_archives_type.archives_type_id = ams_archives.archives_type_id
+		)
+		archivesTypeName,
+		ams_archives.title title,
+		ams_archives.storeplace
+		storeplace,
+		ams_archives_audit.audit_id auditId,
+		ams_archives_audit.type auditType
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1 = 1
+		AND ams_archives_audit.archives_id =
+		ams_archives.archives_id
+		<if test="userId != null">
+			AND ams_archives_audit.user_id = #{userId}
+		</if>
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="storeId !=null">
+			AND ams_archives.strore_id = #{storeId}
+		</if>
+		<if test="areaId !=null">
+			AND ams_archives.strore_area_id = #{areaId}
+		</if>
+		<if test="galleryNum !=null">
+			<if test="galleryNum == -1">
+				AND
+				ams_archives.store_column =(SELECT COUNT(*) FROM device_manage
+				WHERE device_manage.store_id = #{storeId} AND
+				device_manage.strore_area_id = #{areaId} AND category_id = 5)<!-- 此处应该是库房库区内最右边密集架的列号 -->
+				AND ams_archives.store_lr = 'R'
+			</if>
+			<if test="galleryNum != -1">
+				AND (
+				(
+				ams_archives.store_column = #{galleryNum}
+				AND
+				ams_archives.store_lr = 'R'
+				)
+				OR (
+				ams_archives.store_column =
+				#{galleryNum}+1
+				AND ams_archives.store_lr = 'L'
+				)
+				)
+			</if>
+		</if>
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+
+	</select>
+	<select id="selectHandleAms" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.archives_id archives_id,
+		ams_archives_audit.type type
+		FROM
+		ams_archives_audit
+		WHERE 1=1
+		<if test="auditIds != null">
+			AND ams_archives_audit.audit_id IN
+			<foreach collection="auditIds" item="auditIds" open="("
+				separator="," close=")">
+				#{auditIds}
+			</foreach>
+		</if>
+	</select>
+	<!-- 统计给定申请单给定类型的数量 -->
+	<select id="selectAuditStatusCount" parameterType="map"
+		resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		ams_archives_audit
+		WHERE 1=1
+		<if test="AuditIds != null">
+			and audit_id IN
+			<foreach collection="AuditIds" item="AuditIds" open="("
+				separator="," close=")">
+				#{AuditIds}
+			</foreach>
+		</if>
+		<if test="status != null">
+			AND STATUS = #{status}
+		</if>
+	</select>
+	<!-- 批量更新 -->
+	<update id="updates" parameterType="map">
+		update ams_archives_audit
+		<set>
+			<if test="archivesId != null">
+				archives_id=#{archivesId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		where 1=1
+		<if test="auditIds != null">
+			and audit_id IN
+			<foreach collection="auditIds" item="auditId" open="("
+				separator="," close=")">
+				#{auditId}
+			</foreach>
+		</if>
+	</update>
+	<select id="selectAmsIdByAuditId" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.audit_id,
+		ams_archives_audit.archives_id
+		archivesId,
+		ams_archives_audit.`status` status,
+		ams_archives_audit.type,
+		ams_archives.check_status checkStatus FROM
+		ams_archives_audit,ams_archives
+		WHERE 1=1 AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="type != null">
+			AND ams_archives_audit.type=#{type}
+		</if>
+		<if test="AuditIds != null">
+			AND ams_archives_audit.audit_id IN
+			<foreach collection="AuditIds" item="AuditIds" open="("
+				separator="," close=")">
+				#{AuditIds}
+			</foreach>
+		</if>
+
+	</select>
+
+	<!-- 以下3.1 -->
+	<!-- 获取档案列表 -->
+	<select id="getTaskList" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.apply_no,
+		ams_archives_audit.apply_user,ams_archives_audit.`status`,COUNT(*)
+		count,ams_archives_audit.ctime,ams_archives_audit.type
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE 1=1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status`=#{status}
+		</if>
+		GROUP BY
+		ams_archives_audit.apply_no
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+	</select>
+	<!-- 获取申请单 内档案数量 -->
+	<select id="getTaskListNum" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.apply_no,
+		ams_archives_audit.apply_user,ams_archives_audit.`status`,COUNT(*)
+		count,ams_archives_audit.ctime
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE 1=1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		GROUP BY
+		ams_archives_audit.apply_no
+	</select>
+	<!-- 获取申请单档案详情 -->
+	<select id="getApplyAmsList" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.audit_id,
+		ams_archives_audit.apply_no,
+		ams_archives_audit.archives_id,
+		ams_archives_audit.apply_user,
+		ams_archives_audit.type,
+		ams_archives_audit.`status`,
+		ams_archives.archiveno,
+		ams_archives.title,
+		ams_archives.storeplace
+		FROM
+		ams_archives_audit,
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="applyNo != null">
+			AND apply_no = #{applyNo}
+		</if>
+
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+	</select>
+	<!-- 获取申请档案列表3.1 -->
+	<select id="getApplyAms" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.audit_id,ams_archives.archiveno,
+		ams_archives_audit.archives_id,
+		ams_archives_audit.type,
+		ams_archives_audit.`status`,
+		ams_archives.check_status,ams_archives.now_number,ams_archives.total_number
+		FROM
+		ams_archives_audit,
+		ams_archives
+		WHERE
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		AND
+		ams_archives_audit.audit_id IN
+		<foreach collection="auditIds" item="auditIds" open="( -1,"
+			separator="," close=")">
+			#{auditIds}
+		</foreach>
+	</select>
+	<!-- 提交任务更行档案状态3.1 -->
+	<select id="commitTaskUpdayeAms" parameterType="map"
+		resultMap="mapResultMap">
+		UPDATE ams_archives,
+		ams_archives_audit
+		SET check_status = CASE
+		ams_archives_audit.type
+		WHEN '0' THEN
+		'5'
+		WHEN '1' THEN
+		'7'
+		ELSE
+		'-1'
+		END,
+		inflag = CASE ams_archives_audit.type
+		WHEN '0' THEN
+		'0'
+		WHEN '1' THEN
+		'1'
+		ELSE
+		'-1'
+		END
+		WHERE
+		ams_archives.archives_id =
+		ams_archives_audit.archives_id
+		AND ams_archives_audit.audit_id IN
+		<foreach collection="auditIds" item="auditIds" open="( -1,"
+			separator="," close=")">
+			#{auditIds}
+		</foreach>
+	</select>
+	<!-- 获取任务通道列表3.1 -->
+	<select id="selectTaskGallaryList" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		strore_id storeId,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store
+		WHERE
+		store_id =
+		strore_id
+		)
+		storeName,
+		area_id areaId,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store_area
+		WHERE
+		strore_area_id =
+		area_id
+		) areaName,
+		galleryNum,
+		store_lr storeLr,
+		SUM(count) count,
+		device_id deciveId,auditId
+		FROM
+		(
+		SELECT
+		strore_id,
+		strore_area_id area_id,
+		device_id,
+		columnNum,
+		store_lr,
+		(
+		CASE store_lr
+		WHEN 'R' THEN
+		(
+		CASE
+		columnNum
+		WHEN (
+		SELECT
+		COUNT(*)
+		FROM
+		device_manage
+		WHERE
+		device_manage.store_id = a.strore_id
+		AND device_manage.strore_area_id =
+		a.strore_area_id
+		AND category_id = 5
+		) THEN
+		- 1
+		ELSE
+		columnNum
+		END
+		)
+		WHEN 'L'
+		THEN
+		SUM(columnNum - 1)
+		ELSE
+		- 2
+		END
+		) AS galleryNum,
+		count,auditId
+		FROM
+		(
+		SELECT
+		z.strore_id,
+		z.strore_area_id,
+		z.store_column columnNum,
+		z.store_lr,
+		z.count,
+		(
+		SELECT
+		device_manage.device_id
+		FROM
+		device_manage,
+		device_linkproperty,
+		device_store_linkproperty_value
+		WHERE
+		device_manage.store_id = z.strore_id
+		AND device_manage.strore_area_id =
+		z.strore_area_id
+		AND device_manage.category_id = 5
+		AND
+		device_store_linkproperty_value.device_id = device_manage.device_id
+		AND device_store_linkproperty_value.linkproperty_id =
+		device_linkproperty.linkproperty_id
+		AND device_linkproperty.`name` =
+		'密集架列号'
+		AND device_store_linkproperty_value.`name` = z.store_column
+		)
+		device_id,z.auditId
+		FROM
+		(
+		SELECT
+		ams_archives.strore_id,
+		ams_archives.strore_area_id,
+		ams_archives.store_column,
+		ams_archives.store_lr,
+		COUNT(*) count,
+		GROUP_CONCAT(
+		ams_archives_audit.audit_id
+		) auditId
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1 = 1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="applyNo != null">
+			AND ams_archives_audit.apply_no = #{applyNo}
+		</if>
+		GROUP BY
+		ams_archives.strore_id,
+		ams_archives.strore_area_id,
+		ams_archives.store_column,
+		ams_archives.store_lr
+		) AS z
+		) AS a
+		GROUP BY
+		strore_id,
+		strore_area_id,
+		columnNum,
+		store_lr
+		) AS b
+		GROUP BY
+		strore_id,
+		area_id,
+		galleryNum
+		ORDER BY
+		strore_id,
+		area_id,
+		sign(galleryNum + 1) DESC,
+		abs(galleryNum)
+	</select>
+	<!-- 获取库房任务档案数量3.1 -->
+	<select id="selectTaskStoreNums" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives.strore_id,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store
+		WHERE
+		store_id =
+		strore_id
+		) storeName,
+		COUNT(*) count
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1=1
+
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="applyNo != null">
+			AND ams_archives_audit.apply_no = #{applyNo}
+		</if>
+		GROUP BY
+		ams_archives.strore_id
+
+	</select>
+	<!-- 获取库区任务档案数量3.1 -->
+	<select id="selectTaskStoreAreaNums" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives.strore_id,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store
+		WHERE
+		store_id =
+		strore_id
+		) storeName,
+		strore_area_id area_id,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store_area
+		WHERE 1=1 AND
+		strore_area_id = area_id
+		) areaName,
+		COUNT(*) count
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1 = 1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="applyNo != null">
+			AND ams_archives_audit.apply_no = #{applyNo}
+		</if>
+		GROUP BY
+		ams_archives.strore_id,
+		strore_area_id
+
+	</select>
+	<!-- 获取任务档案总数量3.1 -->
+	<select id="selectTaskAmsNums" parameterType="map"
+		resultType="int">
+		SELECT
+		COUNT(*) count
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1 = 1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeId" open="("
+				separator="," close=")">
+				#{storeId}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="applyNo != null">
+			AND ams_archives_audit.apply_no = #{applyNo}
+		</if>
+	</select>
+	<!-- 通过通道获取档案列表分页3.1 -->
+	<select id="getGalleryAmsList" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives.archiveno,
+		ams_archives.archives_id,
+		(SELECT
+		ams_archives_type.name FROM ams_archives_type WHERE
+		ams_archives_type.archives_type_id = ams_archives.archives_type_id)
+		archivesTypeName,
+		ams_archives.title,
+		ams_archives.storeplace,
+		ams_archives_audit.apply_no,
+		ams_archives_audit.apply_user,
+		ams_archives_audit.audit_id,
+		ams_archives_audit.type
+		FROM
+		ams_archives,
+		ams_archives_audit
+		WHERE
+		1 = 1
+		<if test="storeIds != null">
+			AND ams_archives.strore_id in
+			<foreach collection="storeIds" item="storeIds" open="("
+				separator="," close=")">
+				#{storeIds}
+			</foreach>
+		</if>
+		AND
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		<if test="status != null">
+			AND ams_archives_audit.`status` = #{status}
+		</if>
+		<if test="storeId !=null">
+			AND ams_archives.strore_id = #{storeId}
+		</if>
+		<if test="type !=null">
+			AND ams_archives_audit.type = #{type}
+		</if>
+		<if test="areaId !=null">
+			AND ams_archives.strore_area_id = #{areaId}
+		</if>
+		<if test="applyNo != null">
+			AND ams_archives_audit.apply_no = #{applyNo}
+		</if>
+		<if test="galleryNum !=null">
+			<if test="galleryNum == -1">
+				AND
+				ams_archives.store_column =(SELECT COUNT(*) FROM
+				device_manage
+				WHERE device_manage.store_id = #{storeId} AND
+				device_manage.strore_area_id = #{areaId} AND category_id = 5)
+				AND
+				ams_archives.store_lr = 'R'
+			</if>
+			<if test="galleryNum != -1">
+				AND (
+				(
+				ams_archives.store_column = #{galleryNum}
+				AND
+				ams_archives.store_lr = 'R'
+				)
+				OR (
+				ams_archives.store_column =
+				#{galleryNum}+1
+				AND ams_archives.store_lr = 'L'
+				)
+				)
+			</if>
+		</if>
+		ORDER BY storeplace,archiveno
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+
+	</select>
+	<!-- 档案出入库请求外部接口参数查询————————中信 -->
+	<select id="getOtherAPIparam" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		`ams_archives_audit`.apply_no ,
+		`ams_archives_audit`.type
+		auditType ,
+		`ams_archives_type`.sort_order archiveCode ,
+		GROUP_CONCAT(`ams_archives`.archiveno) archiveno
+		FROM
+		`ams_archives_audit` ,
+		`ams_archives` ,
+		`ams_archives_type`
+		WHERE 1=1
+		<if test="auditIds != null">
+			AND `ams_archives_audit`.audit_id IN
+			<foreach collection="auditIds" item="auditIds" open="("
+				separator="," close=")">
+				#{auditIds}
+			</foreach>
+		</if>
+		AND `ams_archives_audit`.archives_id =
+		`ams_archives`.archives_id
+		AND
+		`ams_archives_type`.archives_type_id =
+		`ams_archives`.archives_type_id
+		GROUP BY
+		`ams_archives_audit`.apply_no ,
+		`ams_archives_audit`.type ,
+		`ams_archives`.archives_type_id
+	</select>
+
+	<select id="getAmsArchiveAudit" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		*
+		FROM
+		ams_archives_audit
+		WHERE
+		type = 0
+		AND
+		str_to_date(ctime,'%Y-%m-%d') = str_to_date(sysdate(), '%Y-%m-%d')
+		ORDER BY ctime DESC
+	</select>
+	<select id="getAmsArchiveAuditCount" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		count(*) cou
+		FROM
+		ams_archives_audit
+		WHERE
+		type = 0
+		AND
+		str_to_date(ctime,'%Y-%m-%d') = str_to_date(sysdate(), '%Y-%m-%d')
+		ORDER BY ctime DESC
+	</select>
+	<select id="getArchivesAuditCount" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		*,COUNT(1) cou
+		FROM
+		ams_archives_audit
+		GROUP BY
+		type
+	</select>
+	<select id="getArchivesAuditList" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.apply_user,
+		ams_archives_audit.ctime,
+		ams_archives_audit.type,
+		ams_archives_audit.status,
+		ams_archives_audit.audit_id,
+		ams_archives.*
+		FROM
+		ams_archives_audit LEFT JOIN ams_archives
+		ON
+		ams_archives_audit.archives_id = ams_archives.archives_id
+		WHERE
+		1=1
+		<if test="type != null">
+			AND type =#{type}
+		</if>
+		<if test="status != null">
+			AND ams_archives_audit.`status`=#{status}
+		</if>
+		<if test="storeId != null">
+			AND ams_archives.strore_id =#{storeId}
+		</if>
+		<if test="page != null">
+			limit #{page},10
+		</if>
+	</select>
+	<select id="getAmsArchivesAuditCountToday" resultType="int">
+		SELECT
+		count(*) cou
+		FROM
+		ams_archives_audit
+		WHERE
+		date_format(ctime, '%Y%m%d')
+		=date_format(SYSDATE(), '%Y%m%d')
+	</select>
+	<select id="getNewData" resultMap="mapResultMap">
+		SELECT
+		ams_archives_audit.*,
+		ams_archives.strore_id storeId,
+		ams_archives.strore_area_id
+		storeAreaId,
+		ams_archives.store_column storeCoumn
+		FROM
+		ams_archives_audit
+		LEFT JOIN ams_archives ON
+		ams_archives_audit.archives_id =
+		ams_archives.archives_id
+		WHERE
+		ams_archives_audit.mtime = (
+		SELECT
+		MAX(mtime)
+		FROM
+		ams_archives_audit
+		)
+		LIMIT 0,
+		1
+	</select>
+
+	<select id="getAmsArchivesAudit" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		aa.*,
+		ahd.archives_id,
+		ahd.audit_id,
+		ahd.user_id,
+		ahd.apply_user,
+		ahd.apply_no,
+		ahd.client_id,
+		ahd.type,
+		ahd.STATUS,
+		ahd.remark,
+		ahd.creator,
+		DATE_FORMAT(ahd.ctime,'%Y-%m-%d %H:%i:%S') startTime,
+		ahd.modifier,
+		ahd.mtime
+		FROM
+		ams_archives_audit ahd,
+		ams_archives aa
+		WHERE
+		ahd.archives_id =aa.archives_id
+		AND 1=1
+		<if test="title != null">
+			AND ahd.tittle LIKE #{title}
+		</if>
+		<if test="stroreId != null">
+			AND aa.strore_id = #{stroreId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND aa.strore_area_id = #{stroreAreaId}
+		</if>
+		<if test="keepyear != null">
+			AND aa.keepyear = #{keepyear}
+		</if>
+		<if test="status != null">
+			AND ahd.`status` = #{status}
+		</if>
+		<if test="type != null">
+			AND ahd.type = #{type}
+		</if>
+		<if test="enName != null">
+			and find_in_set(aa.strore_id,#{enName})
+		</if>
+		<if test="timeStart != null">
+			AND ahd.ctime &gt;
+			str_to_date(#{timeStart},'%Y-%m-%d
+			%H:%i:%S')
+		</if>
+		<if test="timeEnd != null">
+			AND ahd.ctime &lt;
+			str_to_date(#{timeEnd}, '%Y-%m-%d
+			%H:%i:%S')
+		</if>
+		<if test="pageIndex != null">
+			LIMIT #{pageIndex},10
+		</if>
+	</select>
+	<select id="getAmsArchivesAuditCount" parameterType="map"
+		resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		(
+		SELECT
+		aa.archiveno,
+		aa.title,
+		aa.inflag,
+		aa.roomnum,
+		aa.strore_id,
+		aa.strore_area_id,
+		ahd.archives_id,
+		ahd.audit_id,
+		ahd.user_id,
+		ahd.apply_user,
+		ahd.apply_no,
+		ahd.client_id,
+		ahd.type,
+		ahd.STATUS,
+		ahd.remark,
+		ahd.creator,
+		ahd.ctime,
+		ahd.modifier,
+		ahd.mtime
+		FROM
+		ams_archives_audit ahd,
+		ams_archives aa
+		WHERE
+		ahd.archives_id =aa.archives_id
+		AND 1=1
+		<if test="title != null">
+			AND ahd.tittle LIKE #{title}
+		</if>
+		<if test="stroreId != null">
+			AND aa.strore_id = #{stroreId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND aa.strore_area_id = #{stroreAreaId}
+		</if>
+		<if test="keepyear != null">
+			AND aa.keepyear = #{keepyear}
+		</if>
+		<if test="status != null">
+			AND ahd.`status` = #{status}
+		</if>
+		<if test="type != null">
+			AND ahd.type = #{type}
+		</if>
+		<if test="enName != null">
+			and find_in_set(aa.strore_id,#{enName})
+		</if>
+		<if test="timeStart != null">
+			AND ahd.ctime &gt;
+			str_to_date(#{timeStart},'%Y-%m-%d
+			%H:%i:%S')
+		</if>
+		<if test="timeEnd != null">
+			AND ahd.ctime &lt;
+			str_to_date(#{timeEnd}, '%Y-%m-%d
+			%H:%i:%S')
+		</if>
+		) cou
+	</select>
+</mapper> 

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【设备管理表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceManageDao">
+
+	<resultMap id="deviceManageResultMap" type="com.bluemobi.po.device.DeviceManage">
+		<id property="deviceId" column="device_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="categoryName" column="categoryName" />
+		<result property="brandId" column="brand_id" />
+		<result property="brandName" column="brandName" />
+		<result property="storeId" column="store_id" />
+		<result property="storeName" column="storeName" />
+		<result property="stroreAreaId" column="strore_area_id" />
+		<result property="name" column="name" />
+		<result property="sortOrder" column="sort_order" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="deviceManageResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="deviceManageResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceManage"
+		useGeneratedKeys="true" keyProperty="deviceId">
+		insert into device_manage (
+		device_id,
+		category_id,
+		brand_id,
+		store_id,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		)values (
+		#{deviceId},
+		#{categoryId},
+		#{brandId},
+		#{storeId},
+		#{stroreAreaId},
+		#{name},
+		#{sortOrder},
+		#{status},
+		#{remark},
+		#{creator},
+		#{ctime},
+		#{modifier},
+		#{mtime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceManage">
+		update device_manage
+		<set>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="brandId != null">
+				brand_id=#{brandId},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="stroreAreaId != null">
+				strore_area_id=#{stroreAreaId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			device_id=#{deviceId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		device_manage
+		where
+		device_id=#{deviceId}
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceManageResultMap">
+		select
+		device_id,
+		category_id,
+		(select c.name from device_category c where
+		c.category_id =
+		device_manage.category_id) as categoryName,
+		brand_id,
+		(select b.name from device_brand b where b.brand_id =
+		device_manage.brand_id)
+		as brandName,
+		store_id,
+		(select s.name from
+		wms_store s where s.store_id = device_manage.store_id) as
+		storeName,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from device_manage
+		where
+		device_id=#{deviceId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="deviceManageResultMap">
+		select
+		device_id,
+		category_id,
+		(select c.name from device_category c
+		where c.category_id =
+		device_manage.category_id) as categoryName,
+		brand_id,
+		(select b.name from device_brand b where b.brand_id =
+		device_manage.brand_id)
+		as brandName,
+		store_id,
+		(select s.name from
+		wms_store s where s.store_id = device_manage.store_id) as
+		storeName,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from device_manage
+		<where>
+			<if test="deviceId != null">
+				device_id=#{deviceId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="brandId != null">
+				and brand_id=#{brandId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		device_id,
+		category_id,
+		(select c.name from device_category c where
+		c.category_id =
+		device_manage.category_id) as categoryName,
+		brand_id,
+		(select b.name from device_brand b where b.brand_id =
+		device_manage.brand_id)
+		as brandName,
+		store_id,
+		(select s.name from
+		wms_store s where s.store_id = device_manage.store_id) as
+		storeName,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from device_manage
+		where
+		device_id=#{deviceId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		device_id,
+		category_id,
+		(select c.name from device_category c
+		where c.category_id =
+		device_manage.category_id) as categoryName,
+		brand_id,
+		store_id,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from device_manage
+		<where>
+			<if test="deviceId != null">
+				device_id=#{deviceId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="brandId != null">
+				and brand_id=#{brandId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		device_id,
+		category_id,
+		(select c.name from device_category c
+		where c.category_id =
+		device_manage.category_id) as categoryName,
+		brand_id,
+		(select b.name from device_brand b where b.brand_id =
+		device_manage.brand_id)
+		as brandName,
+		store_id,
+		(select s.name from
+		wms_store s where s.store_id = device_manage.store_id) as
+		storeName,
+		strore_area_id,
+		name,
+		sort_order,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from device_manage
+		<where>
+			<if test="deviceId != null">
+				device_id=#{deviceId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="brandId != null">
+				and brand_id=#{brandId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</sql>
+
+	<select id="getStoreDevCate" parameterType="map" resultMap="mapResultMap">
+		select (select name from device_category where category_id =
+		dm.category_id) as categoryName,
+		dm.store_id,
+		dm.category_id
+		from
+		device_manage dm
+		where
+		dm.store_id = #{storeId} group by dm.category_id
+	</select>
+	<select id="getHcsDevLinkValue" parameterType="map" resultMap="mapResultMap">
+		SELECT b.device_id deviceId, b.ip, b.port ,MIN(b.threeId)
+		minId,MAX(b.threeId) maxId FROM
+		(SELECT a.device_id ,MAX(CASE a.name
+		WHEN '服务器地址' THEN value1 ELSE
+		null END ) ip,
+		MAX(CASE a.name WHEN '端口号'
+		THEN value1 ELSE null END )
+		port,
+		MAX(CASE a.name WHEN '第三方Id' THEN
+		value1 ELSE null END ) threeId
+		FROM
+		(
+		SELECT
+		device_manage.device_id,
+		device_linkproperty.`name`,
+		device_store_linkproperty_value.`name`
+		value1
+		FROM
+		device_manage,
+		device_store_linkproperty_value,
+		device_linkproperty
+		WHERE
+		device_manage.category_id = 4 <!-- id=4设备类型为温湿度 -->
+		AND device_manage.device_id =
+		device_store_linkproperty_value.device_id
+		AND
+		device_store_linkproperty_value.linkproperty_id =
+		device_linkproperty.linkproperty_id
+		) AS a
+		GROUP BY
+		a.device_id) as b
+		GROUP BY b.ip, b.port
+
+	</select>
+	<select id="getDevLinkValue" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		device_manage.device_id deviceId ,
+		device_store_linkproperty_value.`name` threeId
+		FROM
+		device_manage,
+		device_store_linkproperty_value,
+		device_linkproperty
+		WHERE
+		device_manage.device_id = device_store_linkproperty_value.device_id
+		<if test="deviceType != null">
+			AND device_manage.category_id =#{deviceType}
+		</if>
+		AND device_store_linkproperty_value.linkproperty_id =
+		device_linkproperty.linkproperty_id
+		<if test="valueName != null">
+			AND device_linkproperty.`name`=#{valueName}
+		</if>
+	</select>
+	<!-- 前台页面获取库房设备数量 -->
+	<select id="selectStoreDevNum" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		store_id storeId,
+		COUNT(*) count
+		FROM
+		device_manage
+		WHERE 1=1
+		<if test="categoryId != null">
+			and category_id = #{categoryId}
+		</if>
+		GROUP BY
+		store_id
+
+	</select>
+	<!-- 获取视频通道号 -->
+	<select id="getVideo" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		name,
+		device_id
+		FROM
+		device_store_linkproperty_value
+		WHERE
+		device_id = (
+		SELECT
+		NAME
+		FROM
+		device_store_linkproperty_value
+		WHERE
+		device_id = #{deviceId}
+		AND linkproperty_id = 6
+		)
+		AND linkproperty_id = 7
+
+	</select>
+
+	<select id="getDeviceForSSAId" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		device_id,
+		NAME
+		FROM
+		device_manage
+		WHERE
+		1=1
+		<if test="storeId != null">
+			AND store_id = 1
+		</if>
+		<if test="stroreAreaId != null">
+			AND strore_area_id = 1
+		</if>
+		AND category_id = 4
+
+	</select>
+	<select id="selectDeviceForArchive" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		* from
+		device_manage
+		WHERE
+		category_id=5
+		<if test="storeId != null">
+			AND
+			store_id=#{storeId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND
+			strore_area_id=#{stroreAreaId}
+		</if>
+		<if test="sortOrder != null">
+			AND
+			sort_order=#{sortOrder}
+		</if>
+	</select>
+</mapper> 

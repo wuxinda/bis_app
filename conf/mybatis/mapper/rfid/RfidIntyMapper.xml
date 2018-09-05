@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-10
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.rfid.RfidIntyDao">
+
+	<resultMap id="rfidIntyResultMap" type="com.bluemobi.po.rfid.RfidInty">
+		<id property="rfidIntyId" column="rfid_inty_id" />
+       <result property="archiveId" column="archive_id" />
+       <result property="archiveno" column="archiveno" />
+       <result property="tittle" column="tittle" />
+       <result property="type" column="type" />
+       <result property="storeplace" column="storeplace" />
+       <result property="userId" column="user_id" />
+       <result property="username" column="userName" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+       <result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="rfidIntyResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="rfidIntyResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.rfid.RfidInty" useGeneratedKeys="true" keyProperty="rfidIntyId" >
+	   insert into rfid_inty (
+	     rfid_inty_id,
+	     archive_id,
+	     archiveno,
+	     tittle,
+	     type,
+	     storeplace,
+	     user_id,
+	     userName,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     remark
+	   )values (
+	     #{rfidIntyId},
+	     #{archiveId},
+	     #{archiveno},
+	     #{tittle},
+	     #{type},
+	     #{storeplace},
+	     #{userId},
+	     #{username},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime},
+	     #{remark}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.rfid.RfidInty">
+		update rfid_inty
+		<set>
+			<if test="rfidIntyId != null">
+				rfid_inty_id=#{rfidIntyId},
+			</if>
+			<if test="archiveId != null">
+				archive_id=#{archiveId},
+			</if>
+			<if test="archiveno != null">
+				archiveno=#{archiveno},
+			</if>
+			<if test="tittle != null">
+				tittle=#{tittle},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="storeplace != null">
+				storeplace=#{storeplace},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="username != null">
+				userName=#{username},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+		</set>
+		<where>
+			rfid_inty_id=#{rfidIntyId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     rfid_inty 
+	   where 
+	    rfid_inty_id=#{rfidIntyId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="rfidIntyResultMap">
+	   select 
+	    rfid_inty_id,
+	    archive_id,
+	    archiveno,
+	    tittle,
+	    type,
+	    storeplace,
+	    user_id,
+	    userName,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    remark
+	   from rfid_inty
+	   where 
+	    rfid_inty_id=#{rfidIntyId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="rfidIntyResultMap">
+	   select 
+	     rfid_inty_id,
+	     archive_id,
+	     archiveno,
+	     tittle,
+	     type,
+	     storeplace,
+	     user_id,
+	     userName,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     remark
+	   from rfid_inty
+	   <where>
+	     <if test="rfidIntyId != null">
+	        rfid_inty_id=#{rfidIntyId}
+	     </if>
+	     <if test="archiveId != null">
+	        and archive_id=#{archiveId}
+	     </if>
+	     <if test="archiveno != null">
+	        and archiveno=#{archiveno}
+	     </if>
+	     <if test="tittle != null">
+	        and tittle=#{tittle}
+	     </if>
+	     <if test="type != null">
+	        and type=#{type}
+	     </if>
+	     <if test="storeplace != null">
+	        and storeplace=#{storeplace}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="username != null">
+	        and userName=#{username}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    rfid_inty_id,
+	    archive_id,
+	    archiveno,
+	    tittle,
+	    type,
+	    storeplace,
+	    user_id,
+	    userName,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    remark
+	   from rfid_inty
+	   where 
+	    rfid_inty_id=#{rfidIntyId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     rfid_inty_id,
+	     archive_id,
+	     archiveno,
+	     tittle,
+	     type,
+	     storeplace,
+	     user_id,
+	     userName,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     remark
+	   from rfid_inty
+	   <where>
+	     <if test="rfidIntyId != null">
+	        rfid_inty_id=#{rfidIntyId}
+	     </if>
+	     <if test="archiveId != null">
+	        and archive_id=#{archiveId}
+	     </if>
+	     <if test="archiveno != null">
+	        and archiveno=#{archiveno}
+	     </if>
+	     <if test="tittle != null">
+	        and tittle=#{tittle}
+	     </if>
+	     <if test="type != null">
+	        and type=#{type}
+	     </if>
+	     <if test="storeplace != null">
+	        and storeplace=#{storeplace}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="username != null">
+	        and userName=#{username}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     rfid_inty_id,
+	     archive_id,
+	     archiveno,
+	     tittle,
+	     type,
+	     storeplace,
+	     user_id,
+	     userName,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     remark
+	<include refid="pageCondition" />
+	order by ctime desc
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from rfid_inty
+	   <where>
+	     <if test="rfidIntyId != null">
+	        rfid_inty_id=#{rfidIntyId}
+	     </if>
+	     <if test="archiveId != null">
+	        and archive_id=#{archiveId}
+	     </if>
+	     <if test="archiveno != null">
+	        and archiveno=#{archiveno}
+	     </if>
+	     <if test="tittle != null">
+	        and tittle=#{tittle}
+	     </if>
+	     <if test="type != null">
+	        and type=#{type}
+	     </if>
+	     <if test="storeplace != null">
+	        and storeplace=#{storeplace}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="username != null">
+	        and userName=#{username}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</sql>
+	<select id="getRfidIntyByday" parameterType="map" resultMap="mapResultMap">
+	SELECT
+	r.time,
+	r.countall a,
+	IFNULL(a.countin, 0) b
+FROM
+	(
+		SELECT
+			<if test="storeId != null">
+			d.strore_id,
+			</if>
+			COUNT(*) countall,
+			<if test="monthTime != null">
+			date_format(ri.ctime, '%Y-%m-%d') time,
+			</if>
+			<if test="yearTime != null">
+			date_format(ri.ctime, '%Y-%m') time,
+			</if>
+			ri.ctime
+		FROM
+			rfid_inty ri
+		JOIN ams_archives d ON ri.archiveno=d.archiveno
+		WHERE
+			1=1
+		<if test="storeId != null">
+			AND	d.strore_id = #{storeId}
+		</if>
+		<if test="monthTime != null">
+			GROUP BY
+				date_format(ri.ctime, '%Y-%m-%d')
+		</if>
+		<if test="yearTime != null">
+		GROUP BY
+			date_format(ri.ctime, '%Y-%m')
+		</if>
+		ORDER BY
+			ri.ctime DESC
+	) r
+LEFT JOIN (
+	SELECT
+		COUNT(*) countin,
+		<if test="monthTime != null">
+			date_format(rr.ctime, '%Y-%m-%d') time,
+			</if>
+			<if test="yearTime != null">
+			date_format(rr.ctime, '%Y-%m') time,
+			</if>
+						rr.ctime
+	FROM
+			rfid_inty rr
+		JOIN ams_archives d ON rr.archiveno=d.archiveno
+	WHERE
+		1=1
+	<if test="type != null">
+		AND	rr.type = #{type}
+	</if>
+	<if test=" storeId != null">
+		AND	d.strore_id = #{storeId}
+	</if>
+	<if test="monthTime != null">
+		GROUP BY
+			date_format(rr.ctime, '%Y-%m-%d')
+	</if>
+	<if test="yearTime != null">
+		GROUP BY
+			date_format(rr.ctime, '%Y-%m')
+	</if>
+	ORDER BY
+		rr.ctime DESC
+) a ON r.time = a.time
+	WHERE
+	1=1
+	<if test="monthTime != null">
+	and	date_format(r.ctime, '%Y-%m')=#{monthTime}
+	</if>
+	<if test="yearTime != null">
+	and	date_format(r.ctime, '%Y')=#{yearTime}
+	</if>
+	</select>
+	<select id="getCountRfid" parameterType="map" resultMap="mapResultMap">
+	select
+		count(1) rfid
+		from
+		(
+		SELECT
+			*
+		FROM
+			rfid_inty
+		WHERE
+			1=1
+		<if test="monthTime !=null">
+		and	date_format(ctime, '%Y-%m') =#{monthTime} 
+		</if>
+		<if test="yearTime !=null">
+		and	date_format(ctime, '%Y') =#{yearTime} 
+		</if>
+		GROUP BY archiveno
+		) as a
+	</select>
+	<select id="getRfidByType" parameterType="map" resultMap="mapResultMap">
+		SELECT
+			*,
+			date_format(r.ctime, '%Y-%m-%d %H:%i') time
+		FROM
+			rfid_inty r
+		JOIN ams_archives d ON r.archiveno=d.archiveno
+		WHERE
+			1=1
+		<if test="type !=null">
+		AND r.type=#{type}
+		</if>
+		<if test="tittle!=null">
+		AND r.tittle like #{tittle}
+		</if>
+		<if test="storeId!=null">
+		AND d.strore_id = #{storeId}
+		</if>
+		<if test="time!=null">
+		AND date_format(r.ctime, '%Y-%m-%d') like #{time}
+		</if>
+		order by r.ctime desc
+		limit #{offset},#{rows}
+	</select>
+	<select id="pageSearchCount" parameterType="map" resultType="int">
+	SELECT 
+		count(*)
+	from(
+		SELECT
+			r.*,
+			date_format(r.ctime, '%Y-%m-%d %H:%i') time
+		FROM
+			rfid_inty r
+		JOIN ams_archives d ON r.archiveno=d.archiveno
+		WHERE
+			1=1
+		<if test="type !=null">
+		AND r.type=#{type}
+		</if>
+		<if test="tittle!=null">
+		AND r.tittle like #{tittle}
+		</if>
+		<if test="storeId!=null">
+		AND d.strore_id = #{storeId}
+		</if>
+		<if test="time!=null">
+		AND date_format(r.ctime, '%Y-%m-%d') like #{time}
+		</if>
+		) as a
+	</select>
+	<select id="getNewRfid" resultMap="mapResultMap">
+	SELECT
+	*,
+    date_format(r.ctime, '%Y-%m-%d') vartime,
+	r.ctime datetime
+	FROM
+			rfid_inty r
+		JOIN ams_archives d ON r.archiveno=d.archiveno
+	GROUP BY
+		date_format(r.ctime, '%Y-%m-%d'),
+		d.strore_id
+	ORDER BY
+		r.ctime DESC
+	limit 0,3
+	</select>
+	<select id="getRfidIntyList" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		aa.*,
+		aaa.storeplace rtystoreplace,
+		aaa.archive_id,
+		DATE_FORMAT(aaa.ctime,'%Y-%m-%d %H:%i:%S') startTime,
+		aaa.modifier lastUser,
+		aaa.mtime endTime,
+		aaa.tittle,
+		aaa.type,
+		aaa.userName,
+		aaa.user_id
+		FROM
+		rfid_inty aaa
+		LEFT JOIN ams_archives aa ON aaa.archive_id =
+		aa.archives_id
+		WHERE
+		1=1
+		<if test="title != null">
+			AND aaa.tittle LIKE #{title}
+		</if>
+		<if test="stroreId != null">
+			AND aa.strore_id = #{stroreId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND aa.strore_area_id = #{stroreAreaId}
+		</if>
+		<if test="keepyear != null">
+			AND aa.keepyear = #{keepyear}
+		</if>
+		<if test="security != null">
+			AND aa.`security`= #{security}
+		</if>
+		<if test="archivesTypeId != null">
+			AND aa.archives_type_id = #{archivesTypeId}
+		</if>
+		<if test="archivesTypeId != null">
+			AND aa.archives_type_id = #{archivesTypeId}
+		</if>
+		<if test="enName != null">
+			and find_in_set(aa.strore_id,#{enName})
+		</if>
+		<if test="timeStart != null">
+			AND aaa.ctime &gt;
+			str_to_date(#{timeStart},'%Y-%m-%d
+			%H:%i:%S')
+			AND aaa.ctime &lt;
+			str_to_date(#{timeEnd}, '%Y-%m-%d
+			%H:%i:%S')
+			</if>
+		<if test="pageIndex != null">
+			LIMIT #{pageIndex},10
+		</if>
+	</select>
+	<select id="getRfidIntyListcount" parameterType="map" resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		(
+		SELECT
+		aa.*,
+		aaa.archive_id,
+		DATE_FORMAT(aaa.ctime,'%Y-%m-%d %H:%i:%S') startTime,
+		aaa.modifier lastUser,
+		aaa.mtime endTime,
+		aaa.tittle,
+		aaa.type,
+		aaa.userName,
+		aaa.user_id
+		FROM
+		rfid_inty aaa
+		LEFT JOIN ams_archives aa ON aaa.archive_id =
+		aa.archives_id
+		WHERE
+		1=1
+		<if test="title != null">
+			AND aaa.tittle LIKE #{title}
+		</if>
+		<if test="stroreId != null">
+			AND aa.strore_id = #{stroreId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND aa.strore_area_id = #{stroreAreaId}
+		</if>
+		<if test="keepyear != null">
+			AND aa.keepyear = #{keepyear}
+		</if>
+		<if test="security != null">
+			AND aa.`security`= #{security}
+		</if>
+		<if test="archivesTypeId != null">
+			AND aa.archives_type_id = #{archivesTypeId}
+		</if>
+		<if test="enName != null">
+			and find_in_set(aa.strore_id,#{enName})
+		</if>
+		<if test="timeStart != null">
+			AND aaa.ctime &gt;
+			str_to_date(#{timeStart},'%Y-%m-%d
+			%H:%i:%S')
+		</if>
+		<if test="timeEnd != null">
+			AND aaa.ctime &lt;
+			str_to_date(#{timeEnd}, '%Y-%m-%d
+			%H:%i:%S')
+		</if>
+			)as a
+	</select>
+	<select id="getRfidIntyByTimeArea" parameterType="map" resultMap="mapResultMap">
+	SELECT
+	*
+	FROM
+		(
+			SELECT
+				ri.archive_id,
+				ri.archiveno,
+				ri.tittle,
+				ri.type,
+				ri.storeplace,
+				ri.ctime,
+				ah.strore_area_id
+			FROM
+				rfid_inty ri,
+				ams_archives ah
+			WHERE
+				ri.archiveno = ah.archiveno
+			AND ri.archive_id = ah.archives_id
+			<if test="timeBegin != null">
+			AND ri.ctime &gt;= #{timeBegin}
+			</if>
+			<if test="timeEnd != null">
+			AND ri.ctime &lt;= #{timeEnd}
+			</if>
+			ORDER BY
+				ri.ctime DESC
+		) AS b
+	GROUP BY
+		b.archiveno
+	</select>
+	
+	
+	<select id="getSumCuoDang" resultMap="mapResultMap">
+		SELECT
+		count( DISTINCT ( archive_id ) ) sumTpyeIs2,
+		ams_archives.strore_id
+		FROM
+		rfid_inty,
+		ams_archives
+		WHERE
+		ams_archives.archives_id = rfid_inty.archive_id
+		AND date( rfid_inty.ctime ) = CURDATE( )
+		AND type = 2
+		GROUP BY
+		ams_archives.strore_id
+
+	</select>
+	
+</mapper> 

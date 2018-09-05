@@ -1,0 +1,102 @@
+﻿/*
+ *插件作者:周祥
+ *插件介绍:图片上传本地预览插件
+ *插件网站:http://jquery.decadework.com
+ *作  者QQ:200592114
+ */
+var uploadPreview = function(setting) {
+	var _self = this;
+	_self.IsNull = function(value) {
+		if (typeof (value) == "function") {
+			return false;
+		}
+		if (value == undefined || value == null || value == ""
+				|| value.length == 0) {
+			return true;
+		}
+		;
+		return false;
+	};
+	_self.DefautlSetting = {
+		UpBtn : "",
+		DivShow : "",
+		ImgShow : "",
+		Width : 175,
+		Height : 149,
+		/*Height : 125,*/
+		ImgType : [ "gif", "jpeg", "jpg", "bmp", "png" ],
+		ErrMsg : "选择文件错误,图片类型必须是(gif,jpeg,jpg,bmp,png)中的一种",
+		_this : this,
+		callback : function() {
+		}
+	};
+	_self.Setting = {
+		UpBtn : _self.IsNull(setting.UpBtn) ? _self.DefautlSetting.UpBtn
+				: setting.UpBtn,
+		DivShow : _self.IsNull(setting.DivShow) ? _self.DefautlSetting.DivShow
+				: setting.DivShow,
+		ImgShow : _self.IsNull(setting.ImgShow) ? _self.DefautlSetting.ImgShow
+				: setting.ImgShow,
+		Width : _self.IsNull(setting.Width) ? _self.DefautlSetting.Width
+				: setting.Width,
+		Height : _self.IsNull(setting.Height) ? _self.DefautlSetting.Height
+				: setting.Height,
+		ImgType : _self.IsNull(setting.ImgType) ? _self.DefautlSetting.ImgType
+				: setting.ImgType,
+		ErrMsg : _self.IsNull(setting.ErrMsg) ? _self.DefautlSetting.ErrMsg
+				: setting.ErrMsg,
+		callback : _self.IsNull(setting.callback) ? _self.DefautlSetting.callback
+				: setting.callback,
+		_this : _self.IsNull(setting._this) ? _self.DefautlSetting._this
+				: setting._this
+	};
+	_self.getObjectURL = function(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) {
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) {
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) {
+			url = window.webkitURL.createObjectURL(file);
+		}
+		;
+		return url;
+	};
+	_self.Bind = function() {
+		_self.Setting.UpBtn.onchange = function() {
+			if (this.value) {
+				if (!RegExp("\.(" + _self.Setting.ImgType.join("|") + ")$", "i")
+						.test(this.value.toLowerCase())) {
+					alert(_self.Setting.ErrMsg);
+					this.value = "";
+					return false;
+				}
+				;
+				if (navigator.userAgent.indexOf("MSIE") > -1) {
+					try {
+						_self.Setting.ImgShow.src = _self
+								.getObjectURL(this.files[0]);
+					} catch (e) {
+						/*var div = $(this).parent()[0];*/
+						var div = $(this).parent().find("div")[0];
+						this.select();
+						top.parent.document.body.focus();
+						var src = document.selection.createRange().text;
+						document.selection.empty();
+						_self.Setting.ImgShow.style.display = "none";
+						div.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+						div.style.width = _self.Setting.Width + "px";
+						div.style.height = _self.Setting.Height + "px";
+						div.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = src;
+					}
+				} else {
+					_self.Setting.ImgShow.src = _self
+							.getObjectURL(this.files[0]);
+				}
+				;
+				_self.Setting.callback(this);
+			}
+		};
+	};
+	_self.Bind();
+};

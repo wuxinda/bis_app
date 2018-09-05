@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【权限表代码表，用于控制前端的按钮显示】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-09
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminPermissionCodeDao">
+
+	<resultMap id="adminPermissionCodeResultMap" type="com.bluemobi.po.admin.AdminPermissionCode">
+		<id property="permissionCodeId" column="permission_code_id" />
+       <result property="code" column="code" />
+       <result property="name" column="name" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="description" column="description" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminPermissionCodeResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminPermissionCodeResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminPermissionCode" useGeneratedKeys="true" keyProperty="permissionCodeId" >
+	   insert into admin_permission_code (
+	     permission_code_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     description
+	   )values (
+	     #{permissionCodeId},
+	     #{code},
+	     #{name},
+	     #{sortOrder},
+	     #{status},
+	     #{description}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminPermissionCode">
+		update admin_permission_code
+		<set>
+			<if test="permissionCodeId != null">
+				permission_code_id=#{permissionCodeId},
+			</if>
+			<if test="code != null">
+				code=#{code},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="description != null">
+				description=#{description},
+			</if>
+		</set>
+		<where>
+			permission_code_id=#{permissionCodeId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_permission_code 
+	   where 
+	    permission_code_id=#{permissionCodeId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminPermissionCodeResultMap">
+	   select 
+	    permission_code_id,
+	    code,
+	    name,
+	    sort_order,
+	    status,
+	    description
+	   from admin_permission_code
+	   where 
+	    permission_code_id=#{permissionCodeId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminPermissionCodeResultMap">
+	   select 
+	     permission_code_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     description
+	   from admin_permission_code
+	   <where>
+	     <if test="permissionCodeId != null">
+	        permission_code_id=#{permissionCodeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="description != null">
+	        and description=#{description}
+	     </if>
+	   </where>
+	   		order by sort_order
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    permission_code_id,
+	    code,
+	    name,
+	    sort_order,
+	    status,
+	    description
+	   from admin_permission_code
+	   where 
+	    permission_code_id=#{permissionCodeId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     permission_code_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     description
+	   from admin_permission_code
+	   <where>
+	     <if test="permissionCodeId != null">
+	        permission_code_id=#{permissionCodeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="description != null">
+	        and description=#{description}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     permission_code_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     description
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from admin_permission_code
+	   <where>
+	     <if test="permissionCodeId != null">
+	        permission_code_id=#{permissionCodeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="description != null">
+	        and description=#{description}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

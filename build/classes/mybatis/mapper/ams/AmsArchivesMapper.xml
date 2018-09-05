@@ -1,0 +1,1243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【档案详情表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ams.AmsArchivesDao">
+
+	<resultMap id="amsArchivesResultMap"
+		type="com.bluemobi.po.ams.AmsArchives">
+		<id property="archivesId" column="archives_id" />
+		<result property="rfidnum" column="rfidnum" />
+		<result property="archivesTypeId" column="archives_type_id" />
+		<result property="archivesTypeName" column="archivesTypeName" />
+		<result property="filingmethod" column="filingmethod" />
+		<result property="roomnum" column="roomnum" />
+		<result property="archiveno" column="archiveno" />
+		<result property="title" column="title" />
+		<result property="paratitle" column="paratitle" />
+		<result property="keepyear" column="keepyear" />
+		<result property="security" column="security" />
+		<result property="storeplace" column="storeplace" />
+		<result property="subject" column="subject" />
+		<result property="keyword" column="keyword" />
+		<result property="inflag" column="inflag" />
+		<result property="playbackstarttime" column="playbackstarttime" />
+		<result property="qzName" column="qzName" />
+		<result property="inoutUserId" column="inout_user_id" />
+		<result property="checkStatus" column="check_status" />
+		<result property="stroreId" column="strore_id" />
+		<result property="stroreAreaId" column="strore_area_id" />
+		<result property="storeColumn" column="store_column" />
+		<result property="storeSection" column="store_section" />
+		<result property="storeLayer" column="store_layer" />
+		<result property="storeLr" column="store_lr" />
+		<result property="remark" column="remark" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+		<result property="deviceId" column="device_id" />
+		<result property="nowNumber" column="now_number" />
+		<result property="totalNumber" column="total_number" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="amsArchivesResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="amsArchivesResultMap"></resultMap>
+
+
+	<insert id="insert"
+		parameterType="com.bluemobi.po.ams.AmsArchives"
+		useGeneratedKeys="true" keyProperty="archivesId">
+		insert into ams_archives (
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		)values (
+		#{archivesId},
+		#{rfidnum},
+		#{archivesTypeId},
+		#{filingmethod},
+		#{roomnum},
+		#{archiveno},
+		#{title},
+		#{paratitle},
+		#{keepyear},
+		#{security},
+		#{storeplace},
+		#{subject},
+		#{keyword},
+		#{inflag},
+		#{playbackstarttime},
+		#{inoutUserId},
+		#{checkStatus},
+		#{stroreId},
+		#{stroreAreaId},
+		#{storeColumn},
+		#{storeSection},
+		#{storeLayer},
+		#{storeLr},
+		#{remark},
+		#{creator},
+		#{ctime},
+		#{deviceId},#{nowNumber},#{totalNumber},
+		#{modifier},
+		#{mtime},
+		#{qzName}
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.bluemobi.po.ams.AmsArchives">
+		update ams_archives
+		<set>
+			<if test="archivesId != null">
+				archives_id=#{archivesId},
+			</if>
+			<if test="rfidnum != null">
+				rfidnum=#{rfidnum},
+			</if>
+			<if test="archivesTypeId != null">
+				archives_type_id=#{archivesTypeId},
+			</if>
+			<if test="filingmethod != null">
+				filingmethod=#{filingmethod},
+			</if>
+			<if test="roomnum != null">
+				roomnum=#{roomnum},
+			</if>
+			<if test="archiveno != null">
+				archiveno=#{archiveno},
+			</if>
+			<if test="title != null">
+				title=#{title},
+			</if>
+			<if test="paratitle != null">
+				paratitle=#{paratitle},
+			</if>
+			<if test="keepyear != null">
+				keepyear=#{keepyear},
+			</if>
+			<if test="security != null">
+				security=#{security},
+			</if>
+			<if test="storeplace != null">
+				storeplace=#{storeplace},
+			</if>
+			<if test="subject != null">
+				subject=#{subject},
+			</if>
+			<if test="keyword != null">
+				keyword=#{keyword},
+			</if>
+			<if test="inflag != null">
+				inflag=#{inflag},
+			</if>
+			<if test="playbackstarttime != null">
+				playbackstarttime=#{playbackstarttime},
+			</if>
+			<if test="inoutUserId != null">
+				inout_user_id=#{inoutUserId},
+			</if>
+			<if test="checkStatus != null">
+				check_status=#{checkStatus},
+			</if>
+			<if test="stroreId != null">
+				strore_id=#{stroreId},
+			</if>
+			<if test="stroreAreaId != null">
+				strore_area_id=#{stroreAreaId},
+			</if>
+			<if test="storeColumn != null">
+				store_column=#{storeColumn},
+			</if>
+			<if test="storeSection != null">
+				store_section=#{storeSection},
+			</if>
+			<if test="storeLayer != null">
+				store_layer=#{storeLayer},
+			</if>
+			<if test="storeLr != null">
+				store_lr=#{storeLr},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="nowNumber != null">
+				now_number=#{nowNumber},
+			</if>
+			<if test="totalNumber != null">
+				total_number=#{totalNumber},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="qzName != null">
+				qzName=#{qzName}
+			</if>
+		</set>
+		<where>
+			archives_id=#{archivesId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		ams_archives
+		where
+		archives_id=#{archivesId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="amsArchivesResultMap">
+		select
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		(select name from
+		ams_archives_type where archives_type_id =
+		arch.archives_type_id) as
+		archivesTypeName,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		from ams_archives as arch
+		where
+		archives_id=#{archivesId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="amsArchivesResultMap">
+		select
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		(select name from
+		ams_archives_type where archives_type_id =
+		arch.archives_type_id) as
+		archivesTypeName,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		from ams_archives as arch
+		<where>
+			<if test="archivesId != null">
+				archives_id=#{archivesId}
+			</if>
+			<if test="rfidnum != null">
+				and rfidnum=#{rfidnum}
+			</if>
+			<if test="archivesTypeId != null">
+				and archives_type_id=#{archivesTypeId}
+			</if>
+			<if test="filingmethod != null">
+				and filingmethod=#{filingmethod}
+			</if>
+			<if test="roomnum != null">
+				and roomnum=#{roomnum}
+			</if>
+			<if test="archiveno != null">
+				and archiveno=#{archiveno}
+			</if>
+			<if test="title != null">
+				and title like concat('%',#{title},'%')
+			</if>
+			<if test="paratitle != null">
+				and paratitle=#{paratitle}
+			</if>
+			<if test="keepyear != null">
+				and keepyear=#{keepyear}
+			</if>
+			<if test="security != null">
+				and security=#{security}
+			</if>
+			<if test="storeplace != null">
+				and storeplace=#{storeplace}
+			</if>
+			<if test="subject != null">
+				and subject=#{subject}
+			</if>
+			<if test="keyword != null">
+				and keyword=#{keyword}
+			</if>
+			<if test="inflag != null">
+				and inflag=#{inflag}
+			</if>
+			<if test="playbackstarttime != null">
+				and playbackstarttime=#{playbackstarttime}
+			</if>
+			<if test="inoutUserId != null">
+				and inout_user_id=#{inoutUserId}
+			</if>
+			<if test="checkStatus != null">
+				and check_status=#{checkStatus}
+			</if>
+			<if test="stroreId != null">
+				and strore_id=#{stroreId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="storeColumn != null">
+				and store_column=#{storeColumn}
+			</if>
+			<if test="storeSection != null">
+				and store_section=#{storeSection}
+			</if>
+			<if test="storeLayer != null">
+				and store_layer=#{storeLayer}
+			</if>
+			<if test="storeLr != null">
+				and store_lr=#{storeLr}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="nowNumber != null">
+				now_number=#{nowNumber},
+			</if>
+			<if test="totalNumber != null">
+				total_number=#{totalNumber},
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		(select name from
+		ams_archives_type where archives_type_id =
+		arch.archives_type_id) as
+		archivesTypeName,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		from ams_archives arch
+		where
+		archives_id=#{archivesId}
+	</select>
+
+	<select id="selectMapList" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		(select name from
+		ams_archives_type where archives_type_id =
+		arch.archives_type_id) as
+		archivesTypeName,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		from ams_archives as arch
+		<where>
+			<if test="archivesId != null">
+				archives_id=#{archivesId}
+			</if>
+			<if test="rfidnum != null">
+				and rfidnum=#{rfidnum}
+			</if>
+			<if test="archivesTypeId != null">
+				and archives_type_id=#{archivesTypeId}
+			</if>
+			<if test="filingmethod != null">
+				and filingmethod=#{filingmethod}
+			</if>
+			<if test="roomnum != null">
+				and roomnum=#{roomnum}
+			</if>
+			<if test="archiveno != null">
+				and archiveno=#{archiveno}
+			</if>
+			<if test="title != null">
+				and title like concat('%',#{title},'%')
+			</if>
+			<if test="paratitle != null">
+				and paratitle=#{paratitle}
+			</if>
+			<if test="keepyear != null">
+				and keepyear=#{keepyear}
+			</if>
+			<if test="security != null">
+				and security=#{security}
+			</if>
+			<if test="storeplace != null">
+				and storeplace=#{storeplace}
+			</if>
+			<if test="subject != null">
+				and subject=#{subject}
+			</if>
+			<if test="keyword != null">
+				and keyword=#{keyword}
+			</if>
+			<if test="inflag != null">
+				and inflag=#{inflag}
+			</if>
+			<if test="playbackstarttime != null">
+				and playbackstarttime=#{playbackstarttime}
+			</if>
+			<if test="inoutUserId != null">
+				and inout_user_id=#{inoutUserId}
+			</if>
+			<if test="checkStatus != null">
+				and check_status=#{checkStatus}
+			</if>
+			<if test="stroreId != null">
+				and strore_id=#{stroreId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="storeColumn != null">
+				and store_column=#{storeColumn}
+			</if>
+			<if test="storeSection != null">
+				and store_section=#{storeSection}
+			</if>
+			<if test="storeLayer != null">
+				and store_layer=#{storeLayer}
+			</if>
+			<if test="storeLr != null">
+				and store_lr=#{storeLr}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="nowNumber != null">
+				now_number=#{nowNumber},
+			</if>
+			<if test="totalNumber != null">
+				total_number=#{totalNumber},
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		archives_id,
+		rfidnum,
+		archives_type_id,
+		(select name from
+		ams_archives_type where archives_type_id =
+		arch.archives_type_id) as
+		archivesTypeName,
+		filingmethod,
+		roomnum,
+		archiveno,
+		title,
+		paratitle,
+		keepyear,
+		security,
+		storeplace,
+		subject,
+		keyword,
+		inflag,
+		playbackstarttime,
+		inout_user_id,
+		check_status,
+		strore_id,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr,
+		remark,
+		creator,
+		ctime,
+		device_id,now_number,total_number,
+		modifier,
+		mtime,
+		qzName
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from ams_archives as arch
+		<where>
+			<if test="archivesId != null">
+				archives_id=#{archivesId}
+			</if>
+			<if test="rfidnum != null">
+				and rfidnum=#{rfidnum}
+			</if>
+			<if test="archivesTypeId != null">
+				and archives_type_id=#{archivesTypeId}
+			</if>
+			<if test="filingmethod != null">
+				and filingmethod=#{filingmethod}
+			</if>
+			<if test="roomnum != null">
+				and roomnum=#{roomnum}
+			</if>
+			<if test="archiveno != null">
+				and archiveno=#{archiveno}
+			</if>
+			<if test="title != null">
+				and title like concat('%',#{title},'%')
+			</if>
+			<if test="paratitle != null">
+				and paratitle=#{paratitle}
+			</if>
+			<if test="keepyear != null">
+				and keepyear=#{keepyear}
+			</if>
+			<if test="security != null">
+				and security=#{security}
+			</if>
+			<if test="storeplace != null">
+				and storeplace=#{storeplace}
+			</if>
+			<if test="subject != null">
+				and subject=#{subject}
+			</if>
+			<if test="keyword != null">
+				and keyword=#{keyword}
+			</if>
+			<if test="inflag != null">
+				and inflag=#{inflag}
+			</if>
+			<if test="playbackstarttime != null">
+				and playbackstarttime=#{playbackstarttime}
+			</if>
+			<if test="inoutUserId != null">
+				and inout_user_id=#{inoutUserId}
+			</if>
+			<if test="checkStatus != null">
+				and check_status=#{checkStatus}
+			</if>
+			<if test="stroreId != null">
+				and strore_id=#{stroreId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="storeColumn != null">
+				and store_column=#{storeColumn}
+			</if>
+			<if test="storeSection != null">
+				and store_section=#{storeSection}
+			</if>
+			<if test="storeLayer != null">
+				and store_layer=#{storeLayer}
+			</if>
+			<if test="storeLr != null">
+				and store_lr=#{storeLr}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="nowNumber != null">
+				now_number=#{nowNumber},
+			</if>
+			<if test="totalNumber != null">
+				total_number=#{totalNumber},
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<!-- 调档专用条件3.2 -->
+			<if test="qu != null">
+				and now_number > 0
+			</if>
+			<if test="cun != null">
+			  <![CDATA[ and now_number < total_number ]]>
+			</if>
+		</where>
+	</sql>
+	<select id="selectActStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		type,
+		COUNT(`type`) count
+		FROM
+		ams_archives_actlog
+		WHERE
+		1 = 1
+		<if test="currentType != null">
+			<if test="currentType ==1">
+				AND date_format(ctime, '%Y-%m-%d') = date_format(now(),
+				'%Y-%m-%d')
+			</if>
+			<if test="currentType ==2">
+				AND date_format(ctime, '%Y-%m') = date_format(now(),
+				'%Y-%m')
+			</if>
+			<if test="currentType ==3">
+				AND date_format(ctime, '%Y') = date_format(now(), '%Y')
+			</if>
+		</if>
+		<if test="starTime != null">
+	   <![CDATA[
+	   		AND date_format(ctime, '%Y-%m-%d') >= #{starTime}
+	   ]]>
+		</if>
+		<if test="endTime != null">
+	   <![CDATA[
+	        AND date_format(ctime,'%Y-%m-%d') <= #{endTime}
+	   ]]>
+		</if>
+		<if test="storeId != null">
+			AND wmsstore_id = #{storeId}
+		</if>
+		GROUP BY
+		type
+	</select>
+	<select id="selectInflagStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		inflag,
+		COUNT(inflag) count
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			AND strore_id = #{storeId}
+		</if>
+		GROUP BY
+		inflag
+	</select>
+	<select id="selectSecurityStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		security,
+		COUNT(security) count
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			AND strore_id = #{storeId}
+		</if>
+		GROUP BY
+		security
+	</select>
+	<select id="selectKeepyearStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		keepyear,
+		COUNT(keepyear) count
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			AND strore_id = #{storeId}
+		</if>
+		GROUP BY
+		keepyear
+	</select>
+	<select id="selectAmsTypeStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		(select name from ams_archives_type where archives_type_id =
+		ams_archives.archives_type_id ) typeName,
+		COUNT(archives_type_id) count
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			AND strore_id = #{storeId}
+		</if>
+		GROUP BY
+		archives_type_id
+	</select>
+	<!-- 统计给定档案中给定类型的数量 -->
+	<select id="selectAmsStatusCount" parameterType="map"
+		resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		ams_archives
+		WHERE 1=1
+		<if test="archivesIds != null">
+			and archives_id IN
+			<foreach collection="archivesIds" item="archivesIds" open="("
+				separator="," close=")">
+				#{archivesIds}
+			</foreach>
+		</if>
+		<if test="checkStatus != null">
+			AND check_status = #{checkStatus}
+		</if>
+	</select>
+	<!-- 批量更新 -->
+	<update id="updateAmsArchivesStatus" parameterType="map">
+		update ams_archives
+		<set>
+			<if test="status != null">
+				check_status=#{status},
+			</if>
+			<if test="inflag != null">
+				inflag=#{inflag},
+			</if>
+		</set>
+		<where>
+			archives_id in
+			<foreach collection="archivesIds" item="archivesIds" open="("
+				separator="," close=")">
+				#{archivesIds}
+			</foreach>
+		</where>
+	</update>
+	<!-- 撤销已执行的的任务档案状态恢复 -->
+	<update id="taskCancelUpdate" parameterType="map">
+		UPDATE ams_archives
+		SET ams_archives.check_status = CASE
+		ams_archives.check_status
+		WHEN 1 THEN
+		7
+		WHEN 9 THEN
+		5
+		END
+		WHERE
+		ams_archives.archives_id IN (
+		SELECT
+		ams_archives_audit.archives_id
+		FROM
+		ams_archives_audit
+		WHERE 1=1 and
+		ams_archives_audit.audit_id IN
+		<foreach collection="auditIds" item="auditId" open="("
+			separator="," close=")">
+			#{auditId}
+		</foreach>
+		)
+	</update>
+	<select id="selectAmsgroupByStore" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		strore_id,
+		(
+		SELECT
+		NAME
+		FROM
+		wms_store
+		WHERE
+		wms_store.store_id = strore_id
+		) storeName,
+		COUNT(*) count
+		FROM
+		ams_archives
+		GROUP BY
+		strore_id
+	</select>
+	<!-- 通过档案号查询申请单档案列表3.1 -->
+	<select id="selectAmsListByArchiveno" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT * from ams_archives WHERE 1=1
+		<if test="archiveNos != null">
+			and archiveno IN
+			<foreach collection="archiveNos" item="archivenos" open="("
+				separator="," close=")">
+				#{archivenos}
+			</foreach>
+		</if>
+		<if test="ArchiveTypeIds != null">
+			AND `ams_archives`.archives_type_id IN(
+			SELECT
+			`ams_archives_type`.archives_type_id
+			FROM
+			`ams_archives_type`
+			WHERE
+			`ams_archives_type`.sort_order IN
+			<foreach collection="ArchiveTypeIds" item="ArchiveTypeId"
+				open="(" separator="," close=")">
+				#{ArchiveTypeId}
+			</foreach>
+			)
+
+		</if>
+	</select>
+	<!-- 根据档案id变更库存量 -->
+	<update id="updateAmsNowNumber" parameterType="map">
+		UPDATE `ams_archives`
+		<set>
+			<if test="type == 0">
+				`ams_archives`.now_number = `ams_archives`.now_number + 1
+			</if>
+			<if test="type == 1">
+				`ams_archives`.now_number = `ams_archives`.now_number - 1
+			</if>
+		</set>
+		<where>
+			`ams_archives`.archives_id IN
+			<foreach collection="archivesIds" item="archivesId"
+				open="( -1," separator="," close=")">
+				#{archivesId}
+			</foreach>
+		</where>
+	</update>
+	<!-- 按库房获取档案总数 -->
+	<select id="getCountAms" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		COUNT(1) ams
+		FROM
+		ams_archives
+		WHERE
+		1=1
+		<if test="storeId !=null">
+			and strore_id=#{storeId}
+		</if>
+	</select>
+	<!-- 按库房获取档案总数 -->
+	<select id="getArchives" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		rfidnum,
+		archiveno,
+		title,
+		storeplace,
+		inflag,
+		strore_area_id,
+		store_column,
+		store_section,
+		store_layer,
+		store_lr
+		FROM
+		ams_archives
+		WHERE
+		1=1
+		<if test="storeId != null">
+			and strore_id = #{storeId}
+		</if>
+		<if test="str != null">
+			and title LIKE #{str}
+			or archiveno like #{str}
+			or rfidnum
+			like #{str}
+		</if>
+	</select>
+	<select id="getArchivesCount" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		aat.name type,
+		COUNT(aa.archives_type_id) num
+		FROM
+		ams_archives aa
+		JOIN ams_archives_type aat
+		ON
+		aa.archives_type_id=aat.archives_type_id
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			and aa.strore_id = #{storeId}
+		</if>
+		GROUP BY
+		aa.archives_type_id
+	</select>
+	<select id="getInflagCount" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		inflag type,
+		COUNT(inflag)
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="storeId != null">
+			and strore_id = #{storeId}
+		</if>
+		GROUP BY
+		inflag
+	</select>
+	<select id="findArchivesByNoAndType" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		*
+		FROM
+		ams_archives
+		WHERE
+		1 = 1
+		<if test="archiveno != null">
+			AND archiveno = #{archiveno}
+		</if>
+		<if test="archiveTypeId != null">
+			AND archiveTypeId = #{archiveTypeId}
+		</if>
+
+	</select>
+	<select id="searchArchives" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		*
+		FROM
+		ams_archives
+		<where>
+			<if test="data != null">
+				archiveno LIKE #{data}
+				OR title LIKE #{data}
+			</if>
+		</where>
+		ORDER BY
+		modifier desc
+		<if test="page != null">
+			LIMIT #{page},3
+		</if>
+	</select>
+	<select id="searchArchivesCount" parameterType="map"
+		resultType="int">
+		select
+		count(1)
+		from
+		(
+		SELECT
+		*
+		FROM
+		ams_archives
+		<where>
+			<if test="data != null">
+				archiveno LIKE #{data}
+				OR title LIKE #{data}
+			</if>
+		</where>
+		)as a
+	</select>
+	<select id="selectStrore" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		strore_id,COUNT(*) cou,wms_store.`name`
+		FROM
+		ams_archives LEFT
+		JOIN
+		wms_store
+		ON ams_archives.strore_id=wms_store.store_id
+		<where>
+			<if test="starttime != null and starttime!=''">
+			AND ams_archives.ctime
+			&gt;str_to_date(#{starttime},'%Y-%m-%d%H:%i:%S')
+		</if>
+		<if test="endtime != null">
+			AND ams_archives.ctime &lt;str_to_date(#{endtime},
+			'%Y-%m-%d%H:%i:%S')
+		</if>
+		</where>
+		group BY
+		strore_id
+	</select>
+	<select id="selectInflag" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		COUNT(*) cou,wms_store.`name`
+		FROM
+		ams_archives LEFT JOIN
+		wms_store
+		ON ams_archives.strore_id=wms_store.store_id
+		<where>
+			<if test="starttime != null">
+			AND ams_archives.mtime
+			&gt;str_to_date(#{starttime},'%Y-%m-%d%H:%i:%S')
+		</if>
+		<if test="endtime != null">
+			AND ams_archives.mtime &lt;str_to_date(#{endtime},
+			'%Y-%m-%d%H:%i:%S')
+		</if>
+		<if test="type != null">
+			AND inflag = #{type}
+		</if>
+		</where>
+		group BY
+		wms_store.store_id
+	</select>
+	<select id="selectArchivesListFroPlace" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		ams_archives.*,ams_archives_type.`name` name
+		FROM
+		ams_archives
+		LEFT JOIN ams_archives_type
+		ON
+		ams_archives.archives_type_id=ams_archives_type.archives_type_id
+		WHERE
+		1=1
+		<if test="inflag != null">
+			AND ams_archives.inflag=#{inflag}
+		</if>
+		<if test="name != null">
+			AND ams_archives_type.`name`=#{name}
+		</if>
+		<if test="stroreId != null">
+			AND ams_archives.strore_id=#{stroreId}
+		</if>
+		<if test="stroreAreaId != null">
+			AND ams_archives.strore_area_id=#{stroreAreaId}
+		</if>
+		<if test="storeColumn != null">
+			AND ams_archives.store_column=#{storeColumn}
+		</if>
+		<if test="storeLr != null">
+			AND ams_archives.store_lr=#{storeLr}
+		</if>
+		<if test="storeSection != null">
+			AND ams_archives.store_section=#{storeSection}
+		</if>
+		<if test="storeLayer != null">
+			AND ams_archives.store_layer=#{storeLayer}
+		</if>
+		<if test="archiveno != null">
+			AND ams_archives.archiveno LIKE #{archiveno}
+		</if>
+		<if test="enName != null">
+			and find_in_set(strore_id,#{enName})
+		</if>
+	</select>
+	<select id="getArchivesQzh" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		qzName qzhName,
+		roomnum qzhNo,
+		MIN(mtime) minTime,
+		MAX(mtime)
+		maxTime,
+		COUNT(1) qzhCount
+		FROM
+		ams_archives
+		where
+		1=1
+		<if test="stroreId != null">
+			AND ams_archives.strore_id=#{stroreId}
+		</if>
+		GROUP BY
+		roomnum
+	</select>
+	<select id="getArchiveYearAdd" parameterType="map"
+		resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		ams_archives
+		WHERE
+		1=1
+		<if test="year != null">
+			AND DATE_FORMAT(mtime,'%Y')=#{year}
+		</if>
+	</select>
+	<select id="indexFindArchives" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		*
+		FROM
+		ams_archives
+		WHERE
+		1=1
+		<if test="keyWord != null">
+			AND(archiveno LIKE #{keyWord}
+			OR title LIKE #{keyWord})
+		</if>
+		<if test="userStroreId != null">
+			AND find_in_set(strore_id, #{userStroreId})
+		</if>
+		LIMIT #{pageIndex},#{pagesize}
+	</select>
+	<select id="indexFindArchivesCount" parameterType="map"
+		resultType="int">
+		SELECT
+		count(*)
+		FROM
+		(
+		SELECT
+		*
+		FROM
+		ams_archives
+		WHERE
+		1=1
+		<if test="keyWord != null">
+			AND(archiveno LIKE #{keyWord}
+			OR title LIKE #{keyWord})
+		</if>
+		<if test="userStroreId != null">
+			AND find_in_set(strore_id, #{userStroreId})
+		</if>
+		) as a
+	</select>
+</mapper> 

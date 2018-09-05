@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <server-id>10001</server-id>  <!-- 应用服务器唯一id -->
+	<server-name>AppServer1</server-name>
+	<description>应用服1</description>
+	<shutdown-port>5001</shutdown-port>  <!-- 服务器关闭端口  -->
+	<default-session-time-out>3600</default-session-time-out>
+	<default-token-time-out>360000</default-token-time-out>
+	<secret-key>askjsdobluemobiwdlfjsa</secret-key>  <!-- 秘钥-->
+</server>
+

@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【管理员用户表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-08
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminUserDao">
+
+	<resultMap id="adminUserResultMap" type="com.bluemobi.po.admin.AdminUser">
+		<id property="userId" column="user_id" />
+       <result property="userName" column="user_name" />
+       <result property="password" column="password" />
+       <result property="salt" column="salt" />
+       <result property="phone" column="phone" />
+       <result property="email" column="email" />
+       <result property="fullname" column="fullname" />
+       <result property="nickname" column="nickname" />
+       <result property="enName" column="en_name" />
+       <result property="initial" column="initial" />
+       <result property="sex" column="sex" />
+       <result property="status" column="status" />
+       <result property="isOnline" column="is_online" />
+       <result property="loginTime" column="login_time" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+       <result property="userType" column="user_type" />
+       <result property="avatar" column="avatar" />
+       <result property="userrole" column="userrole" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminUserResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminUserResultMap"></resultMap>
+	
+	
+    <resultMap id="adminMenuTOResultMap" type="com.bluemobi.to.admin.AdminMenuTO">
+        <result property="menuId" column="first_menu_id" />
+        <result property="name" column="first_menu_name" />
+        <result property="icon" column="icon" />
+        <result property="iconBg" column="icon_bg" />
+        <collection property="subList" javaType="list" ofType="com.bluemobi.to.admin.AdminMenuTO">
+            <result property="menuId" column="second_menu_id" />
+        	<result property="name" column="second_menu_name" />
+        	<result property="url" column="url" />
+        </collection>
+    </resultMap>
+    
+	<resultMap id="adminRoleResultMap" type="com.bluemobi.po.admin.AdminRole">
+		<id property="roleId" column="role_id" />
+       <result property="name" column="name" />
+       <result property="description" column="description" />
+       <result property="status" column="status" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+       <result property="userType" column="user_type" />
+	</resultMap>
+    
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminUser" useGeneratedKeys="true" keyProperty="userId" >
+	   insert into admin_user (
+	     user_id,
+	     user_name,
+	     password,
+	     salt,
+	     phone,
+	     email,
+	     fullname,
+	     nickname,
+	     en_name,
+	     initial,
+	     sex,
+	     status,
+	     is_online,
+	     login_time,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     avatar
+	   )values (
+	     #{userId},
+	     #{userName},
+	     #{password},
+	     #{salt},
+	     #{phone},
+	     #{email},
+	     #{fullname},
+	     #{nickname},
+	     #{enName},
+	     #{initial},
+	     #{sex},
+	     #{status},
+	     #{isOnline},
+	     #{loginTime},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime},
+	     #{userType},
+	     #{avatar}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminUser">
+		update admin_user
+		<set>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="userName != null">
+				user_name=#{userName},
+			</if>
+			<if test="password != null">
+				password=#{password},
+			</if>
+			<if test="salt != null">
+				salt=#{salt},
+			</if>
+			<if test="phone != null">
+				phone=#{phone},
+			</if>
+			<if test="email != null">
+				email=#{email},
+			</if>
+			<if test="fullname != null">
+				fullname=#{fullname},
+			</if>
+			<if test="nickname != null">
+				nickname=#{nickname},
+			</if>
+			<if test="enName != null">
+				en_name=#{enName},
+			</if>
+			<if test="initial != null">
+				initial=#{initial},
+			</if>
+			<if test="sex != null">
+				sex=#{sex},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="isOnline != null">
+				is_online=#{isOnline},
+			</if>
+			<if test="loginTime != null">
+				login_time=#{loginTime},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType},
+			</if>
+			<if test="avatar != null">
+				avatar=#{avatar},
+			</if>
+		</set>
+		<where>
+			user_id=#{userId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_user 
+	   where 
+	    user_id=#{userId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminUserResultMap">
+	   select 
+	    user_id,
+	    user_name,
+	    password,
+	    salt,
+	    phone,
+	    email,
+	    fullname,
+	    nickname,
+	    en_name,
+	    initial,
+	    sex,
+	    status,
+	    is_online,
+	    login_time,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    user_type,
+	    user_type,
+	    avatar,
+	    merchant_id
+	   from admin_user
+	   where 
+	    user_id=#{userId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminUserResultMap">
+	   select 
+	     user_id,
+	     user_name,
+	     password,
+	     salt,
+	     phone,
+	     email,
+	     fullname,
+	     nickname,
+	     en_name,
+	     initial,
+	     sex,
+	     status,
+	     is_online,
+	     login_time,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     avatar,
+	     merchant_id
+	   from admin_user
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="phone != null">
+	        and phone=#{phone}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="fullname != null">
+	        and fullname=#{fullname}
+	     </if>
+	     <if test="nickname != null">
+	        and nickname=#{nickname}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="isOnline != null">
+	        and is_online=#{isOnline}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="avatar != null">
+	        and avatar=#{avatar}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    user_id,
+	    user_name,
+	    password,
+	    salt,
+	    phone,
+	    email,
+	    fullname,
+	    nickname,
+	    en_name,
+	    initial,
+	    sex,
+	    status,
+	    is_online,
+	    login_time,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    user_type,
+	    avatar,
+	    merchant_id
+	   from admin_user
+	   where 
+	    user_id=#{userId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     user_id,
+	     user_name,
+	     password,
+	     salt,
+	     phone,
+	     email,
+	     fullname,
+	     nickname,
+	     en_name,
+	     initial,
+	     sex,
+	     status,
+	     is_online,
+	     login_time,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     avatar,
+	     merchant_id
+	   from admin_user
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="phone != null">
+	        and phone=#{phone}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="fullname != null">
+	        and fullname=#{fullname}
+	     </if>
+	     <if test="nickname != null">
+	        and nickname=#{nickname}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="isOnline != null">
+	        and is_online=#{isOnline}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="avatar != null">
+	        and avatar=#{avatar}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     au.user_id,
+	     au.user_name,
+	     au.password,
+	     au.salt,
+	     au.phone,
+	     au.email,
+	     au.fullname,
+	     au.nickname,
+	     au.en_name,
+	     au.initial,
+	     au.sex,
+	     au.status,
+	     au.is_online,
+	     au.login_time,
+	     au.creator,
+	     au.ctime,
+	     au.modifier,
+	     au.mtime,
+	     au.user_type,
+	     au.avatar,
+	     au.merchant_id,
+	     ur.name as userrole
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from admin_user au
+	   left join (select ar.name,aur.user_id 
+	   from admin_role ar 
+	   RIGHT JOIN  admin_user_role aur 
+	   on ar.role_id=aur.role_id) as ur
+	   on ur.user_id=au.user_id
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="phone != null">
+	        and phone=#{phone}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="fullname != null">
+	        and fullname=#{fullname}
+	     </if>
+	     <if test="nickname != null">
+	        and nickname=#{nickname}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="key != null and key != ''">
+	        CONCAT(nickname,phone) like CONCAT('%',#{key},'%')
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="isOnline != null">
+	        and is_online=#{isOnline}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="avatar != null">
+	        and avatar=#{avatar}
+	     </if>
+	   </where>
+	</sql>
+
+	
+    
+   	<select id="selectUserByTokenId" parameterType="map" resultMap="adminUserResultMap">
+	   SELECT 
+		    u.user_id,
+		    u.user_name,
+		    u.password,
+		    u.salt,
+		    u.phone,
+		    u.email,
+		    u.fullname,
+		    u.nickname,
+		    u.en_name,
+		    u.initial,
+		    u.sex,
+		    u.user_type,
+		    u.status,
+		    u.is_online,
+		    u.login_time,
+		    u.creator,
+		    u.ctime,
+		    u.modifier,
+	    	u.mtime,
+	    	u.merchant_id
+	   FROM 
+            admin_user u INNER JOIN admin_token t ON u.user_id = t.user_id
+        WHERE u.status = 1
+            AND t.status = 1
+            AND t.token_id = #{tokenId}
+    </select>
+    
+    
+	<select id="selectAdminMenuTOList" parameterType="map" resultMap="adminMenuTOResultMap">
+      select 
+      	     fm.menu_id first_menu_id,
+             fm.name first_menu_name, 
+             sm.menu_id second_menu_id,
+             sm.name second_menu_name,
+             fm.icon,
+             fm.icon_bg,
+             sm.url     
+      from 
+        admin_menu fm,
+        admin_menu sm,
+        admin_permission p,
+        admin_role_permission rp,
+        admin_role r,
+        admin_user_role ur
+      where
+           fm.menu_id = sm.pid
+           and sm.url = p.url
+           and p.permission_id = rp.permission_id
+           and r.role_id = rp.role_id
+           and r.role_id = ur.role_id
+           and ur.user_id = #{userId}
+	       order by fm.sort_order, sm.sort_order
+	</select>
+	
+	
+	<select id="selectAdminPermissionCodeList" parameterType="map" resultType="string">
+      select 
+      	     p.code    
+      from 
+        admin_menu sm,
+        admin_permission p,
+        admin_role_permission rp,
+        admin_role r,
+        admin_user_role ur
+      where
+           sm.menu_id = p.menu_id
+           and sm.url = #{url}
+		   and p.permission_id = rp.permission_id
+           and r.role_id = rp.role_id
+           and r.role_id = ur.role_id
+           and ur.user_id = #{userId}
+	</select>
+	
+
+	<select id="selectAdminRoleListByUserId" parameterType="map" resultMap="adminRoleResultMap">
+	   select 
+	     r.role_id,
+	     r.name,
+	     r.description,
+	     r.status,
+	     r.creator,
+	     r.ctime,
+	     r.modifier,
+	     r.mtime,
+	     r.user_type,
+	     r.merchant_id
+	   from admin_role r,
+          admin_user_role ur,
+          admin_user u
+     	where r.role_id = ur.role_id
+     		and ur.user_id = u.user_id
+     		and u.user_id = #{userId}
+	</select>
+	<!-- 批量更新用户在线状态 -->
+	<update id="resetOnline" parameterType="com.bluemobi.po.admin.AdminUser">
+		update admin_user
+		<set>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="userName != null">
+				user_name=#{userName},
+			</if>
+			<if test="password != null">
+				password=#{password},
+			</if>
+			<if test="salt != null">
+				salt=#{salt},
+			</if>
+			<if test="phone != null">
+				phone=#{phone},
+			</if>
+			<if test="email != null">
+				email=#{email},
+			</if>
+			<if test="fullname != null">
+				fullname=#{fullname},
+			</if>
+			<if test="nickname != null">
+				nickname=#{nickname},
+			</if>
+			<if test="enName != null">
+				en_name=#{enName},
+			</if>
+			<if test="initial != null">
+				initial=#{initial},
+			</if>
+			<if test="sex != null">
+				sex=#{sex},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="isOnline != null">
+				is_online=#{isOnline},
+			</if>
+			<if test="loginTime != null">
+				login_time=#{loginTime},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType},
+			</if>
+			<if test="avatar != null">
+				avatar=#{avatar},
+			</if>
+		</set>
+		<!-- <where>
+			user_id=#{userId} 
+		</where> -->
+	</update>
+		<select id="getAdminUserByStoreId" parameterType="map" resultType="int">
+		SELECT
+		*
+		FROM
+		admin_user
+		WHERE
+		<if test="storeId != null">
+				find_in_set(#{storeId},en_name)
+		</if>
+	</select>
+</mapper> 

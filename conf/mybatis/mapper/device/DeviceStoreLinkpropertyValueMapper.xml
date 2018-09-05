@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【设备所在库区连接属性值表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceStoreLinkpropertyValueDao">
+
+	<resultMap id="deviceStoreLinkpropertyValueResultMap"
+		type="com.bluemobi.po.device.DeviceStoreLinkpropertyValue">
+		<id property="pvalueId" column="pvalue_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="linkpropertyId" column="linkproperty_id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="deviceStoreLinkpropertyValueResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="deviceStoreLinkpropertyValueResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceStoreLinkpropertyValue"
+		useGeneratedKeys="true" keyProperty="pvalueId">
+		insert into
+		device_store_linkproperty_value (
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		)values (
+		#{pvalueId},
+		#{deviceId},
+		#{linkpropertyId},
+		#{name}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceStoreLinkpropertyValue">
+		update device_store_linkproperty_value
+		<set>
+			<if test="pvalueId != null">
+				pvalue_id=#{pvalueId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="linkpropertyId != null">
+				linkproperty_id=#{linkpropertyId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+		</set>
+		<where>
+			pvalue_id=#{pvalueId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		device_store_linkproperty_value
+		where
+		pvalue_id=#{pvalueId}
+	</delete>
+	<delete id="deleteByDeviceId" parameterType="map">
+		delete from
+		device_store_linkproperty_value
+		where
+		device_id=#{deviceId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="deviceStoreLinkpropertyValueResultMap">
+		select
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		from
+		device_store_linkproperty_value
+		where
+		pvalue_id=#{pvalueId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="deviceStoreLinkpropertyValueResultMap">
+		select
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		from
+		device_store_linkproperty_value
+		<where>
+			<if test="pvalueId != null">
+				pvalue_id=#{pvalueId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="linkpropertyId != null">
+				and linkproperty_id=#{linkpropertyId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		from
+		device_store_linkproperty_value
+		where
+		pvalue_id=#{pvalueId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		from
+		device_store_linkproperty_value
+		<where>
+			<if test="pvalueId != null">
+				pvalue_id=#{pvalueId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="linkpropertyId != null">
+				and linkproperty_id=#{linkpropertyId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		pvalue_id,
+		device_id,
+		linkproperty_id,
+		name
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from device_store_linkproperty_value
+		<where>
+			<if test="pvalueId != null">
+				pvalue_id=#{pvalueId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="linkpropertyId != null">
+				and linkproperty_id=#{linkpropertyId}
+			</if>
+			<if test="name != null">
+				and name=#{name}
+			</if>
+		</where>
+	</sql>
+	<!-- 获取设备通道号 -->
+	<select id="selectDeviceChanal" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		device_manage.device_id ,
+		device_store_linkproperty_value.`name` chanal,
+		device_manage.sort_order sortOrder
+		FROM
+		device_manage ,
+		device_store_linkproperty_value ,
+		device_linkproperty
+		WHERE
+		device_manage.device_id = device_store_linkproperty_value.device_id
+		AND device_store_linkproperty_value.linkproperty_id =
+		device_linkproperty.linkproperty_id
+		AND device_linkproperty.`name` = '通道号'
+		ORDER BY
+		device_manage.sort_order
+	</select>
+
+</mapper> 

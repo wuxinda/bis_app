@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【档案保管年限
+】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-05
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ams.AmsArchivesKeepyearDao">
+
+	<resultMap id="amsArchivesKeepyearResultMap" type="com.bluemobi.po.ams.AmsArchivesKeepyear">
+		<id property="amsArchivesKeepyear" column="ams_archives_keepyear" />
+       <result property="name" column="name" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="amsArchivesKeepyearResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="amsArchivesKeepyearResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.ams.AmsArchivesKeepyear" useGeneratedKeys="true" keyProperty="amsArchivesKeepyear" >
+	   insert into ams_archives_keepyear (
+	     ams_archives_keepyear,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{amsArchivesKeepyear},
+	     #{name},
+	     #{sortOrder},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.ams.AmsArchivesKeepyear">
+		update ams_archives_keepyear
+		<set>
+			<if test="amsArchivesKeepyear != null">
+				ams_archives_keepyear=#{amsArchivesKeepyear},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			ams_archives_keepyear=#{amsArchivesKeepyear} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     ams_archives_keepyear 
+	   where 
+	    ams_archives_keepyear=#{amsArchivesKeepyear} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="amsArchivesKeepyearResultMap">
+	   select 
+	    ams_archives_keepyear,
+	    name,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from ams_archives_keepyear
+	   where 
+	    ams_archives_keepyear=#{amsArchivesKeepyear} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="amsArchivesKeepyearResultMap">
+	   select 
+	     ams_archives_keepyear,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from ams_archives_keepyear
+	   <where>
+	     <if test="amsArchivesKeepyear != null">
+	        ams_archives_keepyear=#{amsArchivesKeepyear}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    ams_archives_keepyear,
+	    name,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from ams_archives_keepyear
+	   where 
+	    ams_archives_keepyear=#{amsArchivesKeepyear} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     ams_archives_keepyear,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from ams_archives_keepyear
+	   <where>
+	     <if test="amsArchivesKeepyear != null">
+	        ams_archives_keepyear=#{amsArchivesKeepyear}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     ams_archives_keepyear,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from ams_archives_keepyear
+	   <where>
+	     <if test="amsArchivesKeepyear != null">
+	        ams_archives_keepyear=#{amsArchivesKeepyear}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

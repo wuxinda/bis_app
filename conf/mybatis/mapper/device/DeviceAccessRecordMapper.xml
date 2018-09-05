@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2017-12 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceAccessRecordDao">
+
+	<resultMap id="deviceAccessRecordResultMap" type="com.bluemobi.po.device.DeviceAccessRecord">
+		<id property="recordId" column="record_id" />
+		<result property="ctime" column="ctime" />
+		<result property="storeId" column="store_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="remark" column="remark" />
+		<result property="deviceName" column="device_name" />
+		<result property="type" column="type" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="deviceAccessRecordResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="deviceAccessRecordResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceAccessRecord"
+		useGeneratedKeys="true" keyProperty="recordId">
+		insert into device_access_record (
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		)values (
+		SYSDATE(),
+		#{storeId},
+		#{deviceId},
+		#{remark},
+		#{deviceName},
+		#{type}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceAccessRecord">
+		update device_access_record
+		<set>
+			<if test="recordId != null">
+				record_id=#{recordId},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="deviceName != null">
+				device_name=#{deviceName},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+		</set>
+		<where>
+			record_id=#{recordId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		device_access_record
+		where
+		record_id=#{recordId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="deviceAccessRecordResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		from device_access_record
+		where
+		record_id=#{recordId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="deviceAccessRecordResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		from
+		device_access_record
+		<where>
+			<if test="recordId != null">
+				record_id=#{recordId}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		from
+		device_access_record
+		where
+		record_id=#{recordId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		from
+		device_access_record
+		<where>
+			<if test="recordId != null">
+				record_id=#{recordId}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from device_access_record
+		<where>
+			<if test="recordId != null">
+				record_id=#{recordId}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+		</where>
+	</sql>
+	<select id="getAccessDataList" parameterType="map" resultMap="mapResultMap">
+		select
+		record_id,
+		ctime,
+		store_id,
+		device_id,
+		remark,
+		device_name,
+		type
+		FROM
+		device_access_record
+		ORDER BY record_id DESC
+		limit #{offset},#{rows}
+	</select>
+	<select id="getAccessDataCount" parameterType="map" resultMap="mapResultMap">
+		select
+		count(*) count, 
+		device_id,
+		device_name name
+		from
+		device_access_record
+		WHERE
+		1=1
+		<if test="type == 1">
+			AND date_format(ctime,'%Y') =date_format(SYSDATE(),'%Y')
+		</if>
+		<if test="type == 2">
+			AND date_format(ctime,'%Y-%m')
+			=date_format(SYSDATE(),'%Y-%m')
+		</if>
+		<if test="type == 3">
+			AND date_format(ctime,'%Y-%m-%d')
+			=date_format(SYSDATE(),'%Y-%m-%d')
+		</if>
+		GROUP BY
+		device_id
+	</select>
+</mapper> 

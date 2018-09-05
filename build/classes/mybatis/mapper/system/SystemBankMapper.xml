@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【银行基础数据，银行编号，银行名称】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-10
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.system.SystemBankDao">
+
+	<resultMap id="systemBankResultMap" type="com.bluemobi.po.system.SystemBank">
+		<id property="id" column="id" />
+       <result property="pno" column="pno" />
+       <result property="bankNo" column="bank_no" />
+       <result property="bankName" column="bank_name" />
+       <result property="grade" column="grade" />
+       <result property="status" column="status" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="systemBankResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="systemBankResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.system.SystemBank" useGeneratedKeys="true" keyProperty="id" >
+	   insert into system_bank (
+	     id,
+	     pno,
+	     bank_no,
+	     bank_name,
+	     grade,
+	     status
+	   )values (
+	     #{id},
+	     #{pno},
+	     #{bankNo},
+	     #{bankName},
+	     #{grade},
+	     #{status}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.system.SystemBank">
+		update system_bank
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="pno != null">
+				pno=#{pno},
+			</if>
+			<if test="bankNo != null">
+				bank_no=#{bankNo},
+			</if>
+			<if test="bankName != null">
+				bank_name=#{bankName},
+			</if>
+			<if test="grade != null">
+				grade=#{grade},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     system_bank 
+	   where 
+	    id=#{id} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="systemBankResultMap">
+	   select 
+	    id,
+	    pno,
+	    bank_no,
+	    bank_name,
+	    grade,
+	    status
+	   from system_bank
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="systemBankResultMap">
+	   select 
+	     id,
+	     pno,
+	     bank_no,
+	     bank_name,
+	     grade,
+	     status
+	   from system_bank
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="pno != null">
+	        and pno=#{pno}
+	     </if>
+	     <if test="bankNo != null">
+	        and bank_no=#{bankNo}
+	     </if>
+	     <if test="bankName != null">
+	        and bank_name=#{bankName}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    pno,
+	    bank_no,
+	    bank_name,
+	    grade,
+	    status
+	   from system_bank
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     pno,
+	     bank_no,
+	     bank_name,
+	     grade,
+	     status
+	   from system_bank
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="pno != null">
+	        and pno=#{pno}
+	     </if>
+	     <if test="bankNo != null">
+	        and bank_no=#{bankNo}
+	     </if>
+	     <if test="bankName != null">
+	        and bank_name=#{bankName}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     pno,
+	     bank_no,
+	     bank_name,
+	     grade,
+	     status
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from system_bank
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="pno != null">
+	        and pno=#{pno}
+	     </if>
+	     <if test="bankNo != null">
+	        and bank_no=#{bankNo}
+	     </if>
+	     <if test="bankName != null">
+	        and bank_name=#{bankName}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

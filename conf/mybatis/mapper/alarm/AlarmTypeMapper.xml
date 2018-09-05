@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【报警类型】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-03
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.alarm.AlarmTypeDao">
+
+	<resultMap id="alarmTypeResultMap" type="com.bluemobi.po.alarm.AlarmType">
+		<id property="alarmTypeId" column="alarm_type_id" />
+       <result property="alarmTypeName" column="alarm_type_name" />
+       <result property="alarmLevel" column="alarm_level" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="alarmTypeResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="alarmTypeResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.alarm.AlarmType" useGeneratedKeys="true" keyProperty="alarmTypeId" >
+	   insert into alarm_type (
+	     alarm_type_id,
+	     alarm_type_name,
+	     alarm_level,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{alarmTypeId},
+	     #{alarmTypeName},
+	     #{alarmLevel},
+	     #{sortOrder},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.alarm.AlarmType">
+		update alarm_type
+		<set>
+			<if test="alarmTypeId != null">
+				alarm_type_id=#{alarmTypeId},
+			</if>
+			<if test="alarmTypeName != null">
+				alarm_type_name=#{alarmTypeName},
+			</if>
+			<if test="alarmLevel != null">
+				alarm_level=#{alarmLevel},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			alarm_type_id=#{alarmTypeId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     alarm_type 
+	   where 
+	    alarm_type_id=#{alarmTypeId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="alarmTypeResultMap">
+	   select 
+	    alarm_type_id,
+	    alarm_type_name,
+	    alarm_level,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from alarm_type
+	   where 
+	    alarm_type_id=#{alarmTypeId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="alarmTypeResultMap">
+	   select 
+	     alarm_type_id,
+	     alarm_type_name,
+	     alarm_level,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from alarm_type
+	   <where>
+	     <if test="alarmTypeId != null">
+	        alarm_type_id=#{alarmTypeId}
+	     </if>
+	     <if test="alarmTypeName != null">
+	        and alarm_type_name=#{alarmTypeName}
+	     </if>
+	     <if test="alarmLevel != null">
+	        and alarm_level=#{alarmLevel}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    alarm_type_id,
+	    alarm_type_name,
+	    alarm_level,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from alarm_type
+	   where 
+	    alarm_type_id=#{alarmTypeId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     alarm_type_id,
+	     alarm_type_name,
+	     alarm_level,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from alarm_type
+	   <where>
+	     <if test="alarmTypeId != null">
+	        alarm_type_id=#{alarmTypeId}
+	     </if>
+	     <if test="alarmTypeName != null">
+	        and alarm_type_name=#{alarmTypeName}
+	     </if>
+	     <if test="alarmLevel != null">
+	        and alarm_level=#{alarmLevel}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     alarm_type_id,
+	     alarm_type_name,
+	     alarm_level,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from alarm_type
+	   <where>
+	     <if test="alarmTypeId != null">
+	        alarm_type_id=#{alarmTypeId}
+	     </if>
+	     <if test="alarmTypeName != null">
+	        and alarm_type_name=#{alarmTypeName}
+	     </if>
+	     <if test="alarmLevel != null">
+	        and alarm_level=#{alarmLevel}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

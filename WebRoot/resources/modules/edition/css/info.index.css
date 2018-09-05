@@ -1,0 +1,13 @@
+    #qrcode{
+            text-align: center;
+            display: table-cell;
+            width: 96px;
+            height: 96px;
+            vertical-align:middle;
+            position:absolute;
+			left: 0;
+			right: 0;
+			top: 500px;
+			bottom: 0;
+			margin:auto;
+        }

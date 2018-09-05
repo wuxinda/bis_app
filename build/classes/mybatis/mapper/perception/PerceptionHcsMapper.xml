@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【温湿度感知数据收集表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2017-03 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.perception.PerceptionHcsDao">
+
+	<resultMap id="perceptionHcsResultMap" type="com.bluemobi.po.perception.PerceptionHcs">
+		<id property="hcsId" column="hcs_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="temperature" column="temperature" />
+		<result property="humidity" column="humidity" />
+		<result property="airStatus" column="air_status" />
+		<result property="dryingStatus" column="drying_status" />
+		<result property="wettingStatus" column="wetting_status" />
+		<result property="ventilationStatus" column="ventilation_status" />
+		<result property="cleansingStatus" column="cleansing_status" />
+		<result property="warningStatus" column="warning_status" />
+		<result property="collectDate" column="collect_date" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="perceptionHcsResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="perceptionHcsResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.perception.PerceptionHcs"
+		useGeneratedKeys="true" keyProperty="hcsId">
+		insert into perception_hcs (
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		)values (
+		#{hcsId},
+		#{deviceId},
+		#{temperature},
+		#{humidity},
+		#{airStatus},
+		#{dryingStatus},
+		#{wettingStatus},
+		#{ventilationStatus},
+		#{cleansingStatus},
+		#{warningStatus},
+		#{collectDate},
+		#{remark}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.perception.PerceptionHcs">
+		update perception_hcs
+		<set>
+			<if test="hcsId != null">
+				hcs_id=#{hcsId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="temperature != null">
+				temperature=#{temperature},
+			</if>
+			<if test="humidity != null">
+				humidity=#{humidity},
+			</if>
+			<if test="airStatus != null">
+				air_status=#{airStatus},
+			</if>
+			<if test="dryingStatus != null">
+				drying_status=#{dryingStatus},
+			</if>
+			<if test="wettingStatus != null">
+				wetting_status=#{wettingStatus},
+			</if>
+			<if test="ventilationStatus != null">
+				ventilation_status=#{ventilationStatus},
+			</if>
+			<if test="cleansingStatus != null">
+				cleansing_status=#{cleansingStatus},
+			</if>
+			<if test="warningStatus != null">
+				warning_status=#{warningStatus},
+			</if>
+			<if test="collectDate != null">
+				collect_date=#{collectDate},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+		</set>
+		<where>
+			hcs_id=#{hcsId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		perception_hcs
+		where
+		hcs_id=#{hcsId}
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="perceptionHcsResultMap">
+		select
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		from perception_hcs
+		where
+		hcs_id=#{hcsId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="perceptionHcsResultMap">
+		select
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		from perception_hcs
+		<where>
+			<if test="hcsId != null">
+				hcs_id=#{hcsId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="temperature != null">
+				and temperature=#{temperature}
+			</if>
+			<if test="humidity != null">
+				and humidity=#{humidity}
+			</if>
+			<if test="airStatus != null">
+				and air_status=#{airStatus}
+			</if>
+			<if test="dryingStatus != null">
+				and drying_status=#{dryingStatus}
+			</if>
+			<if test="wettingStatus != null">
+				and wetting_status=#{wettingStatus}
+			</if>
+			<if test="ventilationStatus != null">
+				and ventilation_status=#{ventilationStatus}
+			</if>
+			<if test="cleansingStatus != null">
+				and cleansing_status=#{cleansingStatus}
+			</if>
+			<if test="warningStatus != null">
+				and warning_status=#{warningStatus}
+			</if>
+			<if test="collectDate != null">
+				and collect_date=#{collectDate}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		from perception_hcs
+		where
+		hcs_id=#{hcsId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		from perception_hcs
+		<where>
+			<if test="hcsId != null">
+				hcs_id=#{hcsId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="temperature != null">
+				and temperature=#{temperature}
+			</if>
+			<if test="humidity != null">
+				and humidity=#{humidity}
+			</if>
+			<if test="airStatus != null">
+				and air_status=#{airStatus}
+			</if>
+			<if test="dryingStatus != null">
+				and drying_status=#{dryingStatus}
+			</if>
+			<if test="wettingStatus != null">
+				and wetting_status=#{wettingStatus}
+			</if>
+			<if test="ventilationStatus != null">
+				and ventilation_status=#{ventilationStatus}
+			</if>
+			<if test="cleansingStatus != null">
+				and cleansing_status=#{cleansingStatus}
+			</if>
+			<if test="warningStatus != null">
+				and warning_status=#{warningStatus}
+			</if>
+			<if test="collectDate != null">
+				and collect_date=#{collectDate}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		hcs_id,
+		device_id,
+		temperature,
+		humidity,
+		air_status,
+		drying_status,
+		wetting_status,
+		ventilation_status,
+		cleansing_status,
+		warning_status,
+		collect_date,
+		remark
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from perception_hcs
+		<where>
+			<if test="hcsId != null">
+				hcs_id=#{hcsId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="temperature != null">
+				and temperature=#{temperature}
+			</if>
+			<if test="humidity != null">
+				and humidity=#{humidity}
+			</if>
+			<if test="airStatus != null">
+				and air_status=#{airStatus}
+			</if>
+			<if test="dryingStatus != null">
+				and drying_status=#{dryingStatus}
+			</if>
+			<if test="wettingStatus != null">
+				and wetting_status=#{wettingStatus}
+			</if>
+			<if test="ventilationStatus != null">
+				and ventilation_status=#{ventilationStatus}
+			</if>
+			<if test="cleansingStatus != null">
+				and cleansing_status=#{cleansingStatus}
+			</if>
+			<if test="warningStatus != null">
+				and warning_status=#{warningStatus}
+			</if>
+			<if test="collectDate != null">
+				and collect_date=#{collectDate}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</sql>
+	<!-- 获取单个设备最新温湿度数据 -->
+	<select id="getDevicelastHcsLog" parameterType="map"
+		resultMap="perceptionHcsResultMap">
+		SELECT
+		*
+		FROM
+		perception_hcs
+		WHERE 1=1
+		<if test="deviceId != null">
+			AND device_id=#{deviceId}
+		</if>
+		ORDER BY
+		collect_date DESC
+		LIMIT 0,1
+
+	</select>
+	<!-- 获取库房最新实时温湿度（如果有多个设备获取品均值） -->
+	<select id="getWmsAvgHumTem" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		b.store_id storeId,(SELECT wms_store.`name` FROM wms_store WHERE
+		wms_store.store_id=b.store_id ) storeName,
+		TRUNCATE(AVG(b.temperature),2) avgtem,
+		TRUNCATE(AVG(b.humidity),2)
+		avghum,b.*
+		FROM
+		(
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		device_manage.store_id,
+		perception_hcs.*
+		FROM
+		perception_hcs,
+		device_manage
+		WHERE 1=1
+		<if test="storeId != null">
+			AND device_manage.store_id =#{storeId}
+		</if>
+
+		AND perception_hcs.device_id = device_manage.device_id
+		ORDER BY
+		perception_hcs.collect_date DESC
+		) AS a
+		GROUP BY
+		device_id
+		ORDER BY
+		collect_date DESC
+		) AS b
+		GROUP BY
+		b.store_id
+	</select>
+	<!-- 温湿度报表年月日 -->
+	<select id="getHumitureReport" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		a.store_id storeId,
+		a. NAME name,
+		a.time ,DATE_FORMAT(a.time1 ,
+		<if test="type == 3">
+			'%H'
+		</if>
+		<if test="type == 2">
+			'%d'
+		</if>
+		<if test="type == 1">
+			'%m'
+		</if>
+		<if test="type == null">
+			'%H'
+		</if>
+		) date,
+		TRUNCATE(AVG(a.hum),2) hums,
+		TRUNCATE(AVG(a.tem),2) tems
+		FROM
+		(
+		SELECT
+		wms_store.store_id ,
+		wms_store.`name`
+		,
+		DATE_FORMAT(
+		perception_hcs.collect_date ,
+		<if test="type == 3">
+			'%Y-%m-%d %H'
+		</if>
+		<if test="type == 2">
+			'%Y-%m-%d'
+		</if>
+		<if test="type == 1">
+			'%Y-%m'
+		</if>
+		<if test="type == null">
+			'%Y-%m-%d %H'
+		</if>
+		) time ,DATE_FORMAT(
+		perception_hcs.collect_date ,
+		'%Y-%m-%d %h'
+		) time1
+		,
+		AVG(humidity) hum ,
+		AVG(temperature) tem
+		FROM
+		perception_hcs ,
+		device_manage ,
+		wms_store
+		WHERE
+		perception_hcs.device_id =
+		device_manage.device_id
+		AND device_manage.store_id =
+		wms_store.store_id
+		<if test="storeId != null">
+			AND device_manage.store_id = #{storeId}
+		</if>
+		<if test="stime != null">
+			AND perception_hcs.collect_date >=#{stime}
+		</if>
+		<if test="etime != null">
+			<![CDATA[ AND perception_hcs.collect_date <=#{etime} ]]>
+		</if>
+		GROUP BY
+		collect_date
+		) AS a
+		GROUP BY
+		a.store_id ,
+		a.time
+		ORDER BY
+		a.store_id,a.time
+	</select>
+	<!-- 查询具有温湿度数据的库房列表 -->
+	<select id="getHumitureWms" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		wms_store.store_id storeId,
+		wms_store.`name` name
+		FROM
+		perception_hcs ,
+		device_manage ,
+		wms_store
+		WHERE
+		perception_hcs.device_id
+		= device_manage.device_id
+		AND device_manage.store_id =
+		wms_store.store_id
+		GROUP BY
+		wms_store.store_id
+	</select>
+	<select id="getMaxMinAvgHcsForToday" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		MAX(p.temperature) temMax,
+		MIN(p.temperature) temMin,
+		MAX(p.humidity) humMax,
+		MIN(p.humidity) humMin,
+		AVG(p.temperature)
+		temAvg,
+		AVG(p.humidity) humAvg,
+		dm.store_id,
+		DATE_FORMAT(p.collect_date,'%Y-%m-%d') time
+		FROM
+		perception_hcs p,
+		device_manage dm
+		WHERE
+		1 = 1
+		AND p.device_id = dm.device_id
+		<if test="storeId != null">
+			AND dm.store_id = #{storeId}
+		</if>
+		AND date(p.collect_date) = curdate();
+	</select>
+	<select id="getHumByDay" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		dm.store_id,
+		ph.device_id,
+		ph.temperature,
+		ph.humidity,
+		DATE_FORMAT (ph.collect_date, '%h') time
+		FROM
+		perception_hcs ph LEFT JOIN device_manage dm
+		ON
+		ph.device_id = dm.device_id
+		WHERE
+		1=1
+		<if test="time != null">
+			AND
+			str_to_date(ph.collect_date, '%Y-%m-%d') = str_to_date(#{time}, '%Y-%m-%d')
+		</if>
+		<if test="store != null">
+			AND
+			dm.store_id =#{store}
+		</if>
+		GROUP BY
+		DATE_FORMAT(ph.collect_date, '%h')
+	</select>
+	<select id="getHumByMon" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		dm.store_id,
+		ph.device_id,
+		ph.temperature,
+		ph.humidity,
+		DATE_FORMAT (ph.collect_date, '%d') time
+		FROM
+		perception_hcs ph LEFT JOIN device_manage dm
+		ON
+		ph.device_id = dm.device_id
+		WHERE
+		1=1
+		<if test="time != null">
+			AND
+			str_to_date(ph.collect_date, '%Y-%m') = str_to_date(#{time}, '%Y-%m')
+		</if>
+		<if test="store != null">
+			AND
+			dm.store_id =#{store}
+		</if>
+		GROUP BY
+		DATE_FORMAT(ph.collect_date, '%d')
+	</select>
+	<select id="getHumByYear" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		dm.store_id,
+		ph.device_id,
+		ph.temperature,
+		ph.humidity,
+		DATE_FORMAT (ph.collect_date, '%m') time
+		FROM
+		perception_hcs ph LEFT JOIN device_manage dm
+		ON
+		ph.device_id = dm.device_id
+		WHERE
+		1=1
+		<if test="time != null">
+			AND
+			str_to_date(ph.collect_date, '%Y') = str_to_date(#{time}, '%Y')
+		</if>
+		<if test="store != null">
+			AND
+			dm.store_id =#{store}
+		</if>
+		GROUP BY
+		DATE_FORMAT(ph.collect_date, '%m')
+	</select>
+</mapper> 

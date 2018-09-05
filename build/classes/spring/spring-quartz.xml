@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- 调度类 -->
+	<bean id="task" class="com.bluemobi.task.taskManage"></bean>
+	<!--管理触发器 -->
+	<bean autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref local="cronHcsTask" />
+				<ref local="cronAlmpushTask" /> -->
+			</list>
+		</property>
+	</bean>
+	<!--温湿度调度管理 -->
+	<bean id="hcsTaskJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="task" />
+		<!--要执行的方法名称 -->
+		<property name="targetMethod" value="handleHcsTask" />
+	</bean>
+	<!--温湿度调度时间管理 -->
+	<bean id="cronHcsTask" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="hcsTaskJob" />
+		</property>
+		<property name="cronExpression">
+			<!-- 每5分钟执行一次 -->
+			<!-- <value>0 0/5 * * * ?</value> -->
+			<!-- 每1分钟执行一次 -->
+			<value>0 */1 * * * ?</value>
+			<!-- 每20秒执行一次 -->
+			<!-- <value>*/20 * * * * ?</value> -->
+		</property>
+	</bean>
+	<!--报警推送调度管理 -->
+	<bean id="almpushTaskJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="task" />
+		<!--要执行的方法名称 -->
+		<property name="targetMethod" value="handleAlmPushTask" />
+	</bean>
+	<!--报警推送调度时间管理 -->
+	<bean id="cronAlmpushTask" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="almpushTaskJob" />
+		</property>
+		<property name="cronExpression">
+			<!-- 每5分钟执行一次 -->
+			<value>0 0/5 * * * ?</value>
+			<!-- 每1分钟执行一次 -->
+			<!-- <value>0 */1 * * * ?</value> --> 
+			<!-- 每20秒执行一次 -->
+			<!-- <value>*/20 * * * * ?</value> -->
+		</property>
+	</bean>
+</beans>

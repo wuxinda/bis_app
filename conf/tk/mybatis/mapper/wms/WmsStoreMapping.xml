@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【库房表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.tk.mybatis.mapper.wms.WmsStoreMapper">
+
+	<resultMap id="wmsStoreResultMap" type="com.bluemobi.po.wms.WmsStore">
+		<id property="storeId" column="store_id" />
+		<result property="code" column="code" />
+		<result property="name" column="name" />
+		<result property="buildingNo" column="building_no" />
+		<result property="floorNo" column="floor_no" />
+		<result property="sortOrder" column="sort_order" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="wmsStoreResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="wmsStoreResultMap"></resultMap>
+
+</mapper> 

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【用户角色表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-09
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminUserRoleDao">
+
+	<resultMap id="adminUserRoleResultMap" type="com.bluemobi.po.admin.AdminUserRole">
+		<id property="id" column="id" />
+       <result property="userId" column="user_id" />
+       <result property="roleId" column="role_id" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+       <result property="userType" column="user_type" />
+       <result property="merchantId" column="merchant_id" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminUserRoleResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminUserRoleResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminUserRole" useGeneratedKeys="true" keyProperty="id" >
+	   insert into admin_user_role (
+	     id,
+	     user_id,
+	     role_id,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     merchant_id
+	   )values (
+	     #{id},
+	     #{userId},
+	     #{roleId},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime},
+	     #{userType},
+	     #{merchantId}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminUserRole">
+		update admin_user_role
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="roleId != null">
+				role_id=#{roleId},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType},
+			</if>
+			<if test="merchantId != null">
+				merchant_id=#{merchantId},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_user_role 
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="roleId != null">
+	        and role_id=#{roleId}
+	     </if>
+	   </where>
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminUserRoleResultMap">
+	   select 
+	    id,
+	    user_id,
+	    role_id,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    user_type,
+	    merchant_id
+	   from admin_user_role
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminUserRoleResultMap">
+	   select 
+	     id,
+	     user_id,
+	     role_id,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     merchant_id
+	   from admin_user_role
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="roleId != null">
+	        and role_id=#{roleId}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="merchantId != null">
+	        and merchant_id=#{merchantId}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    user_id,
+	    role_id,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime,
+	    user_type,
+	    merchant_id
+	   from admin_user_role
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     user_id,
+	     role_id,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     merchant_id
+	   from admin_user_role
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="roleId != null">
+	        and role_id=#{roleId}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="merchantId != null">
+	        and merchant_id=#{merchantId}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     user_id,
+	     role_id,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime,
+	     user_type,
+	     merchant_id
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from admin_user_role
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="roleId != null">
+	        and role_id=#{roleId}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="merchantId != null">
+	        and merchant_id=#{merchantId}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

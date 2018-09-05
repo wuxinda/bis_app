@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+        
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"></property> 
+	    <property name="mapperLocations">
+	    	<array>
+	    		<value>classpath:mybatis/mapper/*/*Mapper.xml</value>
+	    		<value>classpath:tk/mybatis/mapper/*/*Mapping.xml</value>
+	    	</array>
+	    </property>
+	    
+		<!-- <property name="configLocation" value="/conf/sqlMapConfig.xml"></property>
+		<property name="mapperLocations" value="/conf/mapper/*/*Mapper.xml"></property>  -->
+		
+    </bean>  
+    <!-- spring xml bean配置 -->
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="com.bluemobi" />
+	    <property name="markerInterface" value="com.bluemobi.base.mapper.BaseMapper"/>
+	    <property name="properties">
+	        <value>
+	        	IDENTITY=MYSQL
+	            mappers=com.bluemobi.base.mapper.BaseMapper
+	        </value>
+	    </property>
+	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+    
+    <!-- 1、配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+    </bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>  
+        <property name="basePackage" value="com.bluemobi.dao" />
+    </bean>
+    
+</beans>

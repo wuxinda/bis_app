@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【消息发送表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.message.MessageSendDao">
+
+	<resultMap id="messageSendResultMap" type="com.bluemobi.po.message.MessageSend">
+		<id property="sendId" column="send_id" />
+       <result property="messageId" column="message_id" />
+       <result property="userId" column="user_id" />
+       <result property="isDel" column="is_del" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="messageSendResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="messageSendResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.message.MessageSend" useGeneratedKeys="true" keyProperty="sendId" >
+	   insert into message_send (
+	     send_id,
+	     message_id,
+	     user_id,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{sendId},
+	     #{messageId},
+	     #{userId},
+	     #{isDel},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.message.MessageSend">
+		update message_send
+		<set>
+			<if test="sendId != null">
+				send_id=#{sendId},
+			</if>
+			<if test="messageId != null">
+				message_id=#{messageId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="isDel != null">
+				is_del=#{isDel},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			send_id=#{sendId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     message_send 
+	   where 
+	    send_id=#{sendId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="messageSendResultMap">
+	   select 
+	    send_id,
+	    message_id,
+	    user_id,
+	    is_del,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from message_send
+	   where 
+	    send_id=#{sendId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="messageSendResultMap">
+	   select 
+	     send_id,
+	     message_id,
+	     user_id,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from message_send
+	   <where>
+	     <if test="sendId != null">
+	        send_id=#{sendId}
+	     </if>
+	     <if test="messageId != null">
+	        and message_id=#{messageId}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="isDel != null">
+	        and is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    send_id,
+	    message_id,
+	    user_id,
+	    is_del,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from message_send
+	   where 
+	    send_id=#{sendId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     send_id,
+	     message_id,
+	     user_id,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from message_send
+	   <where>
+	     <if test="sendId != null">
+	        send_id=#{sendId}
+	     </if>
+	     <if test="messageId != null">
+	        and message_id=#{messageId}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="isDel != null">
+	        and is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     send_id,
+	     message_id,
+	     user_id,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from message_send
+	   <where>
+	     <if test="sendId != null">
+	        send_id=#{sendId}
+	     </if>
+	     <if test="messageId != null">
+	        and message_id=#{messageId}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="isDel != null">
+	        and is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

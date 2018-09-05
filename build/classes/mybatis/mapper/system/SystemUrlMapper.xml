@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【请求url，对应的请求名，用于通过url显示用户操作】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-09
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.system.SystemUrlDao">
+
+	<resultMap id="systemUrlResultMap" type="com.bluemobi.po.system.SystemUrl">
+		<id property="id" column="id" />
+       <result property="url" column="url" />
+       <result property="name" column="name" />
+       <result property="urlType" column="url_type" />
+       <result property="status" column="status" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="systemUrlResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="systemUrlResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.system.SystemUrl" useGeneratedKeys="true" keyProperty="id" >
+	   insert into system_url (
+	     id,
+	     url,
+	     status,
+	     url_type,
+	     name
+	   )values (
+	     #{id},
+	     #{url},
+	     #{status},
+	     #{urlType},
+	     #{name}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.system.SystemUrl">
+		update system_url
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="url != null">
+				url=#{url},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="urlType != null">
+				url_type=#{urlType},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     system_url 
+	   where 
+	    id=#{id} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="systemUrlResultMap">
+	   select 
+	    id,
+	    url,
+	    status,
+	    url_type,
+	    name
+	   from system_url
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="systemUrlResultMap">
+	   select 
+	     id,
+	     url,
+	     name
+	   from system_url
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="urlType != null">
+	        and url_type=#{urlType}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    url,
+	    status,
+	    url_type,
+	    name
+	   from system_url
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     url,
+	     status,
+	     url_type,
+	     name
+	   from system_url
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="urlType != null">
+	        and url_type=#{urlType}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     url,
+	     status,
+	     url_type,
+	     name
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from system_url
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="urlType != null">
+	        and url_type=#{urlType}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

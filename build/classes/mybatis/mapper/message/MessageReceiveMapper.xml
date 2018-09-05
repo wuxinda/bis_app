@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【消息接收表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.message.MessageReceiveDao">
+
+	<resultMap id="messageReceiveResultMap" type="com.bluemobi.po.message.MessageReceive">
+		<id property="receiveId" column="receive_id" />
+		<result property="messageId" column="message_id" />
+		<result property="userId" column="user_id" />
+		<result property="isDel" column="is_del" />
+		<result property="status" column="status" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="messageReceiveResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="messageReceiveResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.message.MessageReceive"
+		useGeneratedKeys="true" keyProperty="receiveId">
+		insert into message_receive (
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		)values (
+		#{receiveId},
+		#{messageId},
+		#{userId},
+		#{isDel},
+		#{status},
+		#{modifier},
+		#{mtime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.message.MessageReceive">
+		update message_receive
+		<set>
+			<if test="receiveId != null">
+				receive_id=#{receiveId},
+			</if>
+			<if test="messageId != null">
+				message_id=#{messageId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="isDel != null">
+				is_del=#{isDel},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			receive_id=#{receiveId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		message_receive
+		where
+		receive_id=#{receiveId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="messageReceiveResultMap">
+		select
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		from message_receive
+		where
+		receive_id=#{receiveId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="messageReceiveResultMap">
+		select
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		from
+		message_receive
+		<where>
+			<if test="receiveId != null">
+				receive_id=#{receiveId}
+			</if>
+			<if test="messageId != null">
+				and message_id=#{messageId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="isDel != null">
+				and is_del=#{isDel}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		from
+		message_receive
+		where
+		receive_id=#{receiveId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		from
+		message_receive
+		<where>
+			<if test="receiveId != null">
+				receive_id=#{receiveId}
+			</if>
+			<if test="messageId != null">
+				and message_id=#{messageId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="isDel != null">
+				and is_del=#{isDel}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from message_receive
+		<where>
+			<if test="receiveId != null">
+				receive_id=#{receiveId}
+			</if>
+			<if test="messageId != null">
+				and message_id=#{messageId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="isDel != null">
+				and is_del=#{isDel}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</sql>
+	<!-- 批量插入接收信息 -->
+	<insert id="addMessageReceives" parameterType="map">
+		insert into message_receive (
+		receive_id,
+		message_id,
+		user_id,
+		is_del,
+		status,
+		modifier,
+		mtime
+		)values
+		<foreach collection="userId" item="userId" index="index"
+			separator=",">
+			(
+			#{receiveId},
+			#{messageId},
+			#{userId},
+			#{isDel},
+			#{status},
+			#{modifier},
+			#{mtime}
+			)
+		</foreach>
+	</insert>
+	<select id="selectMsgByParam" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		message_info.*,
+		message_receive.receive_id messageReciveId
+		FROM
+		message_info,message_receive
+		WHERE 1=1 and message_info.message_id=
+		message_receive.message_id
+		<if test="userId != null">
+			AND message_receive.user_id =#{userId}
+		</if>
+		<if test="status != null">
+			AND message_receive.`status` =#{status}
+		</if>
+		<if test="offset !=null">
+			<if test="rows !=null">
+				limit #{offset},#{rows}
+			</if>
+		</if>
+	</select>
+	<!-- 撤销档案状态恢复 -->
+	<update id="updates" parameterType="map">
+		update message_receive
+		<set>
+			<if test="messageId != null">
+				message_id=#{messageId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="isDel != null">
+				is_del=#{isDel},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			receive_id in
+			<foreach collection="messageReciveId" item="messageReciveId" open="("
+				separator="," close=")">
+				#{messageReciveId}
+			</foreach>
+		</where>
+	</update>
+</mapper> 

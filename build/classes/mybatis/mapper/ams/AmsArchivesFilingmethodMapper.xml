@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【档案立卷方式表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-05
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ams.AmsArchivesFilingmethodDao">
+
+	<resultMap id="amsArchivesFilingmethodResultMap" type="com.bluemobi.po.ams.AmsArchivesFilingmethod">
+		<id property="archivesFilingmethodId" column="archives_filingmethod_id" />
+       <result property="name" column="name" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="amsArchivesFilingmethodResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="amsArchivesFilingmethodResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.ams.AmsArchivesFilingmethod" useGeneratedKeys="true" keyProperty="archivesFilingmethodId" >
+	   insert into ams_archives_filingmethod (
+	     archives_filingmethod_id,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{archivesFilingmethodId},
+	     #{name},
+	     #{sortOrder},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.ams.AmsArchivesFilingmethod">
+		update ams_archives_filingmethod
+		<set>
+			<if test="archivesFilingmethodId != null">
+				archives_filingmethod_id=#{archivesFilingmethodId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			archives_filingmethod_id=#{archivesFilingmethodId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     ams_archives_filingmethod 
+	   where 
+	    archives_filingmethod_id=#{archivesFilingmethodId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="amsArchivesFilingmethodResultMap">
+	   select 
+	    archives_filingmethod_id,
+	    name,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from ams_archives_filingmethod
+	   where 
+	    archives_filingmethod_id=#{archivesFilingmethodId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="amsArchivesFilingmethodResultMap">
+	   select 
+	     archives_filingmethod_id,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from ams_archives_filingmethod
+	   <where>
+	     <if test="archivesFilingmethodId != null">
+	        archives_filingmethod_id=#{archivesFilingmethodId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    archives_filingmethod_id,
+	    name,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from ams_archives_filingmethod
+	   where 
+	    archives_filingmethod_id=#{archivesFilingmethodId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     archives_filingmethod_id,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from ams_archives_filingmethod
+	   <where>
+	     <if test="archivesFilingmethodId != null">
+	        archives_filingmethod_id=#{archivesFilingmethodId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     archives_filingmethod_id,
+	     name,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from ams_archives_filingmethod
+	   <where>
+	     <if test="archivesFilingmethodId != null">
+	        archives_filingmethod_id=#{archivesFilingmethodId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

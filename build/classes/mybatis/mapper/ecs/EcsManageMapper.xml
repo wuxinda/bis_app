@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2017-10 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ecs.EcsManageDao">
+
+	<resultMap id="ecsManageResultMap" type="com.bluemobi.po.ecs.EcsManage">
+		<id property="ecsManageId" column="ecs_manage_id" />
+		<result property="cYear" column="c_year" />
+		<result property="cMonth" column="c_month" />
+		<result property="cDay" column="c_day" />
+		<result property="storeId" column="store_id" />
+		<result property="deviceTypeId" column="device_type_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="actualEc" column="actual_ec" />
+		<result property="targetEc" column="target_ec" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="ecsManageResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="ecsManageResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.ecs.EcsManage"
+		useGeneratedKeys="true" keyProperty="ecsManageId">
+		insert into ecs_manage (
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		)values (
+		#{ecsManageId},
+		#{cYear},
+		#{cMonth},
+		#{cDay},
+		#{storeId},
+		#{deviceTypeId},
+		#{deviceId},
+		#{actualEc},
+		#{targetEc},
+		#{creator},
+		#{ctime},
+		#{modifier},
+		#{mtime},
+		#{remark}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.ecs.EcsManage">
+		update ecs_manage
+		<set>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId},
+			</if>
+			<if test="cYear != null">
+				c_year=#{cYear},
+			</if>
+			<if test="cMonth != null">
+				c_month=#{cMonth},
+			</if>
+			<if test="cDay != null">
+				c_day=#{cDay},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="deviceTypeId != null">
+				device_type_id=#{deviceTypeId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="actualEc != null">
+				actual_ec=#{actualEc},
+			</if>
+			<if test="targetEc != null">
+				target_ec=#{targetEc},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+		</set>
+		<where>
+			ecs_manage_id=#{ecsManageId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		ecs_manage
+		where
+		ecs_manage_id=#{ecsManageId}
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="ecsManageResultMap">
+		select
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		from ecs_manage
+		where
+		ecs_manage_id=#{ecsManageId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map" resultMap="ecsManageResultMap">
+		select
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		from
+		ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		from ecs_manage
+		where
+		ecs_manage_id=#{ecsManageId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		from
+		ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		ecs_manage_id,
+		c_year,
+		c_month,
+		c_day,
+		store_id,
+		device_type_id,
+		device_id,
+		actual_ec,
+		target_ec,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		remark
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</sql>
+	<!--获取能耗总数 -->
+	<select id="getTotalData" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		SUM(ACTUAL_EC) actualEc,
+		SUM(TARGET_EC) targetEc
+		from ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+	<!--获取库房能耗统计 -->
+	<select id="getStoreEcs" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		(SELECT wms_store.name from wms_store WHERE ecs_manage.store_id
+		= wms_store.store_id) storeName,
+		SUM(ACTUAL_EC) actualEc,
+		SUM(TARGET_EC) targetEc
+		from
+		ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+		GROUP BY ecs_manage.store_id
+	</select>
+	<!--获取分项实际能耗统计 -->
+	<select id="getTypeEcs" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		(SELECT `device_category`.name from device_category WHERE
+		ecs_manage.device_type_id = device_category.category_id) deviceName,
+		SUM(ACTUAL_EC) actualEc,
+		SUM(TARGET_EC) targetEc
+		from ecs_manage
+		<where>
+			<if test="ecsManageId != null">
+				ecs_manage_id=#{ecsManageId}
+			</if>
+			<if test="cYear != null">
+				and c_year=#{cYear}
+			</if>
+			<if test="cMonth != null">
+				and c_month=#{cMonth}
+			</if>
+			<if test="cDay != null">
+				and c_day=#{cDay}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="deviceTypeId != null">
+				and device_type_id=#{deviceTypeId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="actualEc != null">
+				and actual_ec=#{actualEc}
+			</if>
+			<if test="targetEc != null">
+				and target_ec=#{targetEc}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+		GROUP BY ecs_manage.device_type_id
+	</select>
+
+</mapper> 

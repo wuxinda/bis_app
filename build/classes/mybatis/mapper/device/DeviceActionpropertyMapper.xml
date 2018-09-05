@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【设备操作属性表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceActionpropertyDao">
+
+	<resultMap id="deviceActionpropertyResultMap" type="com.bluemobi.po.device.DeviceActionproperty">
+		<id property="actionpropertyId" column="actionproperty_id" />
+       <result property="name" column="name" />
+       <result property="remark" column="remark" />
+       <result property="sortOrder" column="sort_order" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="deviceActionpropertyResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="deviceActionpropertyResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceActionproperty" useGeneratedKeys="true" keyProperty="actionpropertyId" >
+	   insert into device_actionproperty (
+	     actionproperty_id,
+	     name,
+	     remark,
+	     sort_order
+	   )values (
+	     #{actionpropertyId},
+	     #{name},
+	     #{remark},
+	     #{sortOrder}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceActionproperty">
+		update device_actionproperty
+		<set>
+			<if test="actionpropertyId != null">
+				actionproperty_id=#{actionpropertyId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+		</set>
+		<where>
+			actionproperty_id=#{actionpropertyId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     device_actionproperty 
+	   where 
+	    actionproperty_id=#{actionpropertyId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceActionpropertyResultMap">
+	   select 
+	    actionproperty_id,
+	    name,
+	    remark,
+	    sort_order
+	   from device_actionproperty
+	   where 
+	    actionproperty_id=#{actionpropertyId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="deviceActionpropertyResultMap">
+	   select 
+	     actionproperty_id,
+	     name,
+	     remark,
+	     sort_order
+	   from device_actionproperty
+	   <where>
+	     <if test="actionpropertyId != null">
+	        actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    actionproperty_id,
+	    name,
+	    remark,
+	    sort_order
+	   from device_actionproperty
+	   where 
+	    actionproperty_id=#{actionpropertyId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     actionproperty_id,
+	     name,
+	     remark,
+	     sort_order
+	   from device_actionproperty
+	   <where>
+	     <if test="actionpropertyId != null">
+	        actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     actionproperty_id,
+	     name,
+	     remark,
+	     sort_order
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from device_actionproperty
+	   <where>
+	     <if test="actionpropertyId != null">
+	        actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【报警信息表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.tk.mybatis.mapper.alarm.AlarmManageMapper">
+
+	<select id="selectAlarmManageByDevice" resultType="map" parameterType="map">
+		select (select name from device_category where category_id=dm.category_id) as categoryName,
+		dm.name,(select name from wms_store where store_id=dm.store_id) as storeName,
+		(select name from wms_store_area where strore_area_id=dm.strore_area_id) as storeAreaName,
+		am.status,am.ctime from alarm_manage am 
+		inner join device_manage dm on dm.device_id=am.device_id where 1=1
+		<if test="alarmType != null and alarmType.size>0">
+                and am.alarm_type in
+                <foreach collection="alarmType" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+	</select>
+</mapper> 

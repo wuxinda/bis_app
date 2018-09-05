@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【设备分类绑定操作属性表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceCategoryActionpropertyDao">
+
+	<resultMap id="deviceCategoryActionpropertyResultMap" type="com.bluemobi.po.device.DeviceCategoryActionproperty">
+		<id property="ctgyActpId" column="ctgy_actp_id" />
+       <result property="categoryId" column="category_id" />
+       <result property="actionpropertyId" column="actionproperty_id" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="deviceCategoryActionpropertyResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="deviceCategoryActionpropertyResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceCategoryActionproperty" useGeneratedKeys="true" keyProperty="ctgyActpId" >
+	   insert into device_category_actionproperty (
+	     ctgy_actp_id,
+	     category_id,
+	     actionproperty_id
+	   )values (
+	     #{ctgyActpId},
+	     #{categoryId},
+	     #{actionpropertyId}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceCategoryActionproperty">
+		update device_category_actionproperty
+		<set>
+			<if test="ctgyActpId != null">
+				ctgy_actp_id=#{ctgyActpId},
+			</if>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="actionpropertyId != null">
+				actionproperty_id=#{actionpropertyId},
+			</if>
+		</set>
+		<where>
+			ctgy_actp_id=#{ctgyActpId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     device_category_actionproperty 
+	   where 
+	    ctgy_actp_id=#{ctgyActpId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceCategoryActionpropertyResultMap">
+	   select 
+	    ctgy_actp_id,
+	    category_id,
+	    actionproperty_id
+	   from device_category_actionproperty
+	   where 
+	    ctgy_actp_id=#{ctgyActpId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="deviceCategoryActionpropertyResultMap">
+	   select 
+	     ctgy_actp_id,
+	     category_id,
+	     actionproperty_id
+	   from device_category_actionproperty
+	   <where>
+	     <if test="ctgyActpId != null">
+	        ctgy_actp_id=#{ctgyActpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    ctgy_actp_id,
+	    category_id,
+	    actionproperty_id
+	   from device_category_actionproperty
+	   where 
+	    ctgy_actp_id=#{ctgyActpId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     ctgy_actp_id,
+	     category_id,
+	     actionproperty_id
+	   from device_category_actionproperty
+	   <where>
+	     <if test="ctgyActpId != null">
+	        ctgy_actp_id=#{ctgyActpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     ctgy_actp_id,
+	     category_id,
+	     actionproperty_id
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from device_category_actionproperty
+	   <where>
+	     <if test="ctgyActpId != null">
+	        ctgy_actp_id=#{ctgyActpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	   </where>
+	</sql>
+
+	<delete id="deleteByCategoryId" parameterType="java.util.List">
+		delete from
+		device_category_actionproperty
+		where
+		category_id in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item.categoryId}
+		</foreach>
+	</delete>
+
+	<insert id="insertDeviceCategorycategoryActionpropertyes" parameterType="java.util.List">
+		insert into device_category_actionproperty
+		(
+		category_id,actionproperty_id
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.categoryId}, #{item.actionpropertyId}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="getActionByCategoryId" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     a.actionproperty_id as actionpropertyId,
+	     a.name,
+	     a.sort_order as sortOrder,
+	     a.remark
+	   from device_category_actionproperty ca,device_actionproperty a
+	   where ca.actionproperty_id = a.actionproperty_id 
+	         and ca.category_id  = #{categoryId}
+	</select>
+</mapper> 

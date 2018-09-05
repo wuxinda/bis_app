@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【库房用户表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2017-07 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.wms.WmsUserDao">
+
+	<resultMap id="wmsUserResultMap" type="com.bluemobi.po.wms.WmsUser">
+		<id property="wmsUserId" column="wms_user_id" />
+		<result property="storeId" column="store_id" />
+		<result property="userId" column="user_id" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="wmsUserResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="wmsUserResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.wms.WmsUser"
+		useGeneratedKeys="true" keyProperty="wmsUserId">
+		insert into wms_user (
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		)values (
+		#{wmsUserId},
+		#{storeId},
+		#{userId},
+		#{remark}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.wms.WmsUser">
+		update wms_user
+		<set>
+			<if test="wmsUserId != null">
+				wms_user_id=#{wmsUserId},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+		</set>
+		<where>
+			wms_user_id=#{wmsUserId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		wms_user
+		where
+		wms_user_id=#{wmsUserId}
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="wmsUserResultMap">
+		select
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		from wms_user
+		where
+		wms_user_id=#{wmsUserId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map" resultMap="wmsUserResultMap">
+		select
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		from wms_user
+		<where>
+			<if test="wmsUserId != null">
+				wms_user_id=#{wmsUserId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		from wms_user
+		where
+		wms_user_id=#{wmsUserId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		from wms_user
+		<where>
+			<if test="wmsUserId != null">
+				wms_user_id=#{wmsUserId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		wms_user_id,
+		store_id,
+		user_id,
+		remark
+		<include refid="pageCondition" />
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from wms_user
+		<where>
+			<if test="wmsUserId != null">
+				wms_user_id=#{wmsUserId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+		</where>
+	</sql>
+	<!-- 获取库房所有用户 -->
+	<select id="selectWmsAllUser" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		`admin_user`.user_id ,
+		`admin_user`.user_name ,
+		`admin_user`.fullname,
+		`wms_store`.`name`
+		FROM
+		`admin_user` ,
+		`wms_user`,
+		`wms_store`
+		WHERE
+		`admin_user`.user_id = `wms_user`.user_id AND
+		wms_store.store_id
+		= `wms_user`.store_id
+		<if test="storeId != null">
+			AND `wms_user`.store_id = #{storeId}
+		</if>
+	</select>
+	<!-- 根据档案获取用户 -->
+	<select id="selectUserByAms" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		wms_user.user_id userId,
+		admin_user.user_type userType,
+		`ams_archives`.archives_id ,
+		`ams_archives`.archiveno ,
+		GROUP_CONCAT(`ams_archives`.archives_id) ,
+		COUNT(`ams_archives`.archiveno)
+		FROM
+		`ams_archives` ,
+		`wms_user`,admin_user
+		WHERE 1=1
+		<if test="amsIds != null">
+			and `ams_archives`.archives_id IN
+			<foreach collection="amsIds" item="amsId" open="(" separator=","
+				close=")">
+				#{amsId}
+			</foreach>
+		</if>
+		AND `wms_user`.store_id = `ams_archives`.strore_id AND
+		wms_user.user_id = admin_user.user_id
+		GROUP BY
+		`wms_user`.user_id
+	</select>
+
+</mapper> 

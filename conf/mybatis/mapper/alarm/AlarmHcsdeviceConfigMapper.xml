@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【温湿度设备报警配置表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-03
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.alarm.AlarmHcsdeviceConfigDao">
+
+	<resultMap id="alarmHcsdeviceConfigResultMap" type="com.bluemobi.po.alarm.AlarmHcsdeviceConfig">
+		<id property="alarmDevconfId" column="alarm_devconf_id" />
+       <result property="deviceId" column="device_id" />
+       <result property="temUp" column="tem_up" />
+       <result property="temDown" column="tem_down" />
+       <result property="humUp" column="hum_up" />
+       <result property="humDown" column="hum_down" />
+       <result property="alarmStatus" column="alarm_status" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="alarmHcsdeviceConfigResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="alarmHcsdeviceConfigResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.alarm.AlarmHcsdeviceConfig" useGeneratedKeys="true" keyProperty="alarmDevconfId" >
+	   insert into alarm_hcsdevice_config (
+	     alarm_devconf_id,
+	     device_id,
+	     tem_up,
+	     tem_down,
+	     hum_up,
+	     hum_down,
+	     alarm_status,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{alarmDevconfId},
+	     #{deviceId},
+	     #{temUp},
+	     #{temDown},
+	     #{humUp},
+	     #{humDown},
+	     #{alarmStatus},
+	     #{sortOrder},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.alarm.AlarmHcsdeviceConfig">
+		update alarm_hcsdevice_config
+		<set>
+			<if test="alarmDevconfId != null">
+				alarm_devconf_id=#{alarmDevconfId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="temUp != null">
+				tem_up=#{temUp},
+			</if>
+			<if test="temDown != null">
+				tem_down=#{temDown},
+			</if>
+			<if test="humUp != null">
+				hum_up=#{humUp},
+			</if>
+			<if test="humDown != null">
+				hum_down=#{humDown},
+			</if>
+			<if test="alarmStatus != null">
+				alarm_status=#{alarmStatus},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			alarm_devconf_id=#{alarmDevconfId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     alarm_hcsdevice_config 
+	   where 
+	    alarm_devconf_id=#{alarmDevconfId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="alarmHcsdeviceConfigResultMap">
+	   select 
+	    alarm_devconf_id,
+	    device_id,
+	    tem_up,
+	    tem_down,
+	    hum_up,
+	    hum_down,
+	    alarm_status,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from alarm_hcsdevice_config
+	   where 
+	    alarm_devconf_id=#{alarmDevconfId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="alarmHcsdeviceConfigResultMap">
+	   select 
+	     alarm_devconf_id,
+	     device_id,
+	     tem_up,
+	     tem_down,
+	     hum_up,
+	     hum_down,
+	     alarm_status,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from alarm_hcsdevice_config
+	   <where>
+	     <if test="alarmDevconfId != null">
+	        alarm_devconf_id=#{alarmDevconfId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="temUp != null">
+	        and tem_up=#{temUp}
+	     </if>
+	     <if test="temDown != null">
+	        and tem_down=#{temDown}
+	     </if>
+	     <if test="humUp != null">
+	        and hum_up=#{humUp}
+	     </if>
+	     <if test="humDown != null">
+	        and hum_down=#{humDown}
+	     </if>
+	     <if test="alarmStatus != null">
+	        and alarm_status=#{alarmStatus}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    alarm_devconf_id,
+	    device_id,
+	    tem_up,
+	    tem_down,
+	    hum_up,
+	    hum_down,
+	    alarm_status,
+	    sort_order,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from alarm_hcsdevice_config
+	   where 
+	    alarm_devconf_id=#{alarmDevconfId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     alarm_devconf_id,
+	     device_id,
+	     tem_up,
+	     tem_down,
+	     hum_up,
+	     hum_down,
+	     alarm_status,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from alarm_hcsdevice_config
+	   <where>
+	     <if test="alarmDevconfId != null">
+	        alarm_devconf_id=#{alarmDevconfId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="temUp != null">
+	        and tem_up=#{temUp}
+	     </if>
+	     <if test="temDown != null">
+	        and tem_down=#{temDown}
+	     </if>
+	     <if test="humUp != null">
+	        and hum_up=#{humUp}
+	     </if>
+	     <if test="humDown != null">
+	        and hum_down=#{humDown}
+	     </if>
+	     <if test="alarmStatus != null">
+	        and alarm_status=#{alarmStatus}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     alarm_devconf_id,
+	     device_id,
+	     tem_up,
+	     tem_down,
+	     hum_up,
+	     hum_down,
+	     alarm_status,
+	     sort_order,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from alarm_hcsdevice_config
+	   <where>
+	     <if test="alarmDevconfId != null">
+	        alarm_devconf_id=#{alarmDevconfId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="temUp != null">
+	        and tem_up=#{temUp}
+	     </if>
+	     <if test="temDown != null">
+	        and tem_down=#{temDown}
+	     </if>
+	     <if test="humUp != null">
+	        and hum_up=#{humUp}
+	     </if>
+	     <if test="humDown != null">
+	        and hum_down=#{humDown}
+	     </if>
+	     <if test="alarmStatus != null">
+	        and alarm_status=#{alarmStatus}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

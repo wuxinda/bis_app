@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【菜单表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-08
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminMenuDao">
+
+	<resultMap id="adminMenuResultMap" type="com.bluemobi.po.admin.AdminMenu">
+		<id property="menuId" column="menu_id" />
+       <result property="name" column="name" />
+       <result property="pid" column="pid" />
+       <result property="grade" column="grade" />
+       <result property="url" column="url" />
+       <result property="icon" column="icon" />
+       <result property="iconBg" column="icon_bg" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminMenuResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminMenuResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminMenu" useGeneratedKeys="true" keyProperty="menuId" >
+	   insert into admin_menu (
+	     menu_id,
+	     name,
+	     pid,
+	     grade,
+	     url,
+	     icon,
+	     icon_bg,
+	     sort_order,
+	     status,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{menuId},
+	     #{name},
+	     #{pid},
+	     #{grade},
+	     #{url},
+	     #{icon},
+	     #{iconBg},
+	     #{sortOrder},
+	     #{status},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminMenu">
+		update admin_menu
+		<set>
+			<if test="menuId != null">
+				menu_id=#{menuId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="pid != null">
+				pid=#{pid},
+			</if>
+			<if test="grade != null">
+				grade=#{grade},
+			</if>
+			<if test="url != null">
+				url=#{url},
+			</if>
+			<if test="icon != null">
+				icon=#{icon},
+			</if>
+			<if test="iconBg != null">
+				icon_bg=#{iconBg},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			menu_id=#{menuId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_menu 
+	   where 
+	    menu_id=#{menuId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminMenuResultMap">
+	   select 
+	    menu_id,
+	    name,
+	    pid,
+	    grade,
+	    url,
+	    icon,
+	    icon_bg,
+	    sort_order,
+	    status,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from admin_menu
+	   where 
+	    menu_id=#{menuId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminMenuResultMap">
+	   select 
+	     menu_id,
+	     name,
+	     pid,
+	     grade,
+	     url,
+	     icon,
+	     icon_bg,
+	     sort_order,
+	     status,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from admin_menu
+	   <where>
+	     <if test="menuId != null">
+	        menu_id=#{menuId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="icon != null">
+	        and icon=#{icon}
+	     </if>
+	     <if test="iconBg != null">
+	        and icon_bg=#{iconBg}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    menu_id,
+	    name,
+	    pid,
+	    grade,
+	    url,
+	    icon,
+	    icon_bg,
+	    sort_order,
+	    status,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from admin_menu
+	   where 
+	    menu_id=#{menuId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     menu_id,
+	     name,
+	     pid,
+	     grade,
+	     url,
+	     icon,
+	     icon_bg,
+	     sort_order,
+	     status,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from admin_menu
+	   <where>
+	     <if test="menuId != null">
+	        menu_id=#{menuId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="icon != null">
+	        and icon=#{icon}
+	     </if>
+	     <if test="iconBg != null">
+	        and icon_bg=#{iconBg}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     menu_id,
+	     name,
+	     pid,
+	     grade,
+	     url,
+	     icon,
+	     icon_bg,
+	     sort_order,
+	     status,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	order by grade,sort_order
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from admin_menu
+	   <where>
+	     <if test="menuId != null">
+	        menu_id=#{menuId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pid != null">
+	        and pid=#{pid}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="icon != null">
+	        and icon=#{icon}
+	     </if>
+	     <if test="iconBg != null">
+	        and icon_bg=#{iconBg}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

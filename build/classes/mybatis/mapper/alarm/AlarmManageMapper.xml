@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【报警管理表】对象关系映射 配置 @author AutoCode 309444359@qq.com @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.alarm.AlarmManageDao">
+
+	<resultMap id="alarmManageResultMap"
+		type="com.bluemobi.po.alarm.AlarmManage">
+		<id property="alarmId" column="alarm_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="storeId" column="store_id" />
+		<result property="stroreAreaId" column="strore_area_id" />
+		<result property="deviceName" column="device_name" />
+		<result property="sortOrder" column="sort_order" />
+		<result property="alarmType" column="alarm_type" />
+		<result property="level" column="level" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="alarmManageResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="alarmManageResultMap"></resultMap>
+
+
+	<insert id="insert"
+		parameterType="com.bluemobi.po.alarm.AlarmManage"
+		useGeneratedKeys="true" keyProperty="alarmId">
+		insert into alarm_manage (
+		alarm_id,
+		category_id,
+		device_id,
+		store_id,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		)values (
+		#{alarmId},
+		#{categoryId},
+		#{deviceId},
+		#{storeId},
+		#{stroreAreaId},
+		#{deviceName},
+		#{sortOrder},
+		#{alarmType},
+		#{level},
+		#{status},
+		#{remark},
+		#{creator},
+		#{ctime},
+		#{modifier},
+		#{mtime}
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.bluemobi.po.alarm.AlarmManage">
+		update alarm_manage
+		<set>
+			<if test="alarmId != null">
+				alarm_id=#{alarmId},
+			</if>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="stroreAreaId != null">
+				strore_area_id=#{stroreAreaId},
+			</if>
+			<if test="deviceName != null">
+				device_name=#{deviceName},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="alarmType != null">
+				alarm_type=#{alarmType},
+			</if>
+			<if test="level != null">
+				level=#{level},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			alarm_id=#{alarmId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		alarm_manage
+		where
+		alarm_id=#{alarmId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="alarmManageResultMap">
+		select
+		alarm_id,
+		category_id,
+		device_id,
+		store_id,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from alarm_manage
+		where
+		alarm_id=#{alarmId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="alarmManageResultMap">
+		select
+		alarm_id,
+		category_id,
+		device_id,
+		store_id,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from alarm_manage
+		<where>
+			<if test="alarmId != null">
+				alarm_id=#{alarmId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="alarmType != null">
+				and alarm_type=#{alarmType}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		alarm_id,
+		category_id,
+		device_id,
+		store_id,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from alarm_manage
+		where
+		alarm_id=#{alarmId}
+	</select>
+
+	<select id="selectMapList" parameterType="map"
+		resultMap="mapResultMap">
+		select
+		alarm_id,
+		category_id,
+		device_id,
+		store_id,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		from alarm_manage
+		<where>
+			<if test="alarmId != null">
+				alarm_id=#{alarmId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="alarmType != null">
+				and alarm_type=#{alarmType}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		alarm_id,
+		category_id,(SELECT name FROM device_category WHERE
+		device_category.category_id=alarm_manage.category_id )deviceTypeName,
+		device_id,
+		store_id, (SELECT name FROM wms_store WHERE wms_store.store_id =
+		alarm_manage.store_id) storeRoomName,
+		strore_area_id,
+		device_name,
+		sort_order,
+		alarm_type,
+		level,
+		status,
+		remark,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		<include refid="pageCondition" />
+		order by ctime desc
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from alarm_manage
+		<where>
+			<if test="alarmId != null">
+				alarm_id=#{alarmId}
+			</if>
+			<if test="categoryId != null">
+				and category_id=#{categoryId}
+			</if>
+			<if test="deviceId != null">
+				and device_id=#{deviceId}
+			</if>
+			<if test="storeId != null">
+				and store_id=#{storeId}
+			</if>
+			<if test="stroreAreaId != null">
+				and strore_area_id=#{stroreAreaId}
+			</if>
+			<if test="deviceName != null">
+				and device_name=#{deviceName}
+			</if>
+			<if test="sortOrder != null">
+				and sort_order=#{sortOrder}
+			</if>
+			<if test="alarmType != null">
+				and alarm_type=#{alarmType}
+			</if>
+			<if test="level != null">
+				and level=#{level}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+	        <![CDATA[
+            and date_format(ctime,'%Y-%m-%d') = #{ctime}
+            ]]>
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</sql>
+	<!-- 领导版本报警统计 -->
+	<select id="selectAlarmStatis" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		alarm_type alarmType1,(
+		SELECT
+		alarm_type_name
+		FROM
+		alarm_type
+		WHERE
+		alarm_type = alarm_type_id
+		) alarmType ,
+		COUNT(alarm_type) count
+		FROM
+		alarm_manage
+		WHERE
+		1 = 1
+		<if test="currentType != null">
+			<if test="currentType ==1">
+				AND date_format(ctime, '%Y-%m-%d') = date_format(now(),
+				'%Y-%m-%d')
+			</if>
+			<if test="currentType ==2">
+				AND date_format(ctime, '%Y-%m') = date_format(now(),
+				'%Y-%m')
+			</if>
+			<if test="currentType ==3">
+				AND date_format(ctime, '%Y') = date_format(now(), '%Y')
+			</if>
+		</if>
+		<if test="starTime != null">
+	   <![CDATA[
+	   		AND date_format(ctime, '%Y-%m-%d') >= #{starTime}
+	   ]]>
+		</if>
+		<if test="endTime != null">
+	   <![CDATA[
+	        AND date_format(ctime,'%Y-%m-%d') <= #{endTime}
+	   ]]>
+		</if>
+		<if test="storeId != null">
+			AND store_id = #{storeId}
+		</if>
+		<if test="status != null">
+			AND status = #{status}
+		</if>
+		<if test="type == 1">
+			AND date_format(ctime, '%Y') = #{date}
+		</if>
+		<if test="type == 2">
+			AND date_format(ctime, '%Y-%m') = #{date}
+		</if>
+		<if test="type == 3">
+			AND date_format(ctime, '%Y-%m-%d') = #{date}
+		</if>
+		GROUP BY
+		alarm_type
+	</select>
+	<!-- 查询年月日报警统计 -->
+	<select id="getAlarmSata" parameterType="map"
+		resultMap="mapResultMap">
+		SELECT
+		`status`,
+		(
+		CASE `status`
+		WHEN 1 THEN
+		'已处理'
+		WHEN 0 THEN
+		'未处理'
+		ELSE
+		'未知'
+		END
+		) name,
+		COUNT(*) count
+		FROM
+		alarm_manage
+		WHERE
+		<if test="type == 1">
+			date_format(ctime, '%Y') = #{date}
+		</if>
+		<if test="type == 2">
+			date_format(ctime, '%Y-%m') = #{date}
+		</if>
+		<if test="type == 3">
+			date_format(ctime, '%Y-%m-%d') = #{date}
+		</if>
+		GROUP BY
+		`status`
+	</select>
+	<select id="getAlarmCount" resultMap="mapResultMap">
+		SELECT
+		*,COUNT(*) cou
+		FROM
+		alarm_manage
+		GROUP BY alarm_type
+		ORDER BY alarm_type
+	</select>
+</mapper> 

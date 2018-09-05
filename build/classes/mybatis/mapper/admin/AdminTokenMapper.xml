@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【后台用户token表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-09
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminTokenDao">
+
+	<resultMap id="adminTokenResultMap" type="com.bluemobi.po.admin.AdminToken">
+		<id property="id" column="id" />
+       <result property="userId" column="user_id" />
+       <result property="tokenId" column="token_id" />
+       <result property="status" column="status" />
+       <result property="ctime" column="ctime" />
+       <result property="expires" column="expires" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminTokenResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminTokenResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminToken" useGeneratedKeys="true" keyProperty="id" >
+	   insert into admin_token (
+	     id,
+	     user_id,
+	     token_id,
+	     status,
+	     ctime,
+	     expires
+	   )values (
+	     #{id},
+	     #{userId},
+	     #{tokenId},
+	     #{status},
+	     #{ctime},
+	     #{expires}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminToken">
+		update admin_token
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="tokenId != null">
+				token_id=#{tokenId},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="expires != null">
+				expires=#{expires},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_token 
+	   where 
+	    id=#{id} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminTokenResultMap">
+	   select 
+	    id,
+	    user_id,
+	    token_id,
+	    status,
+	    ctime,
+	    expires
+	   from admin_token
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminTokenResultMap">
+	   select 
+	     id,
+	     user_id,
+	     token_id,
+	     status,
+	     ctime,
+	     expires
+	   from admin_token
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="tokenId != null">
+	        and token_id=#{tokenId}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="expires != null">
+	        and expires=#{expires}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    user_id,
+	    token_id,
+	    status,
+	    ctime,
+	    expires
+	   from admin_token
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     user_id,
+	     token_id,
+	     status,
+	     ctime,
+	     expires
+	   from admin_token
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="tokenId != null">
+	        and token_id=#{tokenId}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="expires != null">
+	        and expires=#{expires}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     user_id,
+	     token_id,
+	     status,
+	     ctime,
+	     expires
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from admin_token
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="tokenId != null">
+	        and token_id=#{tokenId}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="expires != null">
+	        and expires=#{expires}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【对版本信息的管理包括版本地址url，版本类别,版本号，版本名称等信息的管理】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-06
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.edition.EditionInfoDao">
+
+	<resultMap id="editionInfoResultMap" type="com.bluemobi.po.edition.EditionInfo">
+		<id property="editionId" column="edition_id" />
+       <result property="editionNumber" column="edition_number" />
+       <result property="editionName" column="edition_name" />
+       <result property="editionUrl" column="edition_url" />
+       <result property="editionType" column="edition_type" />
+       <result property="editionCreator" column="edition_creator" />
+       <result property="editionCreatetime" column="edition_createTime" />
+       <result property="editionUpdater" column="edition_updater" />
+       <result property="editionUpdatetime" column="edition_updateTime" />
+       <result property="isPublish" column="isPublish" />
+       <result property="sunType" column="sun_Type" />
+       <result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="editionInfoResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="editionInfoResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.edition.EditionInfo" useGeneratedKeys="true" keyProperty="editionId" >
+	   insert into edition_info (
+	     edition_id,
+	     edition_number,
+	     edition_name,
+	     edition_url,
+	     edition_type,
+	     edition_creator,
+	     edition_createTime,
+	     edition_updater,
+	     edition_updateTime,isPublish,sun_Type,
+	     remark
+	   )values (
+	     #{editionId},
+	     #{editionNumber},
+	     #{editionName},
+	     #{editionUrl},
+	     #{editionType},
+	     #{editionCreator},
+	     #{editionCreatetime},
+	     #{editionUpdater},
+	     #{editionUpdatetime},
+	     #{isPublish},
+	     #{sunType},
+	     #{remark}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.edition.EditionInfo">
+		update edition_info
+		<set>
+			<if test="editionId != null">
+				edition_id=#{editionId},
+			</if>
+			<if test="editionNumber != null">
+				edition_number=#{editionNumber},
+			</if>
+			<if test="editionName != null">
+				edition_name=#{editionName},
+			</if>
+			<if test="editionUrl != null">
+				edition_url=#{editionUrl},
+			</if>
+			<if test="editionType != null">
+				edition_type=#{editionType},
+			</if>
+			<if test="editionCreator != null">
+				edition_creator=#{editionCreator},
+			</if>
+			<if test="editionCreatetime != null">
+				edition_createTime=#{editionCreatetime},
+			</if>
+			<if test="editionUpdater != null">
+				edition_updater=#{editionUpdater},
+			</if>
+			<if test="editionUpdatetime != null">
+				edition_updateTime=#{editionUpdatetime},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="isPublish != null">
+				isPublish=#{isPublish},
+			</if>
+			<if test="sunType != null">
+				sun_Type=#{sunType}
+			</if>
+		</set>
+		<where>
+			edition_id=#{editionId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     edition_info 
+	   where 
+	    edition_id=#{editionId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="editionInfoResultMap">
+	   select 
+	    edition_id,
+	    edition_number,
+	    edition_name,
+	    edition_url,
+	    edition_type,
+	    edition_creator,
+	    edition_createTime,
+	    edition_updater,
+	    edition_updateTime,isPublish,sun_Type,
+	    remark
+	   from edition_info
+	   where 
+	    edition_id=#{editionId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="editionInfoResultMap">
+	   select 
+	     edition_id,
+	     edition_number,
+	     edition_name,
+	     edition_url,
+	     edition_type,
+	     edition_creator,
+	     edition_createTime,
+	     edition_updater,
+	     edition_updateTime,isPublish,sun_Type,
+	     remark
+	   from edition_info
+	   <where>
+	     <if test="editionId != null">
+	        edition_id=#{editionId}
+	     </if>
+	     <if test="editionNumber != null">
+	        and edition_number=#{editionNumber}
+	     </if>
+	     <if test="editionName != null">
+	        and edition_name=#{editionName}
+	     </if>
+	     <if test="editionUrl != null">
+	        and edition_url=#{editionUrl}
+	     </if>
+	     <if test="editionType != null">
+	        and edition_type=#{editionType}
+	     </if>
+	     <if test="editionCreator != null">
+	        and edition_creator=#{editionCreator}
+	     </if>
+	     <if test="editionCreatetime != null">
+	        and edition_createTime=#{editionCreatetime}
+	     </if>
+	     <if test="editionUpdater != null">
+	        and edition_updater=#{editionUpdater}
+	     </if>
+	     <if test="editionUpdatetime != null">
+	        and edition_updateTime=#{editionUpdatetime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sunType != null">
+	        and sun_Type=#{sunType}
+	     </if>
+	     <if test="isPublish != null">
+	        and isPublish=#{isPublish}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    edition_id,
+	    edition_number,
+	    edition_name,
+	    edition_url,
+	    edition_type,
+	    edition_creator,
+	    edition_createTime,
+	    edition_updater,
+	    edition_updateTime,isPublish,sun_Type,
+	    remark
+	   from edition_info
+	   where 
+	    edition_id=#{editionId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     edition_id,
+	     edition_number,
+	     edition_name,
+	     edition_url,
+	     edition_type,
+	     edition_creator,
+	     edition_createTime,
+	     edition_updater,
+	     edition_updateTime,isPublish,sun_Type,
+	     remark
+	   from edition_info
+	   <where>
+	     <if test="editionId != null">
+	        edition_id=#{editionId}
+	     </if>
+	     <if test="editionNumber != null">
+	        and edition_number=#{editionNumber}
+	     </if>
+	     <if test="editionName != null">
+	        and edition_name=#{editionName}
+	     </if>
+	     <if test="editionUrl != null">
+	        and edition_url=#{editionUrl}
+	     </if>
+	     <if test="editionType != null">
+	        and edition_type=#{editionType}
+	     </if>
+	     <if test="editionCreator != null">
+	        and edition_creator=#{editionCreator}
+	     </if>
+	     <if test="editionCreatetime != null">
+	        and edition_createTime=#{editionCreatetime}
+	     </if>
+	     <if test="editionUpdater != null">
+	        and edition_updater=#{editionUpdater}
+	     </if>
+	     <if test="editionUpdatetime != null">
+	        and edition_updateTime=#{editionUpdatetime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sunType != null">
+	        and sun_Type=#{sunType}
+	     </if>
+	     <if test="isPublish != null">
+	        and isPublish=#{isPublish}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     edition_id,
+	     edition_number,
+	     edition_name,
+	     edition_url,
+	     edition_type,
+	     edition_creator,
+	     edition_createTime,
+	     edition_updater,
+	     edition_updateTime,isPublish,sun_Type,
+	     remark
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from edition_info
+	   <where>
+	     <if test="editionId != null">
+	        edition_id=#{editionId}
+	     </if>
+	     <if test="editionNumber != null">
+	        and edition_number=#{editionNumber}
+	     </if>
+	     <if test="editionName != null">
+	        and edition_name=#{editionName}
+	     </if>
+	     <if test="editionUrl != null">
+	        and edition_url=#{editionUrl}
+	     </if>
+	     <if test="editionType != null">
+	        and edition_type=#{editionType}
+	     </if>
+	     <if test="editionCreator != null">
+	        and edition_creator=#{editionCreator}
+	     </if>
+	     <if test="editionCreatetime != null">
+	        and edition_createTime=#{editionCreatetime}
+	     </if>
+	     <if test="editionUpdater != null">
+	        and edition_updater=#{editionUpdater}
+	     </if>
+	     <if test="editionUpdatetime != null">
+	        and edition_updateTime=#{editionUpdatetime}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="sunType != null">
+	        and sun_Type=#{sunType}
+	     </if>
+	     <if test="isPublish != null">
+	        and isPublish=#{isPublish}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

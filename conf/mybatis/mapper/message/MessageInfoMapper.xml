@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【消息表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.message.MessageInfoDao">
+
+	<resultMap id="messageInfoResultMap" type="com.bluemobi.po.message.MessageInfo">
+		<id property="messageId" column="message_id" />
+       <result property="type" column="type" />
+       <result property="title" column="title" />
+       <result property="content" column="content" />
+       <result property="isPush" column="is_push" />
+       <result property="isDel" column="is_del" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="messageInfoResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="messageInfoResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.message.MessageInfo" useGeneratedKeys="true" keyProperty="messageId" >
+	   insert into message_info (
+	     message_id,
+	     type,
+	     title,
+	     content,
+	     is_push,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{messageId},
+	     #{type},
+	     #{title},
+	     #{content},
+	     #{isPush},
+	     #{isDel},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.message.MessageInfo">
+		update message_info
+		<set>
+			<if test="messageId != null">
+				message_id=#{messageId},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="title != null">
+				title=#{title},
+			</if>
+			<if test="content != null">
+				content=#{content},
+			</if>
+			<if test="isPush != null">
+				is_push=#{isPush},
+			</if>
+			<if test="isDel != null">
+				is_del=#{isDel},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			message_id=#{messageId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     message_info 
+	   where 
+	    message_id=#{messageId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="messageInfoResultMap">
+	   select 
+	    message_id,
+	    type,
+	    title,
+	    content,
+	    is_push,
+	    is_del,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from message_info
+	   where 
+	    message_id=#{messageId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="messageInfoResultMap">
+	   select 
+	     message_id,
+	     type,
+	     title,
+	     content,
+	     is_push,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from message_info
+	   <where>
+	     <if test="messageId != null">
+	        message_id=#{messageId}
+	     </if>
+	     <if test="type != null">
+	        and type=#{type}
+	     </if>
+	     <if test="title != null">
+	        and title=#{title}
+	     </if>
+	     <if test="content != null">
+	        and content=#{content}
+	     </if>
+	     <if test="isPush != null">
+	        and is_push=#{isPush}
+	     </if>
+	     <if test="isDel != null">
+	        and is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    message_id,
+	    type,
+	    title,
+	    content,
+	    is_push,
+	    is_del,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from message_info
+	   where 
+	    message_id=#{messageId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     message_id,
+	     type,
+	     title,
+	     content,
+	     is_push,
+	     is_del,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from message_info
+	   <where>
+	     <if test="messageId != null">
+	        message_id=#{messageId}
+	     </if>
+	     <if test="type != null">
+	        and type=#{type}
+	     </if>
+	     <if test="title != null">
+	        and title=#{title}
+	     </if>
+	     <if test="content != null">
+	        and content=#{content}
+	     </if>
+	     <if test="isPush != null">
+	        and is_push=#{isPush}
+	     </if>
+	     <if test="isDel != null">
+	        and is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	   info.message_id,
+	   info.type,
+	   info.title,
+	   info.content,
+	   info.is_push,
+	   info.is_del,
+	   info.creator,
+	   info.ctime,
+	   info.modifier,
+	   info.mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from message_info info,message_receive receive
+	   <where>
+	   	   info.message_id = receive.message_id
+	     <if test="messageId != null">
+	       and info.message_id=#{messageId}
+	     </if>
+	     <if test="userId != null">
+	       and receive.user_id=#{userId}
+	     </if>
+	     <if test="status != null">
+	       and receive.status=#{status}
+	     </if>
+	     <if test="type != null">
+	       and info.type=#{type}
+	     </if>
+	     <if test="title != null">
+	        and info.title=#{title}
+	     </if>
+	     <if test="content != null">
+	        and info.content=#{content}
+	     </if>
+	     <if test="isPush != null">
+	        and info.is_push=#{isPush}
+	     </if>
+	     <if test="isDel != null">
+	        and info.is_del=#{isDel}
+	     </if>
+	     <if test="creator != null">
+	        and info.creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and info.ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and info.modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and info.mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【库房分区表】对象关系映射 配置 
+ @author Riven
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.wms.WmsStoreAreaDao">
+
+	<resultMap id="wmsStoreAreaResultMap" type="com.bluemobi.po.wms.WmsStoreArea">
+		<id property="stroreAreaId" column="strore_area_id" />
+       <result property="storeId" column="store_id" />
+       <result property="code" column="code" />
+       <result property="name" column="name" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="wmsStoreAreaResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="wmsStoreAreaResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.wms.WmsStoreArea" useGeneratedKeys="true" keyProperty="stroreAreaId" >
+	   insert into wms_store_area (
+	     strore_area_id,
+	     store_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{stroreAreaId},
+	     #{storeId},
+	     #{code},
+	     #{name},
+	     #{sortOrder},
+	     #{status},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.wms.WmsStoreArea">
+		update wms_store_area
+		<set>
+			<if test="stroreAreaId != null">
+				strore_area_id=#{stroreAreaId},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="code != null">
+				code=#{code},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			strore_area_id=#{stroreAreaId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     wms_store_area 
+	   where 
+	    strore_area_id=#{stroreAreaId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="wmsStoreAreaResultMap">
+	   select 
+	    strore_area_id,
+	    store_id,
+	    code,
+	    name,
+	    sort_order,
+	    status,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from wms_store_area
+	   where 
+	    strore_area_id=#{stroreAreaId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="wmsStoreAreaResultMap">
+	   select 
+	     strore_area_id,
+	     store_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from wms_store_area
+	   <where>
+	     <if test="stroreAreaId != null">
+	        strore_area_id=#{stroreAreaId}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    strore_area_id,
+	    store_id,
+	    code,
+	    name,
+	    sort_order,
+	    status,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from wms_store_area
+	   where 
+	    strore_area_id=#{stroreAreaId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     strore_area_id,
+	     store_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from wms_store_area
+	   <where>
+	     <if test="stroreAreaId != null">
+	        strore_area_id=#{stroreAreaId}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     strore_area_id,
+	     store_id,
+	     code,
+	     name,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from wms_store_area
+	   <where>
+	     <if test="stroreAreaId != null">
+	        strore_area_id=#{stroreAreaId}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+	<select id="selectStoreAreaIdByCode" parameterType="map" resultMap="mapResultMap">
+			SELECT
+				*
+			FROM
+				wms_store_area
+			WHERE
+				code = #{stroreAreaId}
+	</select>
+	<select id="selectStoreAreaIdByStores" parameterType="map" resultMap="mapResultMap">
+		SELECT *
+		FROM
+		wms_store_area
+		WHERE
+		store_id in 
+		<foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}
+         </foreach>
+	</select>
+	
+</mapper> 

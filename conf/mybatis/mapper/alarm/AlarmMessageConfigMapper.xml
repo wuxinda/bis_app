@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【报警消息推送规则配置表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-03
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.alarm.AlarmMessageConfigDao">
+
+	<resultMap id="alarmMessageConfigResultMap" type="com.bluemobi.po.alarm.AlarmMessageConfig">
+		<id property="almmsgcfgId" column="almmsgcfg_id" />
+       <result property="alarmType" column="alarm_type" />
+       <result property="userType" column="user_type" />
+       <result property="userId" column="user_id" />
+       <result property="intervals" column="intervals" />
+       <result property="iswork" column="iswork" />
+       <result property="starpush" column="starpush" />
+       <result property="ispush" column="ispush" />
+       <result property="endpush" column="endpush" />
+       <result property="remark" column="remark" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="alarmMessageConfigResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="alarmMessageConfigResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.alarm.AlarmMessageConfig" useGeneratedKeys="true" keyProperty="almmsgcfgId" >
+	   insert into alarm_message_config (
+	     almmsgcfg_id,
+	     alarm_type,
+	     user_type,
+	     user_id,
+	     intervals,
+	     iswork,
+	     starpush,
+	     ispush,
+	     endpush,
+	     remark
+	   )values (
+	     #{almmsgcfgId},
+	     #{alarmType},
+	     #{userType},
+	     #{userId},
+	     #{intervals},
+	     #{iswork},
+	     #{starpush},
+	     #{ispush},
+	     #{endpush},
+	     #{remark}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.alarm.AlarmMessageConfig">
+		update alarm_message_config
+		<set>
+			<if test="almmsgcfgId != null">
+				almmsgcfg_id=#{almmsgcfgId},
+			</if>
+			<if test="alarmType != null">
+				alarm_type=#{alarmType},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="intervals != null">
+				intervals=#{intervals},
+			</if>
+			<if test="iswork != null">
+				iswork=#{iswork},
+			</if>
+			<if test="starpush != null">
+				starpush=#{starpush},
+			</if>
+			<if test="ispush != null">
+				ispush=#{ispush},
+			</if>
+			<if test="endpush != null">
+				endpush=#{endpush},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+		</set>
+		<where>
+			almmsgcfg_id=#{almmsgcfgId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     alarm_message_config 
+	   where 
+	    almmsgcfg_id=#{almmsgcfgId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="alarmMessageConfigResultMap">
+	   select 
+	    almmsgcfg_id,
+	    alarm_type,
+	    user_type,
+	    user_id,
+	    intervals,
+	    iswork,
+	    starpush,
+	    ispush,
+	    endpush,
+	    remark
+	   from alarm_message_config
+	   where 
+	    almmsgcfg_id=#{almmsgcfgId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="alarmMessageConfigResultMap">
+	   select 
+	     almmsgcfg_id,
+	     alarm_type,
+	     user_type,
+	     user_id,
+	     intervals,
+	     iswork,
+	     starpush,
+	     ispush,
+	     endpush,
+	     remark
+	   from alarm_message_config
+	   <where>
+	     <if test="almmsgcfgId != null">
+	        almmsgcfg_id=#{almmsgcfgId}
+	     </if>
+	     <if test="alarmType != null">
+	        and alarm_type=#{alarmType}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="intervals != null">
+	        and intervals=#{intervals}
+	     </if>
+	     <if test="iswork != null">
+	        and iswork=#{iswork}
+	     </if>
+	     <if test="starpush != null">
+	        and starpush=#{starpush}
+	     </if>
+	     <if test="ispush != null">
+	        and ispush=#{ispush}
+	     </if>
+	     <if test="endpush != null">
+	        and endpush=#{endpush}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    almmsgcfg_id,
+	    alarm_type,
+	    user_type,
+	    user_id,
+	    intervals,
+	    iswork,
+	    starpush,
+	    ispush,
+	    endpush,
+	    remark
+	   from alarm_message_config
+	   where 
+	    almmsgcfg_id=#{almmsgcfgId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     almmsgcfg_id,
+	     alarm_type,
+	     user_type,
+	     user_id,
+	     intervals,
+	     iswork,
+	     starpush,
+	     ispush,
+	     endpush,
+	     remark
+	   from alarm_message_config
+	   <where>
+	     <if test="almmsgcfgId != null">
+	        almmsgcfg_id=#{almmsgcfgId}
+	     </if>
+	     <if test="alarmType != null">
+	        and alarm_type=#{alarmType}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="intervals != null">
+	        and intervals=#{intervals}
+	     </if>
+	     <if test="iswork != null">
+	        and iswork=#{iswork}
+	     </if>
+	     <if test="starpush != null">
+	        and starpush=#{starpush}
+	     </if>
+	     <if test="ispush != null">
+	        and ispush=#{ispush}
+	     </if>
+	     <if test="endpush != null">
+	        and endpush=#{endpush}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     almmsgcfg_id,
+	     alarm_type,
+	     user_type,
+	     user_id,
+	     intervals,
+	     iswork,
+	     starpush,
+	     ispush,
+	     endpush,
+	     remark
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from alarm_message_config
+	   <where>
+	     <if test="almmsgcfgId != null">
+	        almmsgcfg_id=#{almmsgcfgId}
+	     </if>
+	     <if test="alarmType != null">
+	        and alarm_type=#{alarmType}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	     <if test="userId != null">
+	        and user_id=#{userId}
+	     </if>
+	     <if test="intervals != null">
+	        and intervals=#{intervals}
+	     </if>
+	     <if test="iswork != null">
+	        and iswork=#{iswork}
+	     </if>
+	     <if test="starpush != null">
+	        and starpush=#{starpush}
+	     </if>
+	     <if test="ispush != null">
+	        and ispush=#{ispush}
+	     </if>
+	     <if test="endpush != null">
+	        and endpush=#{endpush}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

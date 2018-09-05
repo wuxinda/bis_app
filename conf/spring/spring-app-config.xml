@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        	http://www.springframework.org/schema/context
+        	http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        	">
+        	
+    <!-- 加载配置 -->
+	<context:property-placeholder location="classpath:app-config.properties" ignore-unresolvable="true" />
+	<!-- <context:property-placeholder location="/conf/app-config.properties" ignore-unresolvable="true" /> -->
+	
+	
+	<!-- 创建数据源 -->
+    <bean id="appConfig" class="com.appcore.model.conf.AppConfig" >
+        <!-- 服务器ID -->
+        <property name="id" value="${id}" /> 
+        <!-- 服务器名称 -->
+        <property name="name" value="${name}" />
+        <!-- 服务器描述 -->
+        <property name="description" value="${description}" />
+        <!-- 服务器关闭端口 -->
+        <property name="shutdownPort" value="${shutdownPort}" />
+        <!-- 秘钥 -->
+        <property name="secretKey" value="${secretKey}" />
+        <!-- 默认的session过期时间 -->
+        <property name="defaultSessionTimeOut" value="${defaultSessionTimeOut}" />
+        <!-- 默认的token过期时间 -->
+        <property name="defaultTokenTimeOut" value="${defaultTokenTimeOut}" />
+    </bean>
+		
+
+</beans>

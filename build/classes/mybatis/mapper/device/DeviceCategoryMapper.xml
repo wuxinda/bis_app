@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【设备分类表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceCategoryDao">
+
+	<resultMap id="deviceCategoryResultMap" type="com.bluemobi.po.device.DeviceCategory">
+		<id property="categoryId" column="category_id" />
+       <result property="name" column="name" />
+       <result property="pId" column="p_id" />
+       <result property="grade" column="grade" />
+       <result property="pic" column="pic" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="remark" column="remark" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="deviceCategoryResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="deviceCategoryResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceCategory" useGeneratedKeys="true" keyProperty="categoryId" >
+	   insert into device_category (
+	     category_id,
+	     name,
+	     p_id,
+	     grade,
+	     pic,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{categoryId},
+	     #{name},
+	     #{pId},
+	     #{grade},
+	     #{pic},
+	     #{sortOrder},
+	     #{status},
+	     #{remark},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceCategory">
+		update device_category
+		<set>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="pId != null">
+				p_id=#{pId},
+			</if>
+			<if test="grade != null">
+				grade=#{grade},
+			</if>
+			<if test="pic != null">
+				pic=#{pic},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			category_id=#{categoryId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     device_category 
+	   where 
+	    category_id=#{categoryId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceCategoryResultMap">
+	   select 
+	    category_id,
+	    name,
+	    p_id,
+	    grade,
+	    pic,
+	    sort_order,
+	    status,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from device_category
+	   where 
+	    category_id=#{categoryId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="deviceCategoryResultMap">
+	   select 
+	     category_id,
+	     name,
+	     p_id,
+	     grade,
+	     pic,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from device_category
+	   <where>
+	     <if test="categoryId != null">
+	        category_id=#{categoryId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pId != null">
+	        and p_id=#{pId}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="pic != null">
+	        and pic=#{pic}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    category_id,
+	    name,
+	    p_id,
+	    grade,
+	    pic,
+	    sort_order,
+	    status,
+	    remark,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from device_category
+	   where 
+	    category_id=#{categoryId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     category_id,
+	     name,
+	     p_id,
+	     grade,
+	     pic,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from device_category
+	   <where>
+	     <if test="categoryId != null">
+	        category_id=#{categoryId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pId != null">
+	        and p_id=#{pId}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="pic != null">
+	        and pic=#{pic}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     category_id,
+	     name,
+	     p_id,
+	     grade,
+	     pic,
+	     sort_order,
+	     status,
+	     remark,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from device_category
+	   <where>
+	     <if test="categoryId != null">
+	        category_id=#{categoryId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="pId != null">
+	        and p_id=#{pId}
+	     </if>
+	     <if test="grade != null">
+	        and grade=#{grade}
+	     </if>
+	     <if test="pic != null">
+	        and pic=#{pic}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="remark != null">
+	        and remark=#{remark}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

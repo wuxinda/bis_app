@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【设备分类绑定品牌表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceCategoryBrandDao">
+
+	<resultMap id="deviceCategoryBrandResultMap" type="com.bluemobi.po.device.DeviceCategoryBrand">
+		<id property="categoryBrandId" column="category_brand_id" />
+       <result property="categoryId" column="category_id" />
+       <result property="brandId" column="brand_id" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="deviceCategoryBrandResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="deviceCategoryBrandResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceCategoryBrand" useGeneratedKeys="true" keyProperty="categoryBrandId" >
+	   insert into device_category_brand (
+	     category_brand_id,
+	     category_id,
+	     brand_id
+	   )values (
+	     #{categoryBrandId},
+	     #{categoryId},
+	     #{brandId}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceCategoryBrand">
+		update device_category_brand
+		<set>
+			<if test="categoryBrandId != null">
+				category_brand_id=#{categoryBrandId},
+			</if>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="brandId != null">
+				brand_id=#{brandId},
+			</if>
+		</set>
+		<where>
+			category_brand_id=#{categoryBrandId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     device_category_brand 
+	   where 
+	    category_brand_id=#{categoryBrandId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceCategoryBrandResultMap">
+	   select 
+	    category_brand_id,
+	    category_id,
+	    brand_id
+	   from device_category_brand
+	   where 
+	    category_brand_id=#{categoryBrandId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="deviceCategoryBrandResultMap">
+	   select 
+	     category_brand_id,
+	     category_id,
+	     brand_id
+	   from device_category_brand
+	   <where>
+	     <if test="categoryBrandId != null">
+	        category_brand_id=#{categoryBrandId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="brandId != null">
+	        and brand_id=#{brandId}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    category_brand_id,
+	    category_id,
+	    brand_id
+	   from device_category_brand
+	   where 
+	    category_brand_id=#{categoryBrandId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     category_brand_id,
+	     category_id,
+	     brand_id
+	   from device_category_brand
+	   <where>
+	     <if test="categoryBrandId != null">
+	        category_brand_id=#{categoryBrandId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="brandId != null">
+	        and brand_id=#{brandId}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     category_brand_id,
+	     category_id,
+	     brand_id
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from device_category_brand
+	   <where>
+	     <if test="categoryBrandId != null">
+	        category_brand_id=#{categoryBrandId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="brandId != null">
+	        and brand_id=#{brandId}
+	     </if>
+	   </where>
+	</sql>
+	
+	<delete id="deleteByBrandId" parameterType="java.util.List">
+       delete from 
+          device_category_brand 
+       where 
+          brand_id in  
+        <foreach collection="list" item = "item" index="index" open="(" separator="," close=")">
+              #{item.brandId}  
+        </foreach>  
+    </delete>
+    
+    <insert id="insertDeviceBrandCategories" parameterType="java.util.List">
+          insert into device_category_brand
+              (
+                  category_id,brand_id
+              ) 
+          values
+          <foreach collection="list" item="item" index="index" separator=",">
+              (
+                  #{item.categoryId}, #{item.brandId}
+              )
+          </foreach>
+    </insert>
+    
+    <select id="getBrandByCategoryId" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     b.brand_id as brandId,
+	     b.name,
+	     b.pic,
+	     b.sort_order as sortOrder,
+	     b.remark
+	   from device_category_brand cb,device_brand b
+	   where cb.brand_id = b.brand_id 
+	         and cb.category_id  = #{categoryId}
+	</select>
+</mapper> 

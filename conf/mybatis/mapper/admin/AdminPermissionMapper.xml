@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【权限表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-08
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.admin.AdminPermissionDao">
+
+	<resultMap id="adminPermissionResultMap" type="com.bluemobi.po.admin.AdminPermission">
+		<id property="permissionId" column="permission_id" />
+       <result property="name" column="name" />
+       <result property="code" column="code" />
+       <result property="menuId" column="menu_id" />
+       <result property="url" column="url" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="status" column="status" />
+       <result property="userType" column="user_type" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="adminPermissionResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="adminPermissionResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.admin.AdminPermission" useGeneratedKeys="true" keyProperty="permissionId" >
+	   insert into admin_permission (
+	     permission_id,
+	     name,
+	     code,
+	     menu_id,
+	     url,
+	     sort_order,
+	     status,
+	     user_type
+	   )values (
+	     #{permissionId},
+	     #{name},
+	     #{code},
+	     #{menuId},
+	     #{url},
+	     #{sortOrder},
+	     #{status},
+	     #{userType}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.admin.AdminPermission">
+		update admin_permission
+		<set>
+			<if test="permissionId != null">
+				permission_id=#{permissionId},
+			</if>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="code != null">
+				code=#{code},
+			</if>
+			<if test="menuId != null">
+				menu_id=#{menuId},
+			</if>
+			<if test="url != null">
+				url=#{url},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType},
+			</if>
+		</set>
+		<where>
+			permission_id=#{permissionId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     admin_permission 
+	   where 
+	    permission_id=#{permissionId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="adminPermissionResultMap">
+	   select 
+	    permission_id,
+	    name,
+	    code,
+	    menu_id,
+	    url,
+	    sort_order,
+	    status,
+	    user_type
+	   from admin_permission
+	   where 
+	    permission_id=#{permissionId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="adminPermissionResultMap">
+	   select 
+	     permission_id,
+	     name,
+	     code,
+	     menu_id,
+	     url,
+	     sort_order,
+	     status,
+	     user_type
+	   from admin_permission
+	   <where>
+	     <if test="permissionId != null">
+	        permission_id=#{permissionId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="menuId != null">
+	        and menu_id=#{menuId}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    permission_id,
+	    name,
+	    code,
+	    menu_id,
+	    url,
+	    sort_order,
+	    status,
+	    user_type
+	   from admin_permission
+	   where 
+	    permission_id=#{permissionId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     permission_id,
+	     name,
+	     code,
+	     menu_id,
+	     url,
+	     sort_order,
+	     status,
+	     user_type
+	   from admin_permission
+	   <where>
+	     <if test="permissionId != null">
+	        permission_id=#{permissionId}
+	     </if>
+	     <if test="name != null">
+	        and name=#{name}
+	     </if>
+	     <if test="code != null">
+	        and code=#{code}
+	     </if>
+	     <if test="menuId != null">
+	        and menu_id=#{menuId}
+	     </if>
+	     <if test="url != null">
+	        and url=#{url}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="status != null">
+	        and status=#{status}
+	     </if>
+	     <if test="userType != null">
+	        and user_type=#{userType}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     p.permission_id,
+	     p.name name,
+	     p.code,
+	     p.menu_id,
+	     p.url,
+	     p.sort_order,
+	     p.status,
+	     p.user_type
+	<include refid="pageCondition" />
+	order by fm.sort_order,sm.sort_order,p.sort_order
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   	from admin_permission p 
+			LEFT JOIN admin_menu sm ON p.menu_id = sm.menu_id 
+			LEFT JOIN admin_menu fm ON sm.pid = fm.menu_id
+			LEFT JOIN admin_permission_code c ON p.code = c.code
+	   <where>
+	   	 <if test="secondMenuId != null">
+	   	 	and sm.menu_id = #{secondMenuId}
+	   	 </if>
+	   	 <if test="firstMenuId != null">
+	   	 	and fm.menu_id = #{firstMenuId}
+	   	 </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 

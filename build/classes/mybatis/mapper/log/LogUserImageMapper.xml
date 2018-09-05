@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-12
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.log.LogUserImageDao">
+
+	<resultMap id="logUserImageResultMap" type="com.bluemobi.po.log.LogUserImage">
+		<id property="id" column="id" />
+       <result property="imageUrl" column="image_url" />
+       <result property="logMsg" column="log_msg" />
+       <result property="time" column="time" />
+       <result property="storeId" column="store_id" />
+       <result property="storeAreaId" column="store_area_id" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="logUserImageResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="logUserImageResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.log.LogUserImage" useGeneratedKeys="true" keyProperty="id" >
+	   insert into log_user_image (
+	     id,
+	     image_url,
+	     log_msg,
+	     time,
+	     store_id,
+	     store_area_id
+	   )values (
+	     #{id},
+	     #{imageUrl},
+	     #{logMsg},
+	     #{time},
+	     #{storeId},
+	     #{storeAreaId}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.log.LogUserImage">
+		update log_user_image
+		<set>
+			<if test="id != null">
+				id=#{id},
+			</if>
+			<if test="imageUrl != null">
+				image_url=#{imageUrl},
+			</if>
+			<if test="logMsg != null">
+				log_msg=#{logMsg},
+			</if>
+			<if test="time != null">
+				time=#{time},
+			</if>
+			<if test="storeId != null">
+				store_id=#{storeId},
+			</if>
+			<if test="storeAreaId != null">
+				store_area_id=#{storeAreaId},
+			</if>
+		</set>
+		<where>
+			id=#{id} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     log_user_image 
+	   where 
+	    id=#{id} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="logUserImageResultMap">
+	   select 
+	    id,
+	    image_url,
+	    log_msg,
+	    time,
+	    store_id,
+	    store_area_id
+	   from log_user_image
+	   where 
+	    id=#{id} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="logUserImageResultMap">
+	   select 
+	     id,
+	     image_url,
+	     log_msg,
+	     time,
+	     store_id,
+	     store_area_id
+	   from log_user_image
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="imageUrl != null">
+	        and image_url=#{imageUrl}
+	     </if>
+	     <if test="logMsg != null">
+	        and log_msg=#{logMsg}
+	     </if>
+	     <if test="time != null">
+	        and time=#{time}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="storeAreaId != null">
+	        and store_area_id=#{storeAreaId}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    id,
+	    image_url,
+	    log_msg,
+	    time,
+	    store_id,
+	    store_area_id
+	   from log_user_image
+	   where 
+	    id=#{id} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     id,
+	     image_url,
+	     log_msg,
+	     time,
+	     store_id,
+	     store_area_id
+	   from log_user_image
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="imageUrl != null">
+	        and image_url=#{imageUrl}
+	     </if>
+	     <if test="logMsg != null">
+	        and log_msg=#{logMsg}
+	     </if>
+	     <if test="time != null">
+	        and time=#{time}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="storeAreaId != null">
+	        and store_area_id=#{storeAreaId}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     id,
+	     image_url,
+	     log_msg,
+	     time,
+	     store_id,
+	     store_area_id
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from log_user_image
+	   <where>
+	     <if test="id != null">
+	        id=#{id}
+	     </if>
+	     <if test="imageUrl != null">
+	        and image_url=#{imageUrl}
+	     </if>
+	     <if test="logMsg != null">
+	        and log_msg=#{logMsg}
+	     </if>
+	     <if test="time != null">
+	        and time=#{time}
+	     </if>
+	     <if test="storeId != null">
+	        and store_id=#{storeId}
+	     </if>
+	     <if test="storeAreaId != null">
+	        and store_area_id=#{storeAreaId}
+	     </if>
+	   </where>
+	</sql>
+	<select id="getImgUrl" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     image_url,id
+	<include refid="pageCondition" />
+	</select>
+	
+</mapper> 

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【场景模式设备联动表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2017-01
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.scene.SceneDeviceLinkageDao">
+
+	<resultMap id="sceneDeviceLinkageResultMap" type="com.bluemobi.po.scene.SceneDeviceLinkage">
+		<id property="linkageId" column="linkage_id" />
+       <result property="deviceId" column="device_id" />
+       <result property="sceneId" column="scene_id" />
+       <result property="actionpropertyId" column="actionproperty_id" />
+       <result property="execSec" column="exec_sec" />
+       <result property="sortOrder" column="sort_order" />
+       <result property="creator" column="creator" />
+       <result property="ctime" column="ctime" />
+       <result property="modifier" column="modifier" />
+       <result property="mtime" column="mtime" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="sceneDeviceLinkageResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="sceneDeviceLinkageResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.scene.SceneDeviceLinkage" useGeneratedKeys="true" keyProperty="linkageId" >
+	   insert into scene_device_linkage (
+	     linkage_id,
+	     device_id,
+	     scene_id,
+	     actionproperty_id,
+	     exec_sec,
+	     sort_order,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   )values (
+	     #{linkageId},
+	     #{deviceId},
+	     #{sceneId},
+	     #{actionpropertyId},
+	     #{execSec},
+	     #{sortOrder},
+	     #{creator},
+	     #{ctime},
+	     #{modifier},
+	     #{mtime}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.scene.SceneDeviceLinkage">
+		update scene_device_linkage
+		<set>
+			<if test="linkageId != null">
+				linkage_id=#{linkageId},
+			</if>
+			<if test="deviceId != null">
+				device_id=#{deviceId},
+			</if>
+			<if test="sceneId != null">
+				scene_id=#{sceneId},
+			</if>
+			<if test="actionpropertyId != null">
+				actionproperty_id=#{actionpropertyId},
+			</if>
+			<if test="execSec != null">
+				exec_sec=#{execSec},
+			</if>
+			<if test="sortOrder != null">
+				sort_order=#{sortOrder},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+		</set>
+		<where>
+			linkage_id=#{linkageId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     scene_device_linkage 
+	   where 
+	    linkage_id=#{linkageId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="sceneDeviceLinkageResultMap">
+	   select 
+	    linkage_id,
+	    device_id,
+	    scene_id,
+	    actionproperty_id,
+	    exec_sec,
+	    sort_order,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from scene_device_linkage
+	   where 
+	    linkage_id=#{linkageId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="sceneDeviceLinkageResultMap">
+	   select 
+	     linkage_id,
+	     device_id,
+	     (select concat(ws.name,'-',dm.name) from device_manage dm,wms_store ws where dm.store_id = ws.store_id and dm.device_id = scene_device_linkage.device_id) as deviceName,
+	     scene_id,
+	     actionproperty_id,
+	     (select da.name from device_actionproperty da where da.actionproperty_id = scene_device_linkage.actionproperty_id) as actionName,
+	     exec_sec,
+	     sort_order,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from scene_device_linkage
+	   <where>
+	     <if test="linkageId != null">
+	        linkage_id=#{linkageId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="sceneId != null">
+	        and scene_id=#{sceneId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="execSec != null">
+	        and exec_sec=#{execSec}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    linkage_id,
+	    device_id,
+	    scene_id,
+	    actionproperty_id,
+	    exec_sec,
+	    sort_order,
+	    creator,
+	    ctime,
+	    modifier,
+	    mtime
+	   from scene_device_linkage
+	   where 
+	    linkage_id=#{linkageId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     linkage_id,
+	     device_id,
+	     scene_id,
+	     actionproperty_id,
+	     exec_sec,
+	     sort_order,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	   from scene_device_linkage
+	   <where>
+	     <if test="linkageId != null">
+	        linkage_id=#{linkageId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="sceneId != null">
+	        and scene_id=#{sceneId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="execSec != null">
+	        and exec_sec=#{execSec}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     linkage_id,
+	     device_id,
+	     scene_id,
+	     actionproperty_id,
+	     exec_sec,
+	     sort_order,
+	     creator,
+	     ctime,
+	     modifier,
+	     mtime
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from scene_device_linkage
+	   <where>
+	     <if test="linkageId != null">
+	        linkage_id=#{linkageId}
+	     </if>
+	     <if test="deviceId != null">
+	        and device_id=#{deviceId}
+	     </if>
+	     <if test="sceneId != null">
+	        and scene_id=#{sceneId}
+	     </if>
+	     <if test="actionpropertyId != null">
+	        and actionproperty_id=#{actionpropertyId}
+	     </if>
+	     <if test="execSec != null">
+	        and exec_sec=#{execSec}
+	     </if>
+	     <if test="sortOrder != null">
+	        and sort_order=#{sortOrder}
+	     </if>
+	     <if test="creator != null">
+	        and creator=#{creator}
+	     </if>
+	     <if test="ctime != null">
+	        and ctime=#{ctime}
+	     </if>
+	     <if test="modifier != null">
+	        and modifier=#{modifier}
+	     </if>
+	     <if test="mtime != null">
+	        and mtime=#{mtime}
+	     </if>
+	   </where>
+	</sql>
+	
+	<delete id="deleteBySceneId" parameterType="map">
+		delete from
+		scene_device_linkage
+		where
+		scene_id = #{sceneId}
+	</delete>
+	
+</mapper> 

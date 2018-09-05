@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【库房表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.tk.mybatis.mapper.rfid.RfidIntyMapper">
+
+
+	<select id="selectCountRfidIntyFinishd" resultType="java.lang.Integer">
+	select count(DISTINCT ri.archive_id) as rfids from rfid_inty ri left join ams_archives aa on aa.archives_id=ri.archive_id
+	</select>
+	
+	<select id="selectCountRfidResult" resultType="map">
+		select '在架档案' as name,count(1) as count from rfid_inty ri left join ams_archives aa on aa.archives_id=ri.archive_id
+		where ri.type=0
+		
+		UNION all select '离架档案' as name,count(1) as count from rfid_inty ri left join ams_archives aa on aa.archives_id=ri.archive_id
+		where ri.type=1
+		
+		UNION all select '架错档案' as name,count(1) as count from rfid_inty ri left join ams_archives aa on aa.archives_id=ri.archive_id
+		where ri.type=2
+	</select>
+</mapper> 

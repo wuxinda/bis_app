@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 【档案操作纪录表】对象关系映射 配置 @author Riven @date 2016-11 -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.ams.AmsArchivesActlogDao">
+
+	<resultMap id="amsArchivesActlogResultMap" type="com.bluemobi.po.ams.AmsArchivesActlog">
+		<id property="actlogId" column="actlog_id" />
+		<result property="archivesId" column="archives_id" />
+		<result property="userId" column="user_id" />
+		<result property="type" column="type" />
+		<result property="status" column="status" />
+		<result property="creator" column="creator" />
+		<result property="ctime" column="ctime" />
+		<result property="modifier" column="modifier" />
+		<result property="mtime" column="mtime" />
+		<result property="wmsstoreId" column="wmsstore_id" />
+		<result property="storeareaId" column="storearea_id" />
+	</resultMap>
+	<resultMap id="mapResultMap" type="java.util.HashMap"
+		extends="amsArchivesActlogResultMap"></resultMap>
+	<resultMap id="pageResultMap" type="java.util.HashMap"
+		extends="amsArchivesActlogResultMap"></resultMap>
+
+
+	<insert id="insert" parameterType="com.bluemobi.po.ams.AmsArchivesActlog"
+		useGeneratedKeys="true" keyProperty="actlogId">
+		insert into ams_archives_actlog (
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		)values (
+		#{actlogId},
+		#{archivesId},
+		#{userId},
+		#{type},
+		#{status},
+		#{creator},
+		#{ctime},
+		#{modifier},
+		#{mtime},
+		#{wmsstoreId},
+		#{storeareaId}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.ams.AmsArchivesActlog">
+		update ams_archives_actlog
+		<set>
+			<if test="actlogId != null">
+				actlog_id=#{actlogId},
+			</if>
+			<if test="archivesId != null">
+				archives_id=#{archivesId},
+			</if>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="ctime != null">
+				ctime=#{ctime},
+			</if>
+			<if test="modifier != null">
+				modifier=#{modifier},
+			</if>
+			<if test="mtime != null">
+				mtime=#{mtime},
+			</if>
+			<if test="mtime != null">
+				wmsstore_id=#{wmsstoreId},
+			</if>
+			<if test="mtime != null">
+				storearea_id=#{storeareaId},
+			</if>
+		</set>
+		<where>
+			actlog_id=#{actlogId}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		delete from
+		ams_archives_actlog
+		where
+		actlog_id=#{actlogId}
+	</delete>
+
+	<select id="selectObject" parameterType="map"
+		resultMap="amsArchivesActlogResultMap">
+		select
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		from ams_archives_actlog
+		where
+		actlog_id=#{actlogId}
+	</select>
+
+	<select id="selectObjectList" parameterType="map"
+		resultMap="amsArchivesActlogResultMap">
+		select
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		from ams_archives_actlog
+		<where>
+			<if test="actlogId != null">
+				actlog_id=#{actlogId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="mtime != null">
+				and wmsstore_id=#{wmsstoreId}
+			</if>
+			<if test="mtime != null">
+				and storearea_id=#{storeareaId}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+		select
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		from ams_archives_actlog
+		where
+		actlog_id=#{actlogId}
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+		select
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		from ams_archives_actlog
+		<where>
+			<if test="actlogId != null">
+				actlog_id=#{actlogId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+			<if test="mtime != null">
+				and wmsstore_id=#{wmsstoreId}
+			</if>
+			<if test="mtime != null">
+				and storearea_id=#{storeareaId}
+			</if>
+		</where>
+	</select>
+
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+		select
+		actlog_id,
+		archives_id,(SELECT title from ams_archives WHERE
+		ams_archives.archives_id = ams_archives_actlog.archives_id )
+		archivesName,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime
+		<include refid="pageCondition" />
+		order by ctime desc
+		limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+		select count(1)
+		<include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+		from ams_archives_actlog
+		<where>
+			<if test="actlogId != null">
+				actlog_id=#{actlogId}
+			</if>
+			<if test="archivesId != null">
+				and archives_id=#{archivesId}
+			</if>
+			<if test="userId != null">
+				and user_id=#{userId}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="creator != null">
+				and creator=#{creator}
+			</if>
+			<if test="ctime != null">
+				and ctime=#{ctime}
+			</if>
+			<if test="modifier != null">
+				and modifier=#{modifier}
+			</if>
+			<if test="mtime != null">
+				and mtime=#{mtime}
+			</if>
+		</where>
+	</sql>
+	<!-- 批量插入操作记录 -->
+	<insert id="insertArchivesActlogs" parameterType="map">
+		insert into ams_archives_actlog (
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		)values
+		<foreach collection="archivesIds" item="archivesId" index="index"
+			separator=",">
+			(
+			#{actlogId},
+			#{archivesId},
+			#{userId},
+			#{type},
+			#{status},
+			#{creator},
+			#{ctime},
+			#{modifier},
+			#{mtime},
+			#{wmsstoreId},
+			#{storeareaId}
+			)
+		</foreach>
+	</insert>
+	<!-- 查询年月日进出库数量 -->
+	<select id="getNewInOutAms" parameterType="map" resultMap="mapResultMap">
+		SELECT
+		type,
+		(CASE type
+		WHEN 0 THEN
+		'入库'
+		WHEN 1 THEN
+		'借阅'
+		WHEN 2 THEN
+		'上架'
+		WHEN 3 THEN
+		'归还'
+		WHEN 4 THEN
+		'出库'
+		ELSE
+		'其他'
+		END)name,COUNT(*) count
+		FROM
+		ams_archives_actlog
+		WHERE
+		<if test="type == 1">
+			date_format(ctime, '%Y') = date_format(now(), '%Y')
+		</if>
+		<if test="type == 2">
+			date_format(ctime, '%Y-%m') = date_format(now(), '%Y-%m')
+		</if>
+		<if test="type == 3">
+			date_format(ctime, '%Y-%m-%d') = date_format(now(),
+			'%Y-%m-%d')
+		</if>
+		GROUP BY
+		type
+	</select>
+	<!-- 批量插入操作记录 3.1-->
+	<insert id="insertAmsActlogs" parameterType="map">
+		insert into ams_archives_actlog (
+		actlog_id,
+		archives_id,
+		user_id,
+		type,
+		status,
+		creator,
+		ctime,
+		modifier,
+		mtime,
+		wmsstore_id,
+		storearea_id
+		)values
+		<foreach collection="lists" item="list" index="index"
+			separator=",">
+			(
+			#{actlogId},
+			#{list.archivesId},
+			#{userId},
+			<if test="list.type == 0">
+				0,
+			</if>
+			<if test="list.type == 1">
+				4,
+			</if>
+			#{status},
+			#{creator},
+			#{ctime},
+			#{modifier},
+			#{mtime},
+			#{wmsstoreId},
+			#{storeareaId}
+			)
+		</foreach>
+	</insert>
+</mapper> 

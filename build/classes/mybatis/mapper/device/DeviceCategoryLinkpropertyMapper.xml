@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【设备分类绑定连接属性表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-11
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.device.DeviceCategoryLinkpropertyDao">
+
+	<resultMap id="deviceCategoryLinkpropertyResultMap" type="com.bluemobi.po.device.DeviceCategoryLinkproperty">
+		<id property="ctgyLinkpId" column="ctgy_linkp_id" />
+       <result property="categoryId" column="category_id" />
+       <result property="linkpropertyId" column="linkproperty_id" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="deviceCategoryLinkpropertyResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="deviceCategoryLinkpropertyResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.device.DeviceCategoryLinkproperty" useGeneratedKeys="true" keyProperty="ctgyLinkpId" >
+	   insert into device_category_linkproperty (
+	     ctgy_linkp_id,
+	     category_id,
+	     linkproperty_id
+	   )values (
+	     #{ctgyLinkpId},
+	     #{categoryId},
+	     #{linkpropertyId}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.device.DeviceCategoryLinkproperty">
+		update device_category_linkproperty
+		<set>
+			<if test="ctgyLinkpId != null">
+				ctgy_linkp_id=#{ctgyLinkpId},
+			</if>
+			<if test="categoryId != null">
+				category_id=#{categoryId},
+			</if>
+			<if test="linkpropertyId != null">
+				linkproperty_id=#{linkpropertyId},
+			</if>
+		</set>
+		<where>
+			ctgy_linkp_id=#{ctgyLinkpId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     device_category_linkproperty 
+	   where 
+	    ctgy_linkp_id=#{ctgyLinkpId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="deviceCategoryLinkpropertyResultMap">
+	   select 
+	    ctgy_linkp_id,
+	    category_id,
+	    linkproperty_id
+	   from device_category_linkproperty
+	   where 
+	    ctgy_linkp_id=#{ctgyLinkpId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="deviceCategoryLinkpropertyResultMap">
+	   select 
+	     ctgy_linkp_id,
+	     category_id,
+	     linkproperty_id
+	   from device_category_linkproperty
+	   <where>
+	     <if test="ctgyLinkpId != null">
+	        ctgy_linkp_id=#{ctgyLinkpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="linkpropertyId != null">
+	        and linkproperty_id=#{linkpropertyId}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    ctgy_linkp_id,
+	    category_id,
+	    linkproperty_id
+	   from device_category_linkproperty
+	   where 
+	    ctgy_linkp_id=#{ctgyLinkpId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     ctgy_linkp_id,
+	     category_id,
+	     linkproperty_id
+	   from device_category_linkproperty
+	   <where>
+	     <if test="ctgyLinkpId != null">
+	        ctgy_linkp_id=#{ctgyLinkpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="linkpropertyId != null">
+	        and linkproperty_id=#{linkpropertyId}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     ctgy_linkp_id,
+	     category_id,
+	     linkproperty_id
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from device_category_linkproperty
+	   <where>
+	     <if test="ctgyLinkpId != null">
+	        ctgy_linkp_id=#{ctgyLinkpId}
+	     </if>
+	     <if test="categoryId != null">
+	        and category_id=#{categoryId}
+	     </if>
+	     <if test="linkpropertyId != null">
+	        and linkproperty_id=#{linkpropertyId}
+	     </if>
+	   </where>
+	</sql>
+
+    <delete id="deleteByCategoryId" parameterType="java.util.List">
+       delete from 
+          device_category_linkproperty 
+       where 
+          category_id in  
+        <foreach collection="list" item = "item" index="index" open="(" separator="," close=")">
+              #{item.categoryId}  
+        </foreach>  
+    </delete>
+    
+    <insert id="insertDeviceCategoryLinkpropertyes" parameterType="java.util.List">
+          insert into device_category_linkproperty
+              (
+                  category_id,linkproperty_id
+              ) 
+          values
+          <foreach collection="list" item="item" index="index" separator=",">
+              (
+                  #{item.categoryId}, #{item.linkpropertyId}
+              )
+          </foreach>
+    </insert>
+    <select id="getLinkByCategoryId" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     l.linkproperty_id as linkpropertyId,
+	     l.name,
+	     l.sort_order as sortOrder,
+	     l.remark
+	   from device_category_linkproperty cl,device_linkproperty l
+	   where cl.linkproperty_id = l.linkproperty_id 
+	         and cl.category_id  = #{categoryId}
+	</select>
+</mapper> 

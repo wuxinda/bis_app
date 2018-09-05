@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+【用户表】对象关系映射 配置 
+ @author AutoCode 309444359@qq.com
+ @date 2016-09
+ -->
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.bluemobi.dao.user.UserDao">
+
+	<resultMap id="userResultMap" type="com.bluemobi.po.user.User">
+		<id property="userId" column="user_id" />
+       <result property="certType" column="cert_type" />
+       <result property="certNo" column="cert_no" />
+       <result property="sex" column="sex" />
+       <result property="idCheckStatus" column="id_check_status" />
+       <result property="userName" column="user_name" />
+       <result property="password" column="password" />
+       <result property="salt" column="salt" />
+       <result property="realName" column="real_name" />
+       <result property="enName" column="en_name" />
+       <result property="initial" column="initial" />
+       <result property="mobile" column="mobile" />
+       <result property="email" column="email" />
+       <result property="address" column="address" />
+       <result property="userStatus" column="user_status" />
+       <result property="lotteryCount" column="lottery_count" />
+       <result property="registerTime" column="register_time" />
+       <result property="loginTime" column="login_time" />
+       <result property="easemobPassword" column="easemob_password" />
+       <result property="longitude" column="longitude" />
+       <result property="latitude" column="latitude" />
+	</resultMap>
+	<resultMap id="mapResultMap"  type="java.util.HashMap" extends="userResultMap"></resultMap>
+	<resultMap id="pageResultMap"  type="java.util.HashMap" extends="userResultMap"></resultMap>
+	
+	
+	<insert id="insert" parameterType="com.bluemobi.po.user.User" useGeneratedKeys="true" keyProperty="userId" >
+	   insert into user (
+	     user_id,
+	     cert_type,
+	     cert_no,
+	     sex,
+	     id_check_status,
+	     user_name,
+	     password,
+	     salt,
+	     real_name,
+	     en_name,
+	     initial,
+	     mobile,
+	     email,
+	     address,
+	     user_status,
+	     lottery_count,
+	     register_time,
+	     login_time,
+	     easemob_password,
+	     longitude,
+	     latitude
+	   )values (
+	     #{userId},
+	     #{certType},
+	     #{certNo},
+	     #{sex},
+	     #{idCheckStatus},
+	     #{userName},
+	     #{password},
+	     #{salt},
+	     #{realName},
+	     #{enName},
+	     #{initial},
+	     #{mobile},
+	     #{email},
+	     #{address},
+	     #{userStatus},
+	     #{lotteryCount},
+	     #{registerTime},
+	     #{loginTime},
+	     #{easemobPassword},
+	     #{longitude},
+	     #{latitude}
+	   )
+	</insert>
+
+	<update id="update" parameterType="com.bluemobi.po.user.User">
+		update user
+		<set>
+			<if test="userId != null">
+				user_id=#{userId},
+			</if>
+			<if test="certType != null">
+				cert_type=#{certType},
+			</if>
+			<if test="certNo != null">
+				cert_no=#{certNo},
+			</if>
+			<if test="sex != null">
+				sex=#{sex},
+			</if>
+			<if test="idCheckStatus != null">
+				id_check_status=#{idCheckStatus},
+			</if>
+			<if test="userName != null">
+				user_name=#{userName},
+			</if>
+			<if test="password != null">
+				password=#{password},
+			</if>
+			<if test="salt != null">
+				salt=#{salt},
+			</if>
+			<if test="realName != null">
+				real_name=#{realName},
+			</if>
+			<if test="enName != null">
+				en_name=#{enName},
+			</if>
+			<if test="initial != null">
+				initial=#{initial},
+			</if>
+			<if test="mobile != null">
+				mobile=#{mobile},
+			</if>
+			<if test="email != null">
+				email=#{email},
+			</if>
+			<if test="address != null">
+				address=#{address},
+			</if>
+			<if test="userStatus != null">
+				user_status=#{userStatus},
+			</if>
+			<if test="lotteryCount != null">
+				lottery_count=#{lotteryCount},
+			</if>
+			<if test="registerTime != null">
+				register_time=#{registerTime},
+			</if>
+			<if test="loginTime != null">
+				login_time=#{loginTime},
+			</if>
+			<if test="easemobPassword != null">
+				easemob_password=#{easemobPassword},
+			</if>
+			<if test="longitude != null">
+				longitude=#{longitude},
+			</if>
+			<if test="latitude != null">
+				latitude=#{latitude},
+			</if>
+		</set>
+		<where>
+			user_id=#{userId} 
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="map">
+	   delete from 
+	     user 
+	   where 
+	    user_id=#{userId} 
+	</delete>
+
+	<select id="selectObject" parameterType="map" resultMap="userResultMap">
+	   select 
+	    user_id,
+	    cert_type,
+	    cert_no,
+	    sex,
+	    id_check_status,
+	    user_name,
+	    password,
+	    salt,
+	    real_name,
+	    en_name,
+	    initial,
+	    mobile,
+	    email,
+	    address,
+	    user_status,
+	    lottery_count,
+	    register_time,
+	    login_time,
+	    easemob_password,
+	    longitude,
+	    latitude
+	   from user
+	   where 
+	    user_id=#{userId} 
+	</select>
+	
+	<select id="selectObjectList" parameterType="map" resultMap="userResultMap">
+	   select 
+	     user_id,
+	     cert_type,
+	     cert_no,
+	     sex,
+	     id_check_status,
+	     user_name,
+	     password,
+	     salt,
+	     real_name,
+	     en_name,
+	     initial,
+	     mobile,
+	     email,
+	     address,
+	     user_status,
+	     lottery_count,
+	     register_time,
+	     login_time,
+	     easemob_password,
+	     longitude,
+	     latitude
+	   from user
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="certType != null">
+	        and cert_type=#{certType}
+	     </if>
+	     <if test="certNo != null">
+	        and cert_no=#{certNo}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="idCheckStatus != null">
+	        and id_check_status=#{idCheckStatus}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="realName != null">
+	        and real_name=#{realName}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="mobile != null">
+	        and mobile=#{mobile}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="address != null">
+	        and address=#{address}
+	     </if>
+	     <if test="userStatus != null">
+	        and user_status=#{userStatus}
+	     </if>
+	     <if test="lotteryCount != null">
+	        and lottery_count=#{lotteryCount}
+	     </if>
+	     <if test="registerTime != null">
+	        and register_time=#{registerTime}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="easemobPassword != null">
+	        and easemob_password=#{easemobPassword}
+	     </if>
+	     <if test="longitude != null">
+	        and longitude=#{longitude}
+	     </if>
+	     <if test="latitude != null">
+	        and latitude=#{latitude}
+	     </if>
+	   </where>
+	</select>
+
+	<select id="selectMap" parameterType="map" resultMap="mapResultMap">
+	   select 
+	    user_id,
+	    cert_type,
+	    cert_no,
+	    sex,
+	    id_check_status,
+	    user_name,
+	    password,
+	    salt,
+	    real_name,
+	    en_name,
+	    initial,
+	    mobile,
+	    email,
+	    address,
+	    user_status,
+	    lottery_count,
+	    register_time,
+	    login_time,
+	    easemob_password,
+	    longitude,
+	    latitude
+	   from user
+	   where 
+	    user_id=#{userId} 
+	</select>
+
+	<select id="selectMapList" parameterType="map" resultMap="mapResultMap">
+	   select 
+	     user_id,
+	     cert_type,
+	     cert_no,
+	     sex,
+	     id_check_status,
+	     user_name,
+	     password,
+	     salt,
+	     real_name,
+	     en_name,
+	     initial,
+	     mobile,
+	     email,
+	     address,
+	     user_status,
+	     lottery_count,
+	     register_time,
+	     login_time,
+	     easemob_password,
+	     longitude,
+	     latitude
+	   from user
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="certType != null">
+	        and cert_type=#{certType}
+	     </if>
+	     <if test="certNo != null">
+	        and cert_no=#{certNo}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="idCheckStatus != null">
+	        and id_check_status=#{idCheckStatus}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="realName != null">
+	        and real_name=#{realName}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="mobile != null">
+	        and mobile=#{mobile}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="address != null">
+	        and address=#{address}
+	     </if>
+	     <if test="userStatus != null">
+	        and user_status=#{userStatus}
+	     </if>
+	     <if test="lotteryCount != null">
+	        and lottery_count=#{lotteryCount}
+	     </if>
+	     <if test="registerTime != null">
+	        and register_time=#{registerTime}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="easemobPassword != null">
+	        and easemob_password=#{easemobPassword}
+	     </if>
+	     <if test="longitude != null">
+	        and longitude=#{longitude}
+	     </if>
+	     <if test="latitude != null">
+	        and latitude=#{latitude}
+	     </if>
+	   </where>
+	</select>
+	
+	<select id="page" parameterType="map" resultMap="pageResultMap">
+	   select 
+	     user_id,
+	     cert_type,
+	     cert_no,
+	     sex,
+	     id_check_status,
+	     user_name,
+	     password,
+	     salt,
+	     real_name,
+	     en_name,
+	     initial,
+	     mobile,
+	     email,
+	     address,
+	     user_status,
+	     lottery_count,
+	     register_time,
+	     login_time,
+	     easemob_password,
+	     longitude,
+	     latitude
+	<include refid="pageCondition" />
+	limit #{offset},#{rows}
+	</select>
+
+	<select id="pageCount" parameterType="map" resultType="int">
+	   select count(1)
+	   <include refid="pageCondition" />
+	</select>
+
+	<sql id="pageCondition">
+	   from user
+	   <where>
+	     <if test="userId != null">
+	        user_id=#{userId}
+	     </if>
+	     <if test="certType != null">
+	        and cert_type=#{certType}
+	     </if>
+	     <if test="certNo != null">
+	        and cert_no=#{certNo}
+	     </if>
+	     <if test="sex != null">
+	        and sex=#{sex}
+	     </if>
+	     <if test="idCheckStatus != null">
+	        and id_check_status=#{idCheckStatus}
+	     </if>
+	     <if test="userName != null">
+	        and user_name=#{userName}
+	     </if>
+	     <if test="password != null">
+	        and password=#{password}
+	     </if>
+	     <if test="salt != null">
+	        and salt=#{salt}
+	     </if>
+	     <if test="realName != null">
+	        and real_name=#{realName}
+	     </if>
+	     <if test="enName != null">
+	        and en_name=#{enName}
+	     </if>
+	     <if test="initial != null">
+	        and initial=#{initial}
+	     </if>
+	     <if test="mobile != null">
+	        and mobile=#{mobile}
+	     </if>
+	     <if test="email != null">
+	        and email=#{email}
+	     </if>
+	     <if test="address != null">
+	        and address=#{address}
+	     </if>
+	     <if test="userStatus != null">
+	        and user_status=#{userStatus}
+	     </if>
+	     <if test="lotteryCount != null">
+	        and lottery_count=#{lotteryCount}
+	     </if>
+	     <if test="registerTime != null">
+	        and register_time=#{registerTime}
+	     </if>
+	     <if test="loginTime != null">
+	        and login_time=#{loginTime}
+	     </if>
+	     <if test="easemobPassword != null">
+	        and easemob_password=#{easemobPassword}
+	     </if>
+	     <if test="longitude != null">
+	        and longitude=#{longitude}
+	     </if>
+	     <if test="latitude != null">
+	        and latitude=#{latitude}
+	     </if>
+	   </where>
+	</sql>
+
+	
+</mapper> 
