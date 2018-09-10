@@ -15,6 +15,7 @@ public class AdminMenu extends AbstractObject {
 
     public static final long serialVersionUID = 1L;
 
+    private String abc;
     // 菜单id
     private Integer menuId;
     // 菜单名称
